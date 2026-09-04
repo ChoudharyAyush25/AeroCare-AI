@@ -357,15 +357,6 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
                     </button>
                   );
                 })}
-                {simulationLevel && (
-                  <button
-                    onClick={() => setSimulationLevel(null)}
-                    className="px-2.5 py-1 rounded text-[10px] font-mono text-[#8A8579] hover:text-[#F4F1EA] hover:underline cursor-pointer"
-                    title="Reset to live calculated score"
-                  >
-                    Reset
-                  </button>
-                )}
               </div>
             </div>
           </div>

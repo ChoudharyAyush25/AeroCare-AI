@@ -46,6 +46,15 @@ html.light, [data-theme='light'] {
   --ink-primary: #1C1A24;
   --ink-secondary: #524F5E;
   --ink-muted: #7E798A;
+
+  --text-primary: #172033;
+  --text-secondary: #4B5565;
+  --text-tertiary: #6B7280;
+  --text-muted: #7C8798;
+  --surface-primary: #FFFFFF;
+  --surface-secondary: #F4F6F8;
+  --surface-elevated: #EEF1F5;
+  --border-subtle: rgba(23, 32, 51, 0.12);
 }
 
 html.light body {
@@ -54,7 +63,57 @@ html.light body {
 }
 
 html.light h1, html.light h2, html.light h3, html.light .font-display {
-  color: #1C1A24;
+  color: var(--text-primary);
+}
+
+html.light [class~="text-white"],
+html.light [class~="text-zinc-100"],
+html.light [class~="text-zinc-200"] {
+  color: var(--text-primary) !important;
+}
+
+html.light [class~="text-zinc-300"],
+html.light [class~="text-zinc-400"] {
+  color: var(--text-secondary) !important;
+}
+
+html.light [class~="text-zinc-500"],
+html.light [class~="text-zinc-600"] {
+  color: var(--text-tertiary) !important;
+}
+
+html.light [class~="text-gray-400"],
+html.light [class~="text-gray-500"],
+html.light [class~="text-slate-400"],
+html.light [class~="text-slate-500"] {
+  color: var(--text-secondary) !important;
+}
+
+html.light [class~="text-sky-200"],
+html.light [class~="text-sky-300"],
+html.light [class~="text-sky-400"] {
+  color: #0369a1 !important;
+}
+
+html.light [class~="text-amber-200"],
+html.light [class~="text-amber-300"],
+html.light [class~="text-amber-400"] {
+  color: #b45309 !important;
+}
+
+html.light [class~="text-orange-300"],
+html.light [class~="text-orange-400"] {
+  color: #c2410c !important;
+}
+
+html.light [class~="text-rose-200"],
+html.light [class~="text-rose-300"],
+html.light [class~="text-rose-400"] {
+  color: #be123c !important;
+}
+
+html.light button[class~="opacity-60"] {
+  opacity: 1;
 }
 
 html.light .glass-panel {
@@ -141,6 +200,32 @@ html.light [class*="bg-[#1E1B34]"] {
   background-color: rgba(238, 234, 226, 0.85) !important;
 }
 
+html.light [class*="bg-zinc-950"] {
+  background-color: var(--surface-elevated) !important;
+  border-color: var(--border-subtle) !important;
+  box-shadow: 0 5px 20px -8px rgba(23, 32, 51, 0.16);
+}
+
+html.light [class*="bg-zinc-900"] {
+  background-color: rgba(244, 246, 248, 0.92) !important;
+  border-color: var(--border-subtle) !important;
+}
+
+html.light [class*="bg-zinc-800"] {
+  background-color: #E7ECF1 !important;
+  border-color: var(--border-subtle) !important;
+}
+
+html.light [class*="bg-zinc-700"] {
+  background-color: #DCE3EA !important;
+  border-color: rgba(23, 32, 51, 0.16) !important;
+}
+
+html.light [class*="border-zinc-800"],
+html.light [class*="border-zinc-700"] {
+  border-color: var(--border-subtle) !important;
+}
+
 html.light [class*="border-white/"] {
   border-color: rgba(28, 26, 36, 0.09) !important;
 }
@@ -212,6 +297,108 @@ html.light [class*="from-[#FF5C4D]"][class*="to-[#F6B73C]"] {
 html.light .modal-backdrop {
   background: rgba(248, 247, 244, 0.75) !important;
   backdrop-filter: blur(12px);
+}
+
+html.light #ai-engine-core-card {
+  background: linear-gradient(145deg, rgba(21, 19, 38, 0.98), rgba(8, 10, 22, 0.98) 58%, rgba(21, 19, 38, 0.98)) !important;
+  border-color: rgba(255, 92, 77, 0.52) !important;
+  box-shadow: 0 0 60px rgba(255, 92, 77, 0.16), inset 0 0 32px rgba(142, 220, 255, 0.025) !important;
+}
+
+html.light #ai-engine-core-card .ai-output-tile {
+  background: linear-gradient(145deg, rgba(21, 30, 48, 0.94), rgba(10, 17, 31, 0.9)) !important;
+  border-color: rgba(142, 220, 255, 0.18) !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.035), 0 10px 24px rgba(0, 0, 0, 0.22) !important;
+}
+
+html.light #ai-engine-core-card .ai-output-load-tile {
+  border-color: rgba(246, 183, 60, 0.34) !important;
+  box-shadow: inset 0 1px rgba(246, 183, 60, 0.06), 0 10px 24px rgba(0, 0, 0, 0.24) !important;
+}
+
+html.light #ai-engine-core-card .ai-output-tile [class*="text-[#8A8579]"] {
+  color: #9EADC0 !important;
+}
+
+html.light #ai-engine-core-card .ai-output-tile [class*="text-[#C8C3B7]"] {
+  color: #C5D1DE !important;
+}
+
+html.light #ai-engine-core-card .ai-output-tile [class*="text-[#F4F1EA]"] {
+  color: #F4F7FB !important;
+}
+
+html.light #ai-engine-core-card .ai-load-score {
+  color: #F6B73C !important;
+  text-shadow: 0 0 14px rgba(246, 183, 60, 0.28);
+}
+
+html.light #ai-engine-core-card .ai-load-meter {
+  background: #0A1221 !important;
+  border-color: rgba(142, 220, 255, 0.2) !important;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.45), 0 0 8px rgba(246, 183, 60, 0.08);
+}
+
+html.light #ai-engine-core-card .ai-load-meter-fill {
+  box-shadow: 0 0 10px rgba(246, 183, 60, 0.38);
+}
+
+html.light #ai-engine-core-card .ai-brain-core {
+  background: radial-gradient(circle at 35% 25%, rgba(255, 92, 77, 0.18), #080A16 68%) !important;
+  border-color: rgba(255, 92, 77, 0.86) !important;
+  box-shadow: 0 0 22px rgba(255, 92, 77, 0.3), inset 0 0 18px rgba(142, 220, 255, 0.08) !important;
+}
+
+html.light #ai-engine-core-card .ai-engine-status {
+  background: rgba(8, 10, 22, 0.88) !important;
+  color: #F4F7FB !important;
+  box-shadow: inset 0 0 14px rgba(255, 92, 77, 0.08), 0 0 16px rgba(255, 92, 77, 0.12);
+}
+
+html.light #ai-engine-core-card .ai-output-status {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, rgba(8, 10, 22, 0.94), rgba(12, 25, 40, 0.92)) !important;
+  border-color: rgba(99, 217, 179, 0.3) !important;
+  color: #E7F3F4 !important;
+  box-shadow: inset 0 0 18px rgba(99, 217, 179, 0.05), 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+html.light #ai-engine-core-card .ai-output-status::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(99, 217, 179, 0.11), transparent);
+  transform: translateX(-100%);
+  animation: ai-status-scan 4.5s ease-in-out infinite;
+}
+
+@keyframes ai-status-scan {
+  0%, 35% { transform: translateX(-100%); }
+  65%, 100% { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.light #ai-engine-core-card .animate-ai-core-rotate-cw {
+    animation-duration: 16s !important;
+  }
+
+  html.light #ai-engine-core-card .animate-ai-core-rotate-ccw {
+    animation-duration: 22s !important;
+  }
+
+  html.light #ai-engine-core-card .animate-ai-core-pulse {
+    animation-duration: 3s !important;
+  }
+
+  html.light #ai-engine-core-card .animate-bio-scan-sweep {
+    animation-duration: 3.2s !important;
+  }
+
+  html.light #ai-engine-core-card .ai-output-status::after {
+    animation-duration: 4.5s !important;
+  }
 }
 
 @layer base {
@@ -1383,6 +1570,81 @@ html.light .modal-backdrop {
 
 .animate-trends-thermal {
   animation: trends-thermal-wave 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #environment .animate-heat-shimmer-glow {
+    animation-duration: 3.6s !important;
+  }
+
+  #environment .animate-heat-wave-1 {
+    animation-duration: 2.6s !important;
+  }
+
+  #environment .animate-heat-wave-2 {
+    animation-duration: 2.2s !important;
+  }
+
+  #environment .animate-heat-wave-3 {
+    animation-duration: 3s !important;
+  }
+
+  #environment .animate-droplet-fall-1 {
+    animation-duration: 2.8s !important;
+  }
+
+  #environment .animate-droplet-fall-2 {
+    animation-duration: 3.4s !important;
+  }
+
+  #environment .animate-droplet-fall-3 {
+    animation-duration: 2.5s !important;
+  }
+
+  #environment .animate-droplet-fall-4 {
+    animation-duration: 3.8s !important;
+  }
+
+  #environment .animate-droplet-fall-5 {
+    animation-duration: 3.1s !important;
+  }
+
+  #environment .animate-droplet-fall-6 {
+    animation-duration: 2.9s !important;
+  }
+
+  #environment .animate-wind-flow-fast,
+  #environment .animate-wind-dash-fast {
+    animation-duration: 2.4s !important;
+  }
+
+  #environment .animate-wind-flow-med,
+  #environment .animate-wind-dash-med {
+    animation-duration: 3.2s !important;
+  }
+
+  #environment .animate-wind-flow-slow,
+  #environment .animate-wind-dash-slow {
+    animation-duration: 4s !important;
+  }
+
+  #environment .animate-uv-rays-spin {
+    animation-duration: 14s !important;
+  }
+
+  #environment .animate-uv-corona {
+    animation-duration: 4s !important;
+  }
+
+  #environment .animate-uv-icon {
+    animation-duration: 3.5s !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.light #ai-engine-core-card .animate-bio-scan-sweep {
+    animation-duration: 3.2s !important;
+  }
 }
 
 

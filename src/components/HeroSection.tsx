@@ -13,6 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 interface HeroSectionProps {
   currentCity: EnvironmentalData;
+  animationKey?: number;
   userProfile: UserProfile;
   assessment: HealthRiskAssessment;
   isCelsius: boolean;
@@ -43,6 +44,7 @@ const FLOATING_DATA_NODES = [
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   currentCity,
+  animationKey = 0,
   userProfile,
   assessment,
   isCelsius,
@@ -403,7 +405,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       if (animFrameId) cancelAnimationFrame(animFrameId);
       ctx.revert();
     };
-  }, []);
+  }, [animationKey]);
 
   return (
     <section

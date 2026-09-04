@@ -15,15 +15,10 @@
     <script>
       (function() {
         try {
-          var saved = localStorage.getItem('aerocare_theme');
-          if (saved === 'light') {
-            document.documentElement.classList.add('light');
-            document.documentElement.setAttribute('data-theme', 'light');
-          } else {
-            document.documentElement.classList.remove('light');
-            document.documentElement.setAttribute('data-theme', 'dark');
-          }
+          localStorage.removeItem('aerocare_theme');
         } catch (e) {}
+        document.documentElement.classList.remove('light');
+        document.documentElement.setAttribute('data-theme', 'dark');
       })();
     </script>
   </head>

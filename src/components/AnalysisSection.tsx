@@ -614,7 +614,7 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                   <div className="absolute w-24 h-24 rounded-full bg-[#FF5C4D]/20 blur-xl animate-ai-core-pulse" />
 
                   {/* Central Brain/Neural Core Orb */}
-                  <div className="relative w-20 h-20 rounded-2xl bg-[#080A16] border-2 border-[#FF5C4D] flex flex-col items-center justify-center text-[#FF5C4D] shadow-[0_0_18px_rgba(255,92,77,0.35)] group">
+                  <div className="ai-brain-core relative w-20 h-20 rounded-2xl bg-[#080A16] border-2 border-[#FF5C4D] flex flex-col items-center justify-center text-[#FF5C4D] shadow-[0_0_18px_rgba(255,92,77,0.35)] group">
                     <Brain className="w-9 h-9" />
                     <span className="text-[9px] font-mono font-bold tracking-widest text-[#F4F1EA] mt-1">
                       AERO-AI
@@ -630,7 +630,7 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                   </div>
 
                   <div className="h-9 flex items-center justify-center">
-                    <div className="px-3.5 py-1.5 rounded-full bg-[#080A16]/80 border border-[#FF5C4D]/30 text-[#F4F1EA] font-mono text-xs sm:text-sm font-semibold tracking-wide flex items-center gap-2">
+                    <div className="ai-engine-status px-3.5 py-1.5 rounded-full bg-[#080A16]/80 border border-[#FF5C4D]/30 text-[#F4F1EA] font-mono text-xs sm:text-sm font-semibold tracking-wide flex items-center gap-2">
                       <Sparkles className="w-3.5 h-3.5 text-[#F6B73C]" />
                       <span>{statusMessages[processingPhase] || statusMessages[statusMessages.length - 1]}</span>
                     </div>
@@ -658,7 +658,7 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                 {/* 4 High-Density Synthesized Metric Tiles */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-5">
                   {/* Tile 1: Computed Risk Level */}
-                  <div className="p-3.5 rounded-xl bg-[#080A16]/80 border border-white/[0.08] flex flex-col justify-between">
+                  <div className="ai-output-tile p-3.5 rounded-xl bg-[#080A16]/80 border border-white/[0.08] flex flex-col justify-between">
                     <span className="text-[10px] font-mono text-[#8A8579] uppercase block mb-1">
                       Computed Risk Status
                     </span>
@@ -673,18 +673,18 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                   </div>
 
                   {/* Tile 2: Physiological Strain Score */}
-                  <div className="p-3.5 rounded-xl bg-[#080A16]/80 border border-white/[0.08] flex flex-col justify-between">
+                  <div className="ai-output-tile ai-output-load-tile p-3.5 rounded-xl bg-[#080A16]/80 border border-white/[0.08] flex flex-col justify-between">
                     <span className="text-[10px] font-mono text-[#8A8579] uppercase block mb-1">
                       Physiological Load Score
                     </span>
                     <div className="flex items-center justify-between">
-                      <span className="text-xl font-bold text-[#F6B73C] font-mono">
+                      <span className="ai-load-score text-xl font-bold text-[#F6B73C] font-mono">
                         {assessment.riskScore} <span className="text-xs text-[#8A8579] font-normal">/ 100</span>
                       </span>
                       {/* Mini Bar Gauge */}
-                      <div className="w-24 h-2 bg-[#151326] rounded-full overflow-hidden border border-white/5">
+                      <div className="ai-load-meter w-24 h-2 bg-[#151326] rounded-full overflow-hidden border border-white/5">
                         <div
-                          className="h-full bg-gradient-to-r from-[#63D9B3] via-[#F6B73C] to-[#FF5C4D] transition-all duration-1000 rounded-full"
+                          className="ai-load-meter-fill h-full bg-gradient-to-r from-[#63D9B3] via-[#F6B73C] to-[#FF5C4D] transition-all duration-1000 rounded-full"
                           style={{ width: `${assessment.riskScore}%` }}
                         />
                       </div>
@@ -692,7 +692,7 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                   </div>
 
                   {/* Tile 3: Primary Atmospheric Driver */}
-                  <div className="p-3.5 rounded-xl bg-[#080A16]/80 border border-white/[0.08] flex flex-col justify-between">
+                  <div className="ai-output-tile p-3.5 rounded-xl bg-[#080A16]/80 border border-white/[0.08] flex flex-col justify-between">
                     <span className="text-[10px] font-mono text-[#8A8579] uppercase block mb-1">
                       Dominant Stressor Vector
                     </span>
@@ -702,7 +702,7 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                   </div>
 
                   {/* Tile 4: Vulnerable Target System */}
-                  <div className="p-3.5 rounded-xl bg-[#080A16]/80 border border-white/[0.08] flex flex-col justify-between">
+                  <div className="ai-output-tile p-3.5 rounded-xl bg-[#080A16]/80 border border-white/[0.08] flex flex-col justify-between">
                     <span className="text-[10px] font-mono text-[#8A8579] uppercase block mb-1">
                       Vulnerable Anatomical Node
                     </span>
@@ -718,7 +718,7 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
 
                 {/* Synthesis Confirmation Banner */}
                 <div
-                  className={`p-3.5 rounded-xl border transition-all duration-500 flex items-center justify-between ${
+                  className={`ai-output-status p-3.5 rounded-xl border transition-all duration-500 flex items-center justify-between ${
                     synthesisComplete
                       ? 'bg-[#FF5C4D]/10 border-[#FF5C4D]/40 text-[#F4F1EA]'
                       : 'bg-[#080A16]/60 border-white/[0.08] text-[#8A8579]'

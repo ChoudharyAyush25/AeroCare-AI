@@ -446,17 +446,21 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({
           </div>
         </div>
 
-        {/* Action Skip Button [ESC] */}
-        <button
-          id="intro-skip-btn"
-          onClick={handleEnterExperience}
-          className="group flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#151326]/80 hover:bg-[#1E1B34] border border-white/10 hover:border-[#FF5C4D]/40 text-xs font-mono tracking-widest text-[#C8C3B7] hover:text-[#F4F1EA] transition-all duration-200 cursor-pointer"
+        {/* Subtle AeroCare brand mark */}
+        <div
+          aria-label="AeroCare AI"
+          className="flex items-center gap-2.5 text-[#F4F1EA]"
         >
-          <span>SKIP SEQUENCE</span>
-          <span className="text-[10px] px-1.5 py-0.5 rounded bg-black/40 group-hover:bg-[#FF5C4D]/20 text-[#C8C3B7] font-semibold">
-            ESC
-          </span>
-        </button>
+          <div className="relative w-7 h-7 rounded-full bg-gradient-to-tr from-[#FF5C4D] via-[#F6B73C] to-[#FF5C4D] p-[1.5px] shadow-[0_0_14px_rgba(255,92,77,0.35)]">
+            <div className="w-full h-full rounded-full bg-[#080A16] flex items-center justify-center">
+              <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-tr from-[#FF5C4D] to-[#F6B73C] shadow-[0_0_8px_rgba(255,92,77,0.8)]" />
+            </div>
+          </div>
+          <div className="flex items-baseline gap-1.5 leading-none">
+            <span className="text-xs tracking-[0.16em] font-bold uppercase">AeroCare</span>
+            <span className="text-[9px] font-mono font-bold tracking-widest text-[#FF5C4D]">AI</span>
+          </div>
+        </div>
       </div>
 
       {/* Center Cinematic Stage with Side HUD Brackets */}

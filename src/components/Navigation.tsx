@@ -8,8 +8,6 @@ import {
   Loader2,
   X,
   Radio,
-  RotateCcw,
-  Sliders,
   Sun,
   Moon,
 } from 'lucide-react';
@@ -31,7 +29,6 @@ interface NavigationProps {
   onSelectCoordinates?: (lat: number, lon: number, locationName: string, countryName?: string) => Promise<void>;
   onUseMyLocation?: () => Promise<void>;
   telemetryStatusMessage?: string | null;
-  onReplayIntro?: () => void;
   onOpenLocationOnboarding?: () => void;
 }
 
@@ -49,7 +46,6 @@ export const Navigation: React.FC<NavigationProps> = ({
   onSelectCoordinates,
   onUseMyLocation,
   telemetryStatusMessage,
-  onReplayIntro,
   onOpenLocationOnboarding
 }) => {
   const [cityMenuOpen, setCityMenuOpen] = useState(false);
@@ -491,27 +487,6 @@ export const Navigation: React.FC<NavigationProps> = ({
             {isCelsius ? '°C' : '°F'}
           </button>
 
-          {/* User Bio Profile Indicator */}
-          <button
-            id="nav-profile-pill-btn"
-            onClick={() => onNavigate('profile')}
-            title="Biological Profile & Sensitivity Calibration"
-            className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-xl text-xs transition-all cursor-pointer border ${
-              isLight
-                ? 'bg-black/[0.03] hover:bg-black/[0.06] border-black/[0.08] text-[#1C1A24]'
-                : 'bg-white/[0.03] hover:bg-white/[0.07] border-white/[0.08] text-[#F4F1EA]'
-            }`}
-          >
-            <div className="w-4 h-4 rounded-full bg-[#FF5C4D]/15 border border-[#FF5C4D]/35 flex items-center justify-center shrink-0">
-              <Sliders className="w-2.5 h-2.5 text-[#FF5C4D]" />
-            </div>
-            <span className="capitalize text-xs font-medium truncate max-w-[65px] sm:max-w-[85px] hidden xs:inline">
-              {userProfile.healthCondition === 'heart_condition'
-                ? 'Cardiac'
-                : userProfile.healthCondition}
-            </span>
-          </button>
-
           {/* NEW Light / Dark Mode Toggle Button */}
           <button
             id="nav-theme-toggle"
@@ -540,21 +515,6 @@ export const Navigation: React.FC<NavigationProps> = ({
             </motion.div>
           </button>
 
-          {/* Replay Opening Intro Button */}
-          {onReplayIntro && (
-            <button
-              id="nav-replay-intro-btn"
-              onClick={onReplayIntro}
-              title="Replay Cinematic Opening Sequence"
-              className={`hidden md:flex items-center justify-center w-8 h-8 rounded-xl transition-all cursor-pointer border ${
-                isLight
-                  ? 'bg-black/[0.03] hover:bg-black/[0.06] border-black/[0.08] text-[#7E798A] hover:text-[#1C1A24]'
-                  : 'bg-white/[0.03] hover:bg-white/[0.07] border-white/[0.08] text-[#8A8579] hover:text-[#F4F1EA]'
-              }`}
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-            </button>
-          )}
         </div>
       </div>
     </header>

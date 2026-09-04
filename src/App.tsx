@@ -67,28 +67,21 @@ export default function App() {
   const [weatherOverride, setWeatherOverride] = useState<WeatherVisualType | null>(null);
   const [isLoadingTelemetry, setIsLoadingTelemetry] = useState<boolean>(false);
   const [telemetryError, setTelemetryError] = useState<string | null>(null);
+  const [heroAnimationKey, setHeroAnimationKey] = useState(0);
 
-  // Theme mode: light or dark (default dark, persisted in localStorage)
-  const [theme, setTheme] = useState<ThemeMode>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('aerocare_theme');
-      if (saved === 'light' || saved === 'dark') {
-        return saved;
-      }
-    }
-    return 'dark';
-  });
+  // Always begin in the cinematic dark theme; light mode remains a manual toggle.
+  const [theme, setTheme] = useState<ThemeMode>('dark');
 
   useEffect(() => {
     const root = document.documentElement;
     if (theme === 'light') {
       root.classList.add('light');
       root.setAttribute('data-theme', 'light');
-      localStorage.setItem('aerocare_theme', 'light');
+      localStorage.removeItem('aerocare_theme');
     } else {
       root.classList.remove('light');
       root.setAttribute('data-theme', 'dark');
-      localStorage.setItem('aerocare_theme', 'dark');
+      localStorage.removeItem('aerocare_theme');
     }
   }, [theme]);
 
@@ -259,6 +252,12 @@ export default function App() {
 
   // Scroll to section handler
   const scrollToSection = (sectionId: string) => {
+    if (sectionId === 'hero') {
+      window.scrollTo(0, 0);
+      setHeroAnimationKey((key) => key + 1);
+      return;
+    }
+
     const target = document.getElementById(sectionId);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
@@ -344,7 +343,6 @@ export default function App() {
         onSelectCoordinates={handleSelectCoordinates}
         onUseMyLocation={handleUseMyLocation}
         telemetryStatusMessage={telemetryError}
-        onReplayIntro={() => setShowCinematicIntro(true)}
         onOpenLocationOnboarding={() => setShowLocationOnboarding(true)}
         theme={theme}
         onToggleTheme={handleToggleTheme}
@@ -360,6 +358,7 @@ export default function App() {
       {/* 1. Hero Section */}
       <HeroSection
         currentCity={currentCity}
+        animationKey={heroAnimationKey}
         userProfile={userProfile}
         assessment={assessment}
         isCelsius={isCelsius}
