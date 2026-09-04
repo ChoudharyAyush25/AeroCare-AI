@@ -16,7 +16,8 @@ import {
   UserProfile,
   EnvironmentalData,
   RiskLevel,
-  WeatherVisualType
+  WeatherVisualType,
+  ThemeMode
 } from './types';
 import {
   CITIES,
@@ -66,6 +67,34 @@ export default function App() {
   const [weatherOverride, setWeatherOverride] = useState<WeatherVisualType | null>(null);
   const [isLoadingTelemetry, setIsLoadingTelemetry] = useState<boolean>(false);
   const [telemetryError, setTelemetryError] = useState<string | null>(null);
+
+  // Theme mode: light or dark (default dark, persisted in localStorage)
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('aerocare_theme');
+      if (saved === 'light' || saved === 'dark') {
+        return saved;
+      }
+    }
+    return 'dark';
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'light') {
+      root.classList.add('light');
+      root.setAttribute('data-theme', 'light');
+      localStorage.setItem('aerocare_theme', 'light');
+    } else {
+      root.classList.remove('light');
+      root.setAttribute('data-theme', 'dark');
+      localStorage.setItem('aerocare_theme', 'dark');
+    }
+  }, [theme]);
+
+  const handleToggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
 
   // Load real telemetry for given coordinates
   const loadTelemetryForCoordinates = async (
@@ -269,7 +298,11 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#080A16] text-[#F4F1EA] selection:bg-[#FF5C4D]/30 selection:text-[#F4F1EA] relative font-sans">
+    <div className={`min-h-screen relative font-sans transition-colors duration-400 ${
+      theme === 'light'
+        ? 'bg-[#F8F7F4] text-[#1C1A24] selection:bg-[#FF5C4D]/20 selection:text-[#1C1A24]'
+        : 'bg-[#080A16] text-[#F4F1EA] selection:bg-[#FF5C4D]/30 selection:text-[#F4F1EA]'
+    }`}>
       {/* Cinematic Opening Intelligence Boot Sequence */}
       {showCinematicIntro && (
         <CinematicIntro
@@ -295,6 +328,7 @@ export default function App() {
         riskLevel={assessment.riskLevel}
         weatherOverride={weatherOverride}
         onWeatherOverrideChange={setWeatherOverride}
+        theme={theme}
       />
 
       {/* Top Floating Glass Navigation */}
@@ -312,6 +346,8 @@ export default function App() {
         telemetryStatusMessage={telemetryError}
         onReplayIntro={() => setShowCinematicIntro(true)}
         onOpenLocationOnboarding={() => setShowLocationOnboarding(true)}
+        theme={theme}
+        onToggleTheme={handleToggleTheme}
       />
 
       {/* Side Vertical Story Dots Navigation */}
@@ -328,6 +364,7 @@ export default function App() {
         assessment={assessment}
         isCelsius={isCelsius}
         weatherOverride={weatherOverride}
+        theme={theme}
         onScrollToNext={() => scrollToSection('environment')}
         onNavigate={scrollToSection}
         onReplayIntro={() => setShowCinematicIntro(true)}
@@ -391,17 +428,25 @@ export default function App() {
         onNavigateToProfile={() => scrollToSection('profile')}
       />
 
-      {/* Elegant Dark Footer Disclaimer */}
-      <footer className="w-full border-t border-white/10 py-8 px-4 sm:px-8 text-center text-xs text-[#8A8579] bg-[#080A16]">
+      {/* Elegant Footer Disclaimer */}
+      <footer className={`w-full border-t py-8 px-4 sm:px-8 text-center text-xs transition-colors duration-400 ${
+        theme === 'light'
+          ? 'border-black/10 text-[#7E798A] bg-[#F1EEE7]'
+          : 'border-white/10 text-[#8A8579] bg-[#080A16]'
+      }`}>
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3 text-[10px] text-[#8A8579] uppercase tracking-[0.2em] font-semibold">
+          <div className={`flex items-center gap-3 text-[10px] uppercase tracking-[0.2em] font-semibold ${
+            theme === 'light' ? 'text-[#7E798A]' : 'text-[#8A8579]'
+          }`}>
             <div className="w-2 h-2 rounded-full bg-[#FF5C4D]"></div>
             <span>© 2025 AEROCARE AI • ATMOSPHERIC INTELLIGENCE</span>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-6 text-[10px] text-[#8A8579]/70 uppercase tracking-[0.2em] font-medium">
-            <span className="hover:text-[#F4F1EA] transition-colors">GDPR Compliant Data</span>
-            <span className="hover:text-[#F4F1EA] transition-colors">Clinical Validation v4.1</span>
-            <span className="hover:text-[#F4F1EA] transition-colors">Solar Eclipse Intelligence v2</span>
+          <div className={`flex flex-wrap items-center justify-center gap-6 text-[10px] uppercase tracking-[0.2em] font-medium ${
+            theme === 'light' ? 'text-[#7E798A]/80' : 'text-[#8A8579]/70'
+          }`}>
+            <span className={theme === 'light' ? 'hover:text-[#1C1A24] transition-colors' : 'hover:text-[#F4F1EA] transition-colors'}>GDPR Compliant Data</span>
+            <span className={theme === 'light' ? 'hover:text-[#1C1A24] transition-colors' : 'hover:text-[#F4F1EA] transition-colors'}>Clinical Validation v4.1</span>
+            <span className={theme === 'light' ? 'hover:text-[#1C1A24] transition-colors' : 'hover:text-[#F4F1EA] transition-colors'}>Solar Eclipse Intelligence v2</span>
           </div>
         </div>
       </footer>

@@ -17,6 +17,7 @@ interface WeatherEnvironmentProps {
   riskLevel: RiskLevel;
   weatherOverride: WeatherVisualType | null;
   onWeatherOverrideChange: (override: WeatherVisualType | null) => void;
+  theme?: 'dark' | 'light';
 }
 
 interface Particle {
@@ -50,6 +51,7 @@ export const WeatherEnvironment: React.FC<WeatherEnvironmentProps> = ({
   riskLevel,
   weatherOverride,
   onWeatherOverrideChange,
+  theme = 'dark',
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -371,7 +373,70 @@ export const WeatherEnvironment: React.FC<WeatherEnvironmentProps> = ({
   }, [effectiveCondition, activeSection, currentCity.windSpeed, currentCity.aqi]);
 
   // Section-aware atmosphere tuning adhering to Solar Eclipse Atmospheric Intelligence
+  const isLight = theme === 'light';
   const sectionAtmosphere = useMemo(() => {
+    if (isLight) {
+      switch (activeSection) {
+        case 'risk':
+          if (riskLevel === 'severe') {
+            return {
+              ambientTint: 'from-[#FF5C4D]/10 via-transparent to-transparent',
+              glowColor: 'bg-[#FF5C4D]/10',
+              clarity: 'opacity-70',
+            };
+          }
+          if (riskLevel === 'high') {
+            return {
+              ambientTint: 'from-[#FF5C4D]/08 via-transparent to-transparent',
+              glowColor: 'bg-[#FF5C4D]/08',
+              clarity: 'opacity-70',
+            };
+          }
+          if (riskLevel === 'moderate') {
+            return {
+              ambientTint: 'from-[#F6B73C]/08 via-transparent to-transparent',
+              glowColor: 'bg-[#F6B73C]/08',
+              clarity: 'opacity-70',
+            };
+          }
+          return {
+            ambientTint: 'from-[#63D9B3]/08 via-transparent to-transparent',
+            glowColor: 'bg-[#63D9B3]/08',
+            clarity: 'opacity-70',
+          };
+        case 'trends':
+          return {
+            ambientTint: 'from-transparent via-transparent to-transparent',
+            glowColor: 'bg-[#FF5C4D]/04',
+            clarity: 'opacity-30',
+          };
+        case 'analysis':
+          return {
+            ambientTint: 'from-[#FF5C4D]/06 via-transparent to-transparent',
+            glowColor: 'bg-[#FF5C4D]/08',
+            clarity: 'opacity-70',
+          };
+        case 'profile':
+          return {
+            ambientTint: 'from-[#8EDCFF]/06 via-transparent to-transparent',
+            glowColor: 'bg-[#8EDCFF]/06',
+            clarity: 'opacity-60',
+          };
+        case 'environment':
+          return {
+            ambientTint: 'from-[#0284C7]/06 via-transparent to-transparent',
+            glowColor: 'bg-[#0284C7]/06',
+            clarity: 'opacity-70',
+          };
+        default: // 'hero'
+          return {
+            ambientTint: 'from-transparent via-transparent to-transparent',
+            glowColor: 'bg-[#F6B73C]/08',
+            clarity: 'opacity-90',
+          };
+      }
+    }
+
     switch (activeSection) {
       case 'risk':
         if (riskLevel === 'severe') {
@@ -432,10 +497,88 @@ export const WeatherEnvironment: React.FC<WeatherEnvironmentProps> = ({
           clarity: 'opacity-100',
         };
     }
-  }, [activeSection, riskLevel]);
+  }, [activeSection, riskLevel, isLight]);
 
   // Weather Condition Theme Palettes
   const conditionTheme = useMemo(() => {
+    if (isLight) {
+      switch (effectiveCondition) {
+        case 'sunny':
+          return {
+            skyGradient: 'from-[#DCEEFE] via-[#EDF5FD] to-[#F8F6F0]',
+            horizonGlow: 'from-[#F6B73C]/20 via-[#FF5C4D]/10 to-transparent',
+            sunVisible: true,
+            cloudColor: '#E2E8F0',
+            cloudHighlight: '#FFFFFF',
+            cloudSpeedClass1: 'animate-cloud-drift-1',
+            cloudSpeedClass2: 'animate-cloud-drift-2',
+            mistOpacity: 'opacity-25',
+            hazeOverlay: false,
+          };
+        case 'cloudy':
+          return {
+            skyGradient: 'from-[#E2E8F0] via-[#ECEFF4] to-[#F5F4F0]',
+            horizonGlow: 'from-[#CBD5E1]/20 via-transparent to-transparent',
+            sunVisible: false,
+            cloudColor: '#CBD5E1',
+            cloudHighlight: '#F8FAFC',
+            cloudSpeedClass1: 'animate-cloud-drift-1',
+            cloudSpeedClass2: 'animate-cloud-drift-2',
+            mistOpacity: 'opacity-30',
+            hazeOverlay: false,
+          };
+        case 'rainy':
+          return {
+            skyGradient: 'from-[#CBD5E1] via-[#DCE2EA] to-[#ECEBE7]',
+            horizonGlow: 'from-[#94A3B8]/20 via-transparent to-transparent',
+            sunVisible: false,
+            cloudColor: '#94A3B8',
+            cloudHighlight: '#E2E8F0',
+            cloudSpeedClass1: 'animate-cloud-drift-2',
+            cloudSpeedClass2: 'animate-cloud-drift-fast',
+            mistOpacity: 'opacity-35',
+            hazeOverlay: false,
+          };
+        case 'windy':
+          return {
+            skyGradient: 'from-[#D1FAE5]/40 via-[#E0F2FE]/40 to-[#F5F5F0]',
+            horizonGlow: 'from-[#63D9B3]/15 via-[#8EDCFF]/10 to-transparent',
+            sunVisible: false,
+            cloudColor: '#CBD5E1',
+            cloudHighlight: '#F1F5F9',
+            cloudSpeedClass1: 'animate-cloud-drift-2',
+            cloudSpeedClass2: 'animate-cloud-drift-fast',
+            mistOpacity: 'opacity-20',
+            hazeOverlay: false,
+          };
+        case 'storm':
+          return {
+            skyGradient: 'from-[#94A3B8] via-[#CBD5E1] to-[#E2E8F0]',
+            horizonGlow: 'from-[#8EDCFF]/20 via-transparent to-transparent',
+            sunVisible: false,
+            cloudColor: '#64748B',
+            cloudHighlight: '#CBD5E1',
+            cloudSpeedClass1: 'animate-cloud-drift-fast',
+            cloudSpeedClass2: 'animate-cloud-drift-fast',
+            mistOpacity: 'opacity-40',
+            hazeOverlay: false,
+          };
+        case 'poor_aqi':
+          return {
+            skyGradient: 'from-[#FEF3C7] via-[#FEE2E2] to-[#FAF5EC]',
+            horizonGlow: 'from-[#FF5C4D]/20 via-[#F6B73C]/15 to-transparent',
+            sunVisible: true,
+            sunHazy: true,
+            cloudColor: '#E2D9D2',
+            cloudHighlight: '#FDF6F0',
+            cloudSpeedClass1: 'animate-cloud-drift-1',
+            cloudSpeedClass2: 'animate-cloud-drift-2',
+            mistOpacity: 'opacity-40',
+            hazeOverlay: true,
+          };
+      }
+    }
+
     switch (effectiveCondition) {
       case 'sunny':
         return {
@@ -511,7 +654,7 @@ export const WeatherEnvironment: React.FC<WeatherEnvironmentProps> = ({
           hazeOverlay: true,
         };
     }
-  }, [effectiveCondition]);
+  }, [effectiveCondition, isLight]);
 
   return (
     <div
@@ -620,7 +763,7 @@ export const WeatherEnvironment: React.FC<WeatherEnvironmentProps> = ({
               <linearGradient id="midCloudGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stopColor={conditionTheme.cloudHighlight} stopOpacity="0.45" />
                 <stop offset="35%" stopColor={conditionTheme.cloudColor} stopOpacity="0.55" />
-                <stop offset="100%" stopColor="#080A16" stopOpacity="0.1" />
+                <stop offset="100%" stopColor={isLight ? '#F7F5F0' : '#080A16'} stopOpacity="0.1" />
               </linearGradient>
               <filter id="cloudSoftBlur">
                 <feGaussianBlur stdDeviation="8" />
@@ -650,14 +793,20 @@ export const WeatherEnvironment: React.FC<WeatherEnvironmentProps> = ({
             transform: `translate3d(${mouseOffset.x * 35}px, ${mouseOffset.y * 20}px, 0)`,
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080A16] via-[#080A16]/80 to-transparent" />
+          <div
+            className={`absolute inset-0 bg-gradient-to-t ${
+              isLight
+                ? 'from-[#F7F5F0] via-[#F7F5F0]/80 to-transparent'
+                : 'from-[#080A16] via-[#080A16]/80 to-transparent'
+            }`}
+          />
           <div className="absolute inset-x-0 bottom-0 h-64 animate-mist-slow">
             <svg viewBox="0 0 1600 240" className="w-full h-full opacity-60" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="mistGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                   <stop offset="0%" stopColor={conditionTheme.cloudHighlight} stopOpacity="0.35" />
                   <stop offset="50%" stopColor={conditionTheme.cloudColor} stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="#080A16" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor={isLight ? '#F7F5F0' : '#080A16'} stopOpacity="0.8" />
                 </linearGradient>
               </defs>
               <path
@@ -697,7 +846,13 @@ export const WeatherEnvironment: React.FC<WeatherEnvironmentProps> = ({
       />
 
       {/* 10. Subtle Vignette Scrim so UI text remains 100% crisp and readable */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#080A16]/40 via-transparent to-[#080A16]/60 pointer-events-none" />
+      <div
+        className={`absolute inset-0 pointer-events-none transition-all duration-700 ${
+          isLight
+            ? 'bg-gradient-to-b from-black/[0.02] via-transparent to-black/[0.04]'
+            : 'bg-gradient-to-b from-[#080A16]/40 via-transparent to-[#080A16]/60'
+        }`}
+      />
 
       {/* 11. Interactive Weather Simulator Controller (Tasteful floating quick selector) */}
       <div className="fixed bottom-6 left-6 z-50 pointer-events-auto">
@@ -706,16 +861,20 @@ export const WeatherEnvironment: React.FC<WeatherEnvironmentProps> = ({
           <button
             id="weather-env-trigger"
             onClick={() => setIsSwitcherOpen(!isSwitcherOpen)}
-            className="flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-[#151326]/90 hover:bg-[#151326] border border-white/10 backdrop-blur-xl text-[#F4F1EA] text-xs font-medium shadow-2xl transition-all cursor-pointer group"
+            className={`flex items-center gap-2.5 px-3.5 py-2 rounded-full border backdrop-blur-xl text-xs font-medium shadow-2xl transition-all cursor-pointer group ${
+              isLight
+                ? 'bg-white/95 hover:bg-white border-black/10 text-[#1C1A24]'
+                : 'bg-[#151326]/90 hover:bg-[#151326] border-white/10 text-[#F4F1EA]'
+            }`}
             title="Toggle Dynamic Weather Environment"
           >
             <div className="w-2 h-2 rounded-full bg-[#FF5C4D] animate-pulse" />
-            <span className="text-[10px] uppercase font-mono tracking-wider text-[#8A8579]">
+            <span className={`text-[10px] uppercase font-mono tracking-wider ${isLight ? 'text-[#7E798A]' : 'text-[#8A8579]'}`}>
               Atmosphere:
             </span>
-            <span className="font-semibold capitalize text-[#F4F1EA] flex items-center gap-1.5">
+            <span className={`font-semibold capitalize flex items-center gap-1.5 ${isLight ? 'text-[#1C1A24]' : 'text-[#F4F1EA]'}`}>
               {effectiveCondition === 'sunny' && <Sun className="w-3.5 h-3.5 text-[#F6B73C]" />}
-              {effectiveCondition === 'cloudy' && <Cloud className="w-3.5 h-3.5 text-[#8A8579]" />}
+              {effectiveCondition === 'cloudy' && <Cloud className={`w-3.5 h-3.5 ${isLight ? 'text-[#7E798A]' : 'text-[#8A8579]'}`} />}
               {effectiveCondition === 'rainy' && <CloudRain className="w-3.5 h-3.5 text-[#8EDCFF]" />}
               {effectiveCondition === 'windy' && <Wind className="w-3.5 h-3.5 text-[#63D9B3]" />}
               {effectiveCondition === 'storm' && <Zap className="w-3.5 h-3.5 text-[#FF5C4D]" />}
@@ -733,7 +892,11 @@ export const WeatherEnvironment: React.FC<WeatherEnvironmentProps> = ({
           {weatherOverride && (
             <button
               onClick={() => onWeatherOverrideChange(null)}
-              className="p-2 rounded-full bg-[#151326]/90 hover:bg-[#151326] border border-white/10 text-[#8A8579] hover:text-[#F4F1EA] transition-colors cursor-pointer"
+              className={`p-2 rounded-full border transition-colors cursor-pointer ${
+                isLight
+                  ? 'bg-white/95 hover:bg-white border-black/10 text-[#7E798A] hover:text-[#1C1A24]'
+                  : 'bg-[#151326]/90 hover:bg-[#151326] border-white/10 text-[#8A8579] hover:text-[#F4F1EA]'
+              }`}
               title="Reset to City Live Sensor Weather"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -745,16 +908,22 @@ export const WeatherEnvironment: React.FC<WeatherEnvironmentProps> = ({
         {isSwitcherOpen && (
           <div
             id="weather-env-tray"
-            className="mt-2 p-2 rounded-2xl bg-[#151326]/95 border border-white/10 backdrop-blur-2xl shadow-2xl flex flex-wrap items-center gap-1.5 max-w-sm animate-in fade-in slide-in-from-bottom-2 duration-200"
+            className={`mt-2 p-2 rounded-2xl border backdrop-blur-2xl shadow-2xl flex flex-wrap items-center gap-1.5 max-w-sm animate-in fade-in slide-in-from-bottom-2 duration-200 ${
+              isLight
+                ? 'bg-white/95 border-black/10 text-[#1C1A24]'
+                : 'bg-[#151326]/95 border-white/10 text-[#F4F1EA]'
+            }`}
           >
-            <div className="w-full px-2 py-1 flex items-center justify-between border-b border-white/10 text-[10px] font-mono text-[#8A8579] mb-1">
+            <div className={`w-full px-2 py-1 flex items-center justify-between border-b text-[10px] font-mono mb-1 ${
+              isLight ? 'border-black/10 text-[#7E798A]' : 'border-white/10 text-[#8A8579]'
+            }`}>
               <span>SIMULATE ATMOSPHERIC CONDITION</span>
               <Sparkles className="w-3 h-3 text-[#FF5C4D]" />
             </div>
 
             {[
               { id: 'sunny' as const, label: 'Sunny', icon: Sun, color: 'text-[#F6B73C]' },
-              { id: 'cloudy' as const, label: 'Cloudy', icon: Cloud, color: 'text-[#8A8579]' },
+              { id: 'cloudy' as const, label: 'Cloudy', icon: Cloud, color: isLight ? 'text-[#7E798A]' : 'text-[#8A8579]' },
               { id: 'rainy' as const, label: 'Rainy', icon: CloudRain, color: 'text-[#8EDCFF]' },
               { id: 'windy' as const, label: 'Windy', icon: Wind, color: 'text-[#63D9B3]' },
               { id: 'storm' as const, label: 'Storm', icon: Zap, color: 'text-[#FF5C4D]' },
@@ -771,7 +940,9 @@ export const WeatherEnvironment: React.FC<WeatherEnvironmentProps> = ({
                   }}
                   className={`px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-[#FF5C4D]/15 text-[#F4F1EA] border border-[#FF5C4D]/30 shadow-sm'
+                      ? 'bg-[#FF5C4D]/15 text-[#FF5C4D] font-semibold border border-[#FF5C4D]/30 shadow-sm'
+                      : isLight
+                      ? 'text-[#524F5E] hover:text-[#1C1A24] hover:bg-black/5'
                       : 'text-[#8A8579] hover:text-[#F4F1EA] hover:bg-white/5'
                   }`}
                 >
@@ -786,7 +957,11 @@ export const WeatherEnvironment: React.FC<WeatherEnvironmentProps> = ({
                 onWeatherOverrideChange(null);
                 setIsSwitcherOpen(false);
               }}
-              className="w-full mt-1.5 px-3 py-1.5 rounded-xl text-[11px] font-mono text-[#8A8579] hover:text-[#F4F1EA] hover:bg-white/5 flex items-center justify-center gap-1.5 border border-white/10 transition-all cursor-pointer"
+              className={`w-full mt-1.5 px-3 py-1.5 rounded-xl text-[11px] font-mono flex items-center justify-center gap-1.5 border transition-all cursor-pointer ${
+                isLight
+                  ? 'border-black/10 text-[#7E798A] hover:text-[#1C1A24] hover:bg-black/5'
+                  : 'border-white/10 text-[#8A8579] hover:text-[#F4F1EA] hover:bg-white/5'
+              }`}
             >
               <RotateCcw className="w-3 h-3" />
               <span>Sync with {currentCity.location} Live Data</span>

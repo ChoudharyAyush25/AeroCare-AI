@@ -4,6 +4,7 @@ import { EnvironmentalData, WeatherVisualType } from '../types';
 interface HeroAtmosphereProps {
   currentCity: EnvironmentalData;
   weatherOverride?: WeatherVisualType | null;
+  themeMode?: 'light' | 'dark';
 }
 
 interface AtmosphericMote {
@@ -22,7 +23,9 @@ interface AtmosphericMote {
 export const HeroAtmosphere: React.FC<HeroAtmosphereProps> = ({
   currentCity,
   weatherOverride,
+  themeMode = 'dark',
 }) => {
+  const isLight = themeMode === 'light';
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [lightningFlash, setLightningFlash] = useState(0);
@@ -193,6 +196,119 @@ export const HeroAtmosphere: React.FC<HeroAtmosphereProps> = ({
 
   // Atmospheric Visual Palette Configuration
   const theme = useMemo(() => {
+    if (isLight) {
+      switch (condition) {
+        case 'sunny':
+          return {
+            skyGradient: 'from-[#FFFDF9] via-[#F8F6F0] to-[#EFECE4]',
+            horizonWarmth: 'from-amber-400/20 via-orange-400/10 to-transparent',
+            sunVisible: true,
+            sunColor: 'from-amber-200 via-amber-300 to-amber-500',
+            rayColor: '#f59e0b',
+            cloudFarHighlight: '#FFFFFF',
+            cloudFarBase: '#E2E8F0',
+            cloudMidHighlight: '#FEF3C7',
+            cloudMidShadow: '#E2E8F0',
+            cloudMidDark: '#CBD5E1',
+            cloudForeHighlight: '#FDE68A',
+            cloudForeShadow: '#E2E8F0',
+            mistHighlight: '#FEF3C7',
+            mistBase: '#E2E8F0',
+            mistOpacity: 0.35,
+          };
+        case 'cloudy':
+          return {
+            skyGradient: 'from-[#F8FAFC] via-[#F1F5F9] to-[#E2E8F0]',
+            horizonWarmth: 'from-indigo-300/15 via-blue-300/10 to-transparent',
+            sunVisible: false,
+            sunColor: 'from-slate-100 via-slate-200 to-zinc-300',
+            rayColor: '#38bdf8',
+            cloudFarHighlight: '#FFFFFF',
+            cloudFarBase: '#E2E8F0',
+            cloudMidHighlight: '#F1F5F9',
+            cloudMidShadow: '#CBD5E1',
+            cloudMidDark: '#94A3B8',
+            cloudForeHighlight: '#FFFFFF',
+            cloudForeShadow: '#CBD5E1',
+            mistHighlight: '#F1F5F9',
+            mistBase: '#CBD5E1',
+            mistOpacity: 0.4,
+          };
+        case 'rainy':
+          return {
+            skyGradient: 'from-[#F1F5F9] via-[#E2E8F0] to-[#CBD5E1]',
+            horizonWarmth: 'from-sky-400/20 via-blue-400/10 to-transparent',
+            sunVisible: false,
+            sunColor: '',
+            rayColor: '#0284c7',
+            cloudFarHighlight: '#F8FAFC',
+            cloudFarBase: '#CBD5E1',
+            cloudMidHighlight: '#E2E8F0',
+            cloudMidShadow: '#94A3B8',
+            cloudMidDark: '#64748B',
+            cloudForeHighlight: '#E2E8F0',
+            cloudForeShadow: '#94A3B8',
+            mistHighlight: '#E0F2FE',
+            mistBase: '#CBD5E1',
+            mistOpacity: 0.45,
+          };
+        case 'windy':
+          return {
+            skyGradient: 'from-[#F0FDF4]/60 via-[#F0F9FF] to-[#E2E8F0]',
+            horizonWarmth: 'from-[#38bdf8]/15 via-indigo-300/10 to-transparent',
+            sunVisible: false,
+            sunColor: '',
+            rayColor: '#0ea5e9',
+            cloudFarHighlight: '#FFFFFF',
+            cloudFarBase: '#E2E8F0',
+            cloudMidHighlight: '#E0F2FE',
+            cloudMidShadow: '#CBD5E1',
+            cloudMidDark: '#94A3B8',
+            cloudForeHighlight: '#E0F2FE',
+            cloudForeShadow: '#CBD5E1',
+            mistHighlight: '#E0F2FE',
+            mistBase: '#CBD5E1',
+            mistOpacity: 0.35,
+          };
+        case 'storm':
+          return {
+            skyGradient: 'from-[#E2E8F0] via-[#CBD5E1] to-[#94A3B8]',
+            horizonWarmth: 'from-indigo-400/20 via-purple-400/10 to-transparent',
+            sunVisible: false,
+            sunColor: '',
+            rayColor: '#6366f1',
+            cloudFarHighlight: '#F1F5F9',
+            cloudFarBase: '#94A3B8',
+            cloudMidHighlight: '#CBD5E1',
+            cloudMidShadow: '#64748B',
+            cloudMidDark: '#475569',
+            cloudForeHighlight: '#E2E8F0',
+            cloudForeShadow: '#64748B',
+            mistHighlight: '#E0E7FF',
+            mistBase: '#94A3B8',
+            mistOpacity: 0.5,
+          };
+        case 'poor_aqi':
+          return {
+            skyGradient: 'from-[#FEF3C7]/80 via-[#FEE2E2]/60 to-[#F5F1E8]',
+            horizonWarmth: 'from-amber-500/25 via-orange-400/15 to-transparent',
+            sunVisible: true,
+            sunColor: 'from-amber-300 via-amber-500 to-red-500',
+            rayColor: '#d97706',
+            cloudFarHighlight: '#FEF3C7',
+            cloudFarBase: '#E5E7EB',
+            cloudMidHighlight: '#FED7AA',
+            cloudMidShadow: '#D1D5DB',
+            cloudMidDark: '#9CA3AF',
+            cloudForeHighlight: '#FDBA74',
+            cloudForeShadow: '#D1D5DB',
+            mistHighlight: '#FEF3C7',
+            mistBase: '#E5E7EB',
+            mistOpacity: 0.5,
+          };
+      }
+    }
+
     switch (condition) {
       case 'sunny':
         return {
@@ -303,7 +419,7 @@ export const HeroAtmosphere: React.FC<HeroAtmosphereProps> = ({
           mistOpacity: 0.95,
         };
     }
-  }, [condition]);
+  }, [condition, isLight]);
 
   return (
     <div
@@ -460,7 +576,7 @@ export const HeroAtmosphere: React.FC<HeroAtmosphereProps> = ({
                 <stop offset="0%" stopColor={theme.cloudMidHighlight} stopOpacity="0.82" />
                 <stop offset="30%" stopColor={theme.cloudMidShadow} stopOpacity="0.88" />
                 <stop offset="75%" stopColor={theme.cloudMidDark} stopOpacity="0.82" />
-                <stop offset="100%" stopColor="#050505" stopOpacity="0.1" />
+                <stop offset="100%" stopColor={isLight ? '#F7F5F0' : '#050505'} stopOpacity="0.1" />
               </linearGradient>
 
               {/* Secondary internal depth gradient */}
@@ -571,7 +687,7 @@ export const HeroAtmosphere: React.FC<HeroAtmosphereProps> = ({
                 <linearGradient id="heroMistGrad" x1="0%" y1="0%" x2="0%" y2="100%">
                   <stop offset="0%" stopColor={theme.mistHighlight} stopOpacity="0.32" />
                   <stop offset="45%" stopColor={theme.mistBase} stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#050505" stopOpacity="0.95" />
+                  <stop offset="100%" stopColor={isLight ? '#F7F5F0' : '#050505'} stopOpacity={isLight ? 0.6 : 0.95} />
                 </linearGradient>
                 <filter id="mistBlur" x="-10%" y="-10%" width="120%" height="120%">
                   <feGaussianBlur stdDeviation="12" />
@@ -593,8 +709,14 @@ export const HeroAtmosphere: React.FC<HeroAtmosphereProps> = ({
           </div>
         </div>
 
-        {/* Gradient fade to pitch floor #050505 */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent" />
+        {/* Gradient fade to floor */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-t ${
+            isLight
+              ? 'from-[#F7F5F0] via-[#F7F5F0]/60 to-transparent'
+              : 'from-[#050505] via-[#050505]/70 to-transparent'
+          }`}
+        />
       </div>
 
       {/* 8. Tiny Floating Particles Canvas (Micro moisture & atmospheric motes) */}
@@ -611,11 +733,18 @@ export const HeroAtmosphere: React.FC<HeroAtmosphereProps> = ({
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background:
-            'radial-gradient(circle at 50% 48%, rgba(5,5,5,0.42) 0%, rgba(5,5,5,0.2) 50%, rgba(5,5,5,0.65) 100%)',
+          background: isLight
+            ? 'radial-gradient(circle at 50% 48%, rgba(247,245,240,0.12) 0%, rgba(247,245,240,0.04) 50%, rgba(247,245,240,0.2) 100%)'
+            : 'radial-gradient(circle at 50% 48%, rgba(5,5,5,0.42) 0%, rgba(5,5,5,0.2) 50%, rgba(5,5,5,0.65) 100%)',
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/50 via-transparent to-[#050505]/80 pointer-events-none" />
+      <div
+        className={`absolute inset-0 pointer-events-none transition-all duration-700 ${
+          isLight
+            ? 'bg-gradient-to-b from-black/[0.02] via-transparent to-black/[0.04]'
+            : 'bg-gradient-to-b from-[#050505]/50 via-transparent to-[#050505]/80'
+        }`}
+      />
     </div>
   );
 };

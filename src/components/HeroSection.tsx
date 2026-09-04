@@ -20,6 +20,7 @@ interface HeroSectionProps {
   onNavigate: (sectionId: string) => void;
   weatherOverride?: WeatherVisualType | null;
   onReplayIntro?: () => void;
+  theme?: 'light' | 'dark';
 }
 
 interface Particle {
@@ -49,6 +50,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onNavigate,
   weatherOverride,
   onReplayIntro,
+  theme = 'dark',
 }) => {
   const displayTemp = isCelsius
     ? `${currentCity.temperature}°C`
@@ -411,7 +413,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       style={{ perspective: '1200px' }}
     >
       {/* Living Atmospheric Weather Environment & Volumetric Layered Clouds */}
-      <HeroAtmosphere currentCity={currentCity} weatherOverride={weatherOverride} />
+      <HeroAtmosphere currentCity={currentCity} weatherOverride={weatherOverride} themeMode={theme} />
 
       <div className="absolute inset-0 earth-cinematic-wash pointer-events-none z-[1]" />
 

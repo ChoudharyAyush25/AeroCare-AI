@@ -1,3 +1,5 @@
+export type ThemeMode = 'dark' | 'light';
+
 export type AgeGroup = 'child' | 'adult' | 'senior';
 export type HealthCondition = 'healthy' | 'asthma' | 'heart_condition';
 export type Lifestyle = 'student' | 'office_worker' | 'outdoor_worker';
