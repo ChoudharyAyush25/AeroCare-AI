@@ -10,6 +10,7 @@ import { TrendsSection } from './components/TrendsSection';
 import { StoryProgress } from './components/StoryProgress';
 import { WeatherEnvironment } from './components/WeatherEnvironment';
 import { CinematicIntro } from './components/CinematicIntro';
+import { LocationInitialization } from './components/LocationInitialization';
 
 import {
   UserProfile,
@@ -28,11 +29,36 @@ import {
   fetchRealTimeEnvironmentalData,
   getUserCoordinates,
   reverseGeocode,
-  PRESET_CITY_COORDINATES
+  PRESET_CITY_COORDINATES,
+  getSavedUserLocation,
+  saveUserLocation
 } from './services/environmentalService';
 
 export default function App() {
-  const [currentCity, setCurrentCity] = useState<EnvironmentalData>(CITIES[0]);
+  const [showCinematicIntro, setShowCinematicIntro] = useState<boolean>(true);
+  const [showLocationOnboarding, setShowLocationOnboarding] = useState<boolean>(false);
+  const [currentCity, setCurrentCity] = useState<EnvironmentalData>(() => {
+    const saved = getSavedUserLocation();
+    if (saved) {
+      const match = CITIES.find((c) => c.location.toLowerCase().includes(saved.location.toLowerCase()));
+      if (match) return match;
+      return {
+        ...CITIES[0],
+        location: saved.location,
+        country: saved.country || 'Global Station',
+        coordinates: {
+          latitude: saved.lat,
+          longitude: saved.lon
+        }
+      };
+    }
+    // Initial placeholder while awaiting user location onboarding (does NOT show San Francisco)
+    return {
+      ...CITIES[0],
+      location: 'Atmospheric Station',
+      country: 'Awaiting Coordinates'
+    };
+  });
   const [userProfile, setUserProfile] = useState<UserProfile>(INITIAL_PROFILE);
   const [isCelsius, setIsCelsius] = useState<boolean>(true);
   const [activeSection, setActiveSection] = useState<string>('hero');
@@ -40,7 +66,6 @@ export default function App() {
   const [weatherOverride, setWeatherOverride] = useState<WeatherVisualType | null>(null);
   const [isLoadingTelemetry, setIsLoadingTelemetry] = useState<boolean>(false);
   const [telemetryError, setTelemetryError] = useState<string | null>(null);
-  const [showCinematicIntro, setShowCinematicIntro] = useState<boolean>(true);
 
   // Load real telemetry for given coordinates
   const loadTelemetryForCoordinates = async (
@@ -72,12 +97,32 @@ export default function App() {
     }
   };
 
+  // Callback when user selects location through the cinematic onboarding overlay
+  const handleLocationSelected = (data: EnvironmentalData) => {
+    setCurrentCity(data);
+    setRiskLevelOverride(null);
+    setWeatherOverride(null);
+    setShowLocationOnboarding(false);
+  };
+
   // Handler for selecting preset city or city object
   const handleSelectCity = async (city: EnvironmentalData) => {
     const preset = PRESET_CITY_COORDINATES[city.location];
     if (preset) {
+      saveUserLocation({
+        lat: preset.lat,
+        lon: preset.lon,
+        location: preset.location,
+        country: preset.country
+      });
       await loadTelemetryForCoordinates(preset.lat, preset.lon, preset.location, preset.country);
     } else if (city.coordinates) {
+      saveUserLocation({
+        lat: city.coordinates.latitude,
+        lon: city.coordinates.longitude,
+        location: city.location,
+        country: city.country
+      });
       await loadTelemetryForCoordinates(
         city.coordinates.latitude,
         city.coordinates.longitude,
@@ -98,6 +143,12 @@ export default function App() {
     locationName: string,
     countryName?: string
   ) => {
+    saveUserLocation({
+      lat,
+      lon,
+      location: locationName,
+      country: countryName
+    });
     await loadTelemetryForCoordinates(lat, lon, locationName, countryName);
   };
 
@@ -108,6 +159,13 @@ export default function App() {
     try {
       const coords = await getUserCoordinates();
       const geoInfo = await reverseGeocode(coords.latitude, coords.longitude);
+      saveUserLocation({
+        lat: coords.latitude,
+        lon: coords.longitude,
+        location: geoInfo.location,
+        country: geoInfo.country,
+        isGps: true
+      });
       await loadTelemetryForCoordinates(
         coords.latitude,
         coords.longitude,
@@ -124,15 +182,15 @@ export default function App() {
     }
   };
 
-  // On initial mount: automatically fetch real-time telemetry for default city
+  // On initial mount: if a persisted location exists, synchronize its live telemetry
   useEffect(() => {
-    const initialPreset = PRESET_CITY_COORDINATES['San Francisco, CA'];
-    if (initialPreset) {
+    const saved = getSavedUserLocation();
+    if (saved) {
       loadTelemetryForCoordinates(
-        initialPreset.lat,
-        initialPreset.lon,
-        initialPreset.location,
-        initialPreset.country
+        saved.lat,
+        saved.lon,
+        saved.location,
+        saved.country
       );
     }
   }, []);
@@ -216,7 +274,17 @@ export default function App() {
       {showCinematicIntro && (
         <CinematicIntro
           currentCity={currentCity}
-          onComplete={() => setShowCinematicIntro(false)}
+          onComplete={() => {
+            setShowCinematicIntro(false);
+            setShowLocationOnboarding(true);
+          }}
+        />
+      )}
+
+      {/* Cinematic Location Onboarding Experience for First-Time or Manual Re-calibration */}
+      {showLocationOnboarding && !showCinematicIntro && (
+        <LocationInitialization
+          onLocationSelected={handleLocationSelected}
         />
       )}
 
@@ -243,6 +311,7 @@ export default function App() {
         onUseMyLocation={handleUseMyLocation}
         telemetryStatusMessage={telemetryError}
         onReplayIntro={() => setShowCinematicIntro(true)}
+        onOpenLocationOnboarding={() => setShowLocationOnboarding(true)}
       />
 
       {/* Side Vertical Story Dots Navigation */}

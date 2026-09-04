@@ -412,3 +412,80 @@ export async function fetchRealTimeEnvironmentalData(
 
   return finalData;
 }
+
+/**
+ * Storage keys for persisting user location and onboarding state
+ */
+export const USER_LOCATION_STORAGE_KEY = 'aerocare_user_location';
+export const ONBOARDING_COMPLETED_KEY = 'aerocare_onboarding_completed';
+
+export interface SavedUserLocation {
+  lat: number;
+  lon: number;
+  location: string;
+  country?: string;
+  isGps?: boolean;
+  savedAt: number;
+}
+
+/**
+ * Reads stored user location preference from localStorage
+ */
+export function getSavedUserLocation(): SavedUserLocation | null {
+  try {
+    const raw = localStorage.getItem(USER_LOCATION_STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed.lat === 'number' && typeof parsed.lon === 'number') {
+      return parsed;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Saves user location preference and marks onboarding as completed
+ */
+export function saveUserLocation(data: {
+  lat: number;
+  lon: number;
+  location: string;
+  country?: string;
+  isGps?: boolean;
+}): void {
+  try {
+    const payload: SavedUserLocation = {
+      ...data,
+      savedAt: Date.now()
+    };
+    localStorage.setItem(USER_LOCATION_STORAGE_KEY, JSON.stringify(payload));
+    localStorage.setItem(ONBOARDING_COMPLETED_KEY, 'true');
+  } catch {
+    // Ignore storage quota limits
+  }
+}
+
+/**
+ * Checks if the user has previously completed the location onboarding
+ */
+export function hasCompletedLocationOnboarding(): boolean {
+  try {
+    return localStorage.getItem(ONBOARDING_COMPLETED_KEY) === 'true' && getSavedUserLocation() !== null;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Clears saved user location and resets onboarding flag
+ */
+export function clearUserLocation(): void {
+  try {
+    localStorage.removeItem(USER_LOCATION_STORAGE_KEY);
+    localStorage.removeItem(ONBOARDING_COMPLETED_KEY);
+  } catch {
+    // Ignore storage errors
+  }
+}

@@ -35,6 +35,7 @@ interface NavigationProps {
   onUseMyLocation?: () => Promise<void>;
   telemetryStatusMessage?: string | null;
   onReplayIntro?: () => void;
+  onOpenLocationOnboarding?: () => void;
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
@@ -49,7 +50,8 @@ export const Navigation: React.FC<NavigationProps> = ({
   onSelectCoordinates,
   onUseMyLocation,
   telemetryStatusMessage,
-  onReplayIntro
+  onReplayIntro,
+  onOpenLocationOnboarding
 }) => {
   const [cityMenuOpen, setCityMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -423,6 +425,23 @@ export const Navigation: React.FC<NavigationProps> = ({
                     })}
                   </div>
                 </div>
+
+                {/* Location Calibration Sequence Launcher */}
+                {onOpenLocationOnboarding && (
+                  <div className="pt-2 mt-2 border-t border-white/10">
+                    <button
+                      id="nav-launch-calibration-btn"
+                      onClick={() => {
+                        setCityMenuOpen(false);
+                        onOpenLocationOnboarding();
+                      }}
+                      className="w-full flex items-center justify-center gap-1.5 py-1.5 rounded-xl text-[11px] font-mono text-[#8EDCFF] hover:bg-[#8EDCFF]/10 transition-colors cursor-pointer border border-[#8EDCFF]/20"
+                    >
+                      <Compass className="w-3.5 h-3.5" />
+                      <span>Calibrate Location & Sensors</span>
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </div>

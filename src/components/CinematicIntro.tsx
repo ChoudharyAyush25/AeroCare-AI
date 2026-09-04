@@ -54,7 +54,6 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({
   const [telemetryLines, setTelemetryLines] = useState<string[]>([]);
   const [systemProgress, setSystemProgress] = useState<number>(12);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0, normX: 0, normY: 0 });
-  const [autoProgress, setAutoProgress] = useState<number>(0);
   const [isWarping, setIsWarping] = useState<boolean>(false);
 
   // Check user motion preferences
@@ -204,23 +203,6 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({
       timers.forEach(clearTimeout);
     };
   }, [locationLabel, aqiVal, aqiCat, pm25Val, tempVal, uvVal, latVal, lonVal, prefersReducedMotion]);
-
-  // Auto-progress timer once primed (runs for 6 seconds unless user acts)
-  useEffect(() => {
-    if (phase !== 'primed') return;
-    const interval = setInterval(() => {
-      setAutoProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          handleEnterExperience();
-          return 100;
-        }
-        return prev + 1.25; // ~5 seconds auto-progress
-      });
-    }, 60);
-
-    return () => clearInterval(interval);
-  }, [phase, handleEnterExperience]);
 
   // High-Performance Particle Engine & Lidar Radar Canvas
   useEffect(() => {
@@ -674,16 +656,16 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({
             </div>
           </div>
           <div className="text-[#FF5C4D]/90">
-            {phase === 'primed' ? `AUTO-ENTERING (${Math.round((100 - autoProgress) / 20)}s)` : 'CALIBRATING SPECTRA...'}
+            {phase === 'primed' ? 'SYSTEM PRIMED • CLICK TO ENTER' : 'CALIBRATING SPECTRA...'}
           </div>
         </div>
 
         {/* Visual Progress Bar */}
         <div className="w-full h-1 bg-[#151326] rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-[#FF5C4D] via-[#F6B73C] to-[#8EDCFF] transition-all duration-100 ease-linear shadow-[0_0_12px_rgba(255,92,77,0.5)]"
+            className="h-full bg-gradient-to-r from-[#FF5C4D] via-[#F6B73C] to-[#8EDCFF] transition-all duration-300 ease-linear shadow-[0_0_12px_rgba(255,92,77,0.5)]"
             style={{
-              width: phase === 'primed' ? `${autoProgress}%` : `${systemProgress}%`,
+              width: `${systemProgress}%`,
             }}
           />
         </div>

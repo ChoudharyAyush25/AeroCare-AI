@@ -12,7 +12,9 @@ import {
   Sparkles,
   Wind,
   Activity,
-  X
+  X,
+  Globe2,
+  ShieldCheck
 } from 'lucide-react';
 import { EnvironmentalData, LocationSearchResult } from '../types';
 import {
@@ -20,7 +22,8 @@ import {
   reverseGeocode,
   fetchRealTimeEnvironmentalData,
   searchGlobalLocations,
-  PRESET_CITY_COORDINATES
+  PRESET_CITY_COORDINATES,
+  saveUserLocation
 } from '../services/environmentalService';
 import { CITIES } from '../data/mockData';
 
@@ -37,10 +40,10 @@ interface TelemetryStage {
 }
 
 const SUGGESTED_STATIONS = [
-  { name: 'San Francisco', region: 'California, US', lat: 37.7749, lon: -122.4194, aqi: 38 },
   { name: 'Tokyo', region: 'Kanto, Japan', lat: 35.6895, lon: 139.6917, aqi: 28 },
   { name: 'London', region: 'Greater London, UK', lat: 51.5074, lon: -0.1278, aqi: 44 },
   { name: 'New York', region: 'New York, US', lat: 40.7128, lon: -74.0060, aqi: 46 },
+  { name: 'San Francisco', region: 'California, US', lat: 37.7749, lon: -122.4194, aqi: 38 },
   { name: 'Paris', region: 'Île-de-France, France', lat: 48.8566, lon: 2.3522, aqi: 35 },
   { name: 'New Delhi', region: 'Delhi, India', lat: 28.6139, lon: 77.2090, aqi: 172 },
   { name: 'Sydney', region: 'New South Wales, AU', lat: -33.8688, lon: 151.2093, aqi: 24 }
@@ -64,6 +67,7 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
     { label: 'PERSONAL ENVIRONMENT READY', completed: false },
   ]);
 
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Focus search input on transitioning to search or denied mode
@@ -76,7 +80,7 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
     }
   }, [step]);
 
-  // Debounced search query
+  // Debounced search query for Open-Meteo geocoding
   useEffect(() => {
     if (!searchQuery.trim() || searchQuery.trim().length < 2) {
       setSearchResults([]);
@@ -104,18 +108,103 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
     };
   }, [searchQuery]);
 
+  // Ambient Radar Canvas Sweep Animation
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animId: number;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    const resize = () => {
+      if (!canvas) return;
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    let angle = 0;
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      const cx = width / 2;
+      const cy = height / 2;
+      const maxR = Math.min(width, height) * 0.42;
+
+      // Coordinate Grid Circles
+      ctx.strokeStyle = 'rgba(244, 241, 234, 0.035)';
+      ctx.lineWidth = 1;
+      for (let r = 50; r <= maxR; r += 70) {
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Crosshair lines
+      ctx.strokeStyle = 'rgba(244, 241, 234, 0.04)';
+      ctx.beginPath();
+      ctx.moveTo(cx - maxR, cy);
+      ctx.lineTo(cx + maxR, cy);
+      ctx.moveTo(cx, cy - maxR);
+      ctx.lineTo(cx, cy + maxR);
+      ctx.stroke();
+
+      // Radar Sweep Beam
+      angle += 0.015;
+      const sweepGradient = ctx.createConicGradient(angle, cx, cy);
+      sweepGradient.addColorStop(0, 'rgba(255, 92, 77, 0.12)');
+      sweepGradient.addColorStop(0.12, 'rgba(246, 183, 60, 0.04)');
+      sweepGradient.addColorStop(0.35, 'transparent');
+      sweepGradient.addColorStop(1, 'transparent');
+
+      ctx.fillStyle = sweepGradient;
+      ctx.beginPath();
+      ctx.arc(cx, cy, maxR, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Outer telemetry ring with compass pips
+      ctx.strokeStyle = 'rgba(142, 220, 255, 0.08)';
+      ctx.setLineDash([4, 8]);
+      ctx.beginPath();
+      ctx.arc(cx, cy, maxR, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      animId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
+
   // Run the sequence of loading environmental data and animating telemetry stages
   const runTelemetrySequence = async (
     lat: number,
     lon: number,
     locationName: string,
-    countryName?: string
+    countryName?: string,
+    isGps = false
   ) => {
     setStep('connecting');
     setActiveLocationLabel(locationName);
     setTelemetryStages([
       { label: 'LOCATION SIGNAL DETECTED', detail: `${locationName} // ${lat.toFixed(2)}°, ${lon.toFixed(2)}°`, completed: false },
-      { label: 'ATMOSPHERIC DATA LINKED', detail: 'Fetching satellite & lidar weather streams...', completed: false },
+      { label: 'ATMOSPHERIC DATA LINKED', detail: 'Connecting real-time Open-Meteo weather streams...', completed: false },
       { label: 'AIR QUALITY MATRIX INITIALIZED', detail: 'Calibrating US AQI, PM2.5, and UV indices...', completed: false },
       { label: 'PERSONAL ENVIRONMENT READY', detail: 'Synthesizing local biospheric footprint...', completed: false },
     ]);
@@ -165,17 +254,35 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
         { ...prev[3], detail: 'All atmospheric telemetry linked to biological telemetry.', completed: true }
       ]);
 
+      // Save user location to persistence so onboarding won't be repeated
+      saveUserLocation({
+        lat: envData.coordinates?.latitude || lat,
+        lon: envData.coordinates?.longitude || lon,
+        location: envData.location,
+        country: envData.country,
+        isGps
+      });
+
       // Smooth enter into AeroCare
-      await new Promise((r) => setTimeout(r, 600));
+      await new Promise((r) => setTimeout(r, 550));
       onLocationSelected(envData);
     } catch (err: any) {
       console.warn('Real telemetry sequence error, falling back to sensor station:', err);
-      // Fallback to closest preset or default city safely
+      // Fallback to closest preset or safe city
       const fallback = CITIES.find((c) => c.location.toLowerCase().includes(locationName.toLowerCase())) || {
         ...CITIES[0],
         location: locationName,
         country: countryName || 'Global Grid'
       };
+
+      saveUserLocation({
+        lat: fallback.coordinates?.latitude || lat,
+        lon: fallback.coordinates?.longitude || lon,
+        location: fallback.location,
+        country: fallback.country,
+        isGps
+      });
+
       onLocationSelected(fallback);
     }
   };
@@ -186,7 +293,7 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
     setStep('connecting');
     setActiveLocationLabel('Acquiring Satellite GPS Fix...');
     setTelemetryStages([
-      { label: 'SEARCHING SAT-NAV SENSORS', detail: 'Requesting device coordinates...', completed: false },
+      { label: 'SEARCHING SAT-NAV SENSORS', detail: 'Requesting browser device coordinates...', completed: false },
       { label: 'ATMOSPHERIC DATA LINKED', completed: false },
       { label: 'AIR QUALITY MATRIX INITIALIZED', completed: false },
       { label: 'PERSONAL ENVIRONMENT READY', completed: false },
@@ -199,11 +306,12 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
         coords.latitude,
         coords.longitude,
         geoInfo.location,
-        geoInfo.country
+        geoInfo.country,
+        true
       );
     } catch (err: any) {
       console.warn('Geolocation acquisition error:', err);
-      // Transition smoothly to permission denied / manual selection without blocking
+      // Transition smoothly to permission denied / manual selection without breaking the app
       if (err.isDenied || err.code === 1 || /denied/i.test(err.message)) {
         setStep('denied');
       } else {
@@ -215,12 +323,12 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
 
   // Option 2 / Suggested City Selection
   const handleSelectSuggestedCity = async (city: typeof SUGGESTED_STATIONS[0]) => {
-    await runTelemetrySequence(city.lat, city.lon, city.name, city.region);
+    await runTelemetrySequence(city.lat, city.lon, city.name, city.region, false);
   };
 
   // Search Result Selection
   const handleSelectSearchResult = async (result: LocationSearchResult) => {
-    await runTelemetrySequence(result.latitude, result.longitude, result.name, result.country);
+    await runTelemetrySequence(result.latitude, result.longitude, result.name, result.country, false);
   };
 
   return (
@@ -228,15 +336,22 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
       id="location-initialization-screen"
       className="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-6 py-8 bg-[#080A16] text-[#F4F1EA] overflow-y-auto"
     >
+      {/* Background Interactive Radar Canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 pointer-events-none opacity-60"
+        aria-hidden="true"
+      />
+
       {/* Ambient Celestial Glows */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#FF5C4D]/10 via-[#F6B73C]/5 to-transparent rounded-full blur-[140px]" />
-        <div className="absolute -bottom-20 right-1/4 w-[400px] h-[400px] bg-[#151326] rounded-full blur-[120px]" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-gradient-to-tr from-[#FF5C4D]/12 via-[#F6B73C]/6 to-transparent rounded-full blur-[140px]" />
+        <div className="absolute -bottom-24 right-1/4 w-[450px] h-[450px] bg-[#151326] rounded-full blur-[120px]" />
         <div
-          className="absolute inset-0 opacity-[0.02]"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage: `radial-gradient(#F6B73C 1px, transparent 1px)`,
-            backgroundSize: '28px 28px',
+            backgroundSize: '32px 32px',
           }}
         />
       </div>
@@ -255,7 +370,7 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="p-6 sm:p-10 rounded-3xl bg-[#151326]/80 backdrop-blur-2xl border border-white/[0.08] shadow-[0_0_60px_rgba(0,0,0,0.7)] text-center relative overflow-hidden"
+              className="p-6 sm:p-10 rounded-3xl bg-[#151326]/85 backdrop-blur-2xl border border-white/[0.08] shadow-[0_0_60px_rgba(0,0,0,0.7)] text-center relative overflow-hidden"
             >
               {/* Atmospheric Header Bar Accent */}
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#FF5C4D] to-transparent" />
@@ -274,19 +389,19 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
                 Atmospheric Alignment Phase
               </div>
 
-              {/* Main Heading requested by user */}
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F4F1EA] uppercase leading-tight">
+              {/* Main Heading */}
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F4F1EA] uppercase leading-tight font-display">
                 Your Environment Is The <span className="text-[#FF5C4D]">First Signal.</span>
               </h1>
 
-              {/* Supporting text requested by user */}
+              {/* Supporting explanation */}
               <p className="mt-3 text-sm sm:text-base text-[#C8C3B7] max-w-md mx-auto leading-relaxed">
-                AeroCare analyzes real-time atmospheric conditions and their relationship with your personal health profile.
+                AeroCare requires your atmospheric location to calculate real-time air quality exposure, weather dynamics, and personalized health advisories tailored to your biological profile.
               </p>
 
               {/* Primary & Secondary Options */}
               <div className="mt-8 space-y-3.5">
-                {/* Option 1 — Primary: 📍 USE MY CURRENT LOCATION */}
+                {/* Option A — Primary: 📍 USE MY CURRENT LOCATION */}
                 <button
                   id="location-use-my-location-primary"
                   onClick={handleUseMyLocation}
@@ -294,41 +409,41 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
                 >
                   <div className="w-full flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-xl bg-[#080A16]/20 flex items-center justify-center">
+                      <div className="w-9 h-9 rounded-xl bg-[#080A16]/20 flex items-center justify-center">
                         <MapPin className="w-5 h-5 text-[#080A16]" />
                       </div>
                       <span className="text-base sm:text-lg font-bold tracking-wide uppercase">
                         Use My Current Location
                       </span>
                     </div>
-                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1 shrink-0" />
                   </div>
                   <p className="mt-2 text-xs sm:text-[13px] text-[#080A16]/80 font-medium text-left">
-                    Allow location access to initialize live environmental telemetry around you.
+                    Prompt browser coordinate permission to synchronize live telemetry for where you are.
                   </p>
                 </button>
 
-                {/* Option 2 — Secondary: 🔎 CHOOSE A CITY */}
+                {/* Option B — Secondary: 🔎 CHOOSE LOCATION MANUALLY */}
                 <button
-                  id="location-choose-city-btn"
+                  id="location-choose-manually-btn"
                   onClick={() => setStep('search')}
-                  className="w-full group flex items-center justify-between p-4 rounded-2xl bg-white/[0.04] hover:bg-white/[0.07] border border-white/[0.08] hover:border-white/20 text-[#F4F1EA] transition-all duration-200 cursor-pointer text-left"
+                  className="w-full group flex items-center justify-between p-4 sm:p-4.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.07] border border-white/[0.08] hover:border-white/20 text-[#F4F1EA] transition-all duration-200 cursor-pointer text-left"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-white/[0.05] flex items-center justify-center text-[#8EDCFF]">
-                      <Search className="w-4 h-4" />
+                    <div className="w-9 h-9 rounded-xl bg-white/[0.05] flex items-center justify-center text-[#8EDCFF]">
+                      <Search className="w-4.5 h-4.5" />
                     </div>
                     <div>
-                      <div className="text-sm font-semibold tracking-wide uppercase">
-                        Choose a City
+                      <div className="text-sm sm:text-base font-semibold tracking-wide uppercase">
+                        Choose Location Manually
                       </div>
                       <p className="text-xs text-[#8A8579]">
-                        Search global cities or choose from curated scientific stations.
+                        Search any global city or pick a recommended telemetry station.
                       </p>
                     </div>
                   </div>
-                  <span className="text-xs font-mono text-[#8A8579] group-hover:text-[#F4F1EA] transition-colors">
-                    BROWSE →
+                  <span className="text-xs font-mono text-[#8A8579] group-hover:text-[#F4F1EA] transition-colors shrink-0">
+                    SEARCH →
                   </span>
                 </button>
               </div>
@@ -336,10 +451,10 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
               {/* Quick Suggested Stations Row */}
               <div className="mt-6 pt-5 border-t border-white/[0.06]">
                 <div className="text-[10px] font-mono tracking-widest text-[#8A8579] uppercase mb-2.5">
-                  Or select a verified telemetry station:
+                  Or select a verified scientific station:
                 </div>
                 <div className="flex flex-wrap items-center justify-center gap-2">
-                  {SUGGESTED_STATIONS.slice(0, 5).map((station) => (
+                  {SUGGESTED_STATIONS.map((station) => (
                     <button
                       key={station.name}
                       onClick={() => handleSelectSuggestedCity(station)}
@@ -376,17 +491,17 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
                   <AlertCircle className="w-5 h-5" />
                 </div>
                 <div>
-                  <h2 className="text-lg sm:text-xl font-bold uppercase tracking-tight text-[#F4F1EA]">
-                    Location Access Not Enabled
+                  <h2 className="text-lg sm:text-xl font-bold uppercase tracking-tight text-[#F4F1EA] font-display">
+                    Location Access Not Granted
                   </h2>
                   <p className="text-xs text-[#8A8579] font-mono">
-                    Device coordinate permissions were not granted.
+                    Device coordinate authorization was not granted.
                   </p>
                 </div>
               </div>
 
               <p className="text-sm text-[#C8C3B7] leading-relaxed mb-6">
-                You can still explore AeroCare by selecting a location manually. Search any global city or pick a recommended station below.
+                No problem — you can explore AeroCare seamlessly by searching for your city or choosing from verified atmospheric stations below.
               </p>
 
               {/* Prominent Search Input */}
@@ -397,7 +512,7 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Type city or region (e.g., Tokyo, London, Austin)..."
+                  placeholder="Type city or region (e.g., Tokyo, London, Austin, Mumbai)..."
                   className="w-full bg-[#080A16] border border-white/15 rounded-xl pl-10 pr-9 py-3 text-sm text-[#F4F1EA] placeholder-[#8A8579] focus:outline-none focus:border-[#FF5C4D] transition-colors"
                 />
                 {searchQuery && (
@@ -447,7 +562,7 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
               {/* Suggested Cities Grid */}
               <div className="space-y-2">
                 <div className="text-[10px] font-mono uppercase tracking-widest text-[#8A8579]">
-                  Recommended Global Stations
+                  Recommended Atmospheric Stations
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {SUGGESTED_STATIONS.map((station) => (
@@ -478,7 +593,7 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
                   onClick={() => setStep('prompt')}
                   className="text-xs font-mono text-[#8A8579] hover:text-[#F4F1EA] transition-colors cursor-pointer"
                 >
-                  ← Return to Location Detection
+                  ← Return to Location Detection Options
                 </button>
               </div>
             </motion.div>
@@ -501,11 +616,11 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
 
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h2 className="text-xl font-bold uppercase tracking-tight text-[#F4F1EA]">
-                    Select Your Atmospheric Location
+                  <h2 className="text-xl font-bold uppercase tracking-tight text-[#F4F1EA] font-display">
+                    Select Atmospheric Location
                   </h2>
                   <p className="text-xs text-[#8A8579]">
-                    Search any global city or pick a recommended station to begin.
+                    Search any global city or pick a recommended station to calibrate telemetry.
                   </p>
                 </div>
                 <button
@@ -531,7 +646,7 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search city, region, or capital..."
+                  placeholder="Search city, region, or country..."
                   className="w-full bg-[#080A16] border border-white/15 rounded-xl pl-10 pr-9 py-3 text-sm text-[#F4F1EA] placeholder-[#8A8579] focus:outline-none focus:border-[#FF5C4D] transition-colors"
                 />
                 {searchQuery && (
@@ -643,7 +758,7 @@ export const LocationInitialization: React.FC<LocationInitializationProps> = ({
                   <div className="text-[10px] font-mono tracking-widest text-[#F6B73C] uppercase">
                     INITIALIZING TELEMETRY PIPELINE
                   </div>
-                  <h2 className="text-lg sm:text-xl font-bold text-[#F4F1EA] truncate max-w-[340px]">
+                  <h2 className="text-lg sm:text-xl font-bold text-[#F4F1EA] truncate max-w-[340px] font-display">
                     {activeLocationLabel || 'Acquiring Coordinates...'}
                   </h2>
                 </div>
