@@ -190,25 +190,25 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
     }
   }, [currentCity.city, userProfile.healthCondition, userProfile.outdoorExposure, userProfile.ageGroup]);
 
-  // Risk styling
+  // Risk styling adhering to Solar Eclipse Atmospheric Intelligence
   const riskColor = {
-    low: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30',
-    moderate: 'text-amber-400 bg-amber-500/10 border-amber-500/30',
-    high: 'text-orange-400 bg-orange-500/10 border-orange-500/30',
-    extreme: 'text-rose-400 bg-rose-500/10 border-rose-500/30',
-  }[assessment.riskLevel] || 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30';
+    low: 'text-[#63D9B3] bg-[#63D9B3]/10 border-[#63D9B3]/30',
+    moderate: 'text-[#F6B73C] bg-[#F6B73C]/10 border-[#F6B73C]/30',
+    high: 'text-[#FF5C4D] bg-[#FF5C4D]/10 border-[#FF5C4D]/30',
+    extreme: 'text-[#FF5C4D] bg-[#FF5C4D]/20 border-[#FF5C4D]/40',
+  }[assessment.riskLevel] || 'text-[#63D9B3] bg-[#63D9B3]/10 border-[#63D9B3]/30';
 
   return (
     <section
       ref={sectionRef}
       id="analysis"
-      className="relative min-h-screen w-full flex flex-col justify-center px-4 sm:px-8 py-24 earth-section text-zinc-100 overflow-hidden"
+      className="relative min-h-screen w-full flex flex-col justify-center px-4 sm:px-8 py-24 earth-section text-[#F4F1EA] overflow-hidden"
     >
       {/* Background Neural Grid and ambient illumination */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[550px] bg-emerald-500/5 blur-[160px] rounded-full" />
-        <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-sky-500/5 blur-[140px] rounded-full" />
-        <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-purple-500/5 blur-[140px] rounded-full" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[550px] bg-[#FF5C4D]/5 blur-[160px] rounded-full" />
+        <div className="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] bg-[#8EDCFF]/5 blur-[140px] rounded-full" />
+        <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-[#F6B73C]/5 blur-[140px] rounded-full" />
         {/* Subtle grid pattern */}
         <div className="absolute inset-0 quiet-grid" />
       </div>
@@ -224,16 +224,16 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
         >
           <div>
             <div className="inline-flex items-center gap-2 story-kicker mb-3">
-              <Cpu className="w-3.5 h-3.5 text-emerald-400" />
+              <Cpu className="w-3.5 h-3.5 text-[#FF5C4D]" />
               <span>Neural Pipeline 04 // AI Synthesis Engine</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl text-white font-light tracking-tight flex items-center gap-3 flex-wrap">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl text-[#F4F1EA] font-light tracking-tight flex items-center gap-3 flex-wrap">
               <span>AI Multi-Stream Synthesis</span>
-              <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-normal">
+              <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-[#FF5C4D]/10 border border-[#FF5C4D]/30 text-[#FF5C4D] font-normal">
                 {isSynthesizing ? 'INFERENCE ACTIVE' : 'FUSION READY'}
               </span>
             </h2>
-            <p className="text-zinc-400 text-sm sm:text-base mt-2 max-w-2xl font-light">
+            <p className="text-[#C8C3B7] text-sm sm:text-base mt-2 max-w-2xl font-light">
               Atmospheric telemetry and particulate chemistry alone cannot predict human health. AeroCare’s neural engine fuses live environmental stressors with your calibrated Digital You.
             </p>
           </div>
@@ -243,9 +243,9 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
               id="analysis-recalibrate-btn"
               onClick={triggerSynthesisSequence}
               disabled={isSynthesizing}
-              className="px-4 py-2.5 rounded-xl bg-zinc-900/80 hover:bg-emerald-500/15 hover:border-emerald-500/40 border border-zinc-700 text-zinc-200 hover:text-emerald-300 text-xs font-mono font-medium flex items-center gap-2 transition-all cursor-pointer disabled:opacity-50 shadow-sm"
+              className="px-4 py-2.5 rounded-xl bg-[#151326]/80 hover:bg-[#FF5C4D]/15 hover:border-[#FF5C4D]/40 border border-white/15 text-[#F4F1EA] hover:text-[#FF5C4D] text-xs font-mono font-medium flex items-center gap-2 transition-all cursor-pointer disabled:opacity-50 shadow-sm"
             >
-              <RefreshCw className={`w-3.5 h-3.5 text-emerald-400 ${isSynthesizing ? 'animate-spin' : ''}`} />
+              <RefreshCw className={`w-3.5 h-3.5 text-[#F6B73C] ${isSynthesizing ? 'animate-spin' : ''}`} />
               <span>{isSynthesizing ? 'Processing Neural Streams...' : 'Recalibrate AI Synthesis'}</span>
             </button>
           </div>
@@ -258,7 +258,7 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
           {/* Incoming Stream Cards Grid (3 Inputs) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 relative z-20">
             {/* -------------------------------------------------------- */}
-            {/* STREAM 01: WEATHER DATA */}
+            {/* STREAM 01: WEATHER DATA (Atmospheric Gold) */}
             {/* -------------------------------------------------------- */}
             <div
               id="analysis-stream-weather"
@@ -268,65 +268,65 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                 revealStage >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               } ${
                 hoveredStream === 1
-                  ? 'bg-zinc-900/90 border-orange-500/45 -translate-y-1'
-                  : 'bg-zinc-900/50 border-zinc-800/90 hover:border-orange-500/40'
+                  ? 'bg-[#151326]/90 border-[#F6B73C]/60 -translate-y-1'
+                  : 'bg-[#151326]/60 border-white/[0.08] hover:border-[#F6B73C]/40'
               }`}
             >
               {/* Dynamic glowing signal edge on top */}
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-orange-500 to-transparent opacity-70" />
+              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#F6B73C] to-transparent opacity-70" />
 
               {/* Active environmental signal pulses */}
               <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 relative">
+                <div className="w-10 h-10 rounded-xl bg-[#F6B73C]/10 border border-[#F6B73C]/20 flex items-center justify-center text-[#F6B73C] relative">
                   <CloudSun className="w-5 h-5" />
                   {/* Small orbiting particle */}
-                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-orange-400/70" />
+                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#F6B73C]/70" />
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-orange-400/70" />
-                  <span className="text-[10px] font-mono text-orange-400 font-bold uppercase tracking-wider bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20">
+                  <span className="w-2 h-2 rounded-full bg-[#F6B73C]/70" />
+                  <span className="text-[10px] font-mono text-[#F6B73C] font-bold uppercase tracking-wider bg-[#F6B73C]/10 px-2 py-0.5 rounded border border-[#F6B73C]/20">
                     Stream 01 // Weather
                   </span>
                 </div>
               </div>
 
-              <h3 className="font-semibold text-base text-white flex items-center gap-2">
+              <h3 className="font-semibold text-base text-[#F4F1EA] flex items-center gap-2">
                 <span>Weather Data</span>
-                <span className="text-[10px] font-mono text-zinc-500 font-normal">[{currentCity.city}]</span>
+                <span className="text-[10px] font-mono text-[#8A8579] font-normal">[{currentCity.city}]</span>
               </h3>
-              <p className="text-xs text-zinc-400 mt-1 mb-3 font-light leading-relaxed">
+              <p className="text-xs text-[#C8C3B7] mt-1 mb-3 font-light leading-relaxed">
                 Atmospheric boundary thermal gradients, relative humidity, and solar UV radiation.
               </p>
 
               {/* Data parameters list */}
-              <div className="space-y-1.5 text-[11px] font-mono text-zinc-300 bg-zinc-950/80 p-3 rounded-xl border border-zinc-800">
+              <div className="space-y-1.5 text-[11px] font-mono text-[#C8C3B7] bg-[#080A16]/80 p-3 rounded-xl border border-white/[0.08]">
                 <div className="flex justify-between items-center">
-                  <span className="text-zinc-500 flex items-center gap-1">
-                    <Sun className="w-3 h-3 text-orange-400" />
+                  <span className="text-[#8A8579] flex items-center gap-1">
+                    <Sun className="w-3 h-3 text-[#F6B73C]" />
                     Thermal Load:
                   </span>
-                  <span className="text-orange-300 font-semibold">{currentCity.temperature}°C (Feels {currentCity.feelsLike}°C)</span>
+                  <span className="text-[#F6B73C] font-semibold">{currentCity.temperature}°C (Feels {currentCity.feelsLike}°C)</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-zinc-500 flex items-center gap-1">
-                    <Activity className="w-3 h-3 text-sky-400" />
+                  <span className="text-[#8A8579] flex items-center gap-1">
+                    <Activity className="w-3 h-3 text-[#8EDCFF]" />
                     Relative Humidity:
                   </span>
-                  <span className="text-sky-300">{currentCity.humidity}%</span>
+                  <span className="text-[#8EDCFF]">{currentCity.humidity}%</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-zinc-500 flex items-center gap-1">
-                    <Flame className="w-3 h-3 text-amber-400" />
+                  <span className="text-[#8A8579] flex items-center gap-1">
+                    <Flame className="w-3 h-3 text-[#F6B73C]" />
                     Solar UV Index:
                   </span>
-                  <span className="text-amber-300">{currentCity.uvIndex} / 12</span>
+                  <span className="text-[#F6B73C]">{currentCity.uvIndex} / 12</span>
                 </div>
               </div>
 
               {/* Bottom Outflow Transmitter Port */}
-              <div className="mt-3 pt-2.5 border-t border-zinc-800/80 flex items-center justify-between text-[10px] font-mono">
-                <span className="text-zinc-500 uppercase">SIGNAL: TRANSMITTING</span>
-                <span className="text-orange-400 font-bold flex items-center gap-1">
+              <div className="mt-3 pt-2.5 border-t border-white/[0.08] flex items-center justify-between text-[10px] font-mono">
+                <span className="text-[#8A8579] uppercase">SIGNAL: TRANSMITTING</span>
+                <span className="text-[#F6B73C] font-bold flex items-center gap-1">
                   <Zap className="w-3 h-3" />
                   FEEDING AI
                 </span>
@@ -334,7 +334,7 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
             </div>
 
             {/* -------------------------------------------------------- */}
-            {/* STREAM 02: AIR QUALITY MATRIX */}
+            {/* STREAM 02: AIR QUALITY MATRIX (Ice Blue) */}
             {/* -------------------------------------------------------- */}
             <div
               id="analysis-stream-aqi"
@@ -344,55 +344,55 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                 revealStage >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               } ${
                 hoveredStream === 2
-                  ? 'bg-zinc-900/90 border-sky-500/45 -translate-y-1'
-                  : 'bg-zinc-900/50 border-zinc-800/90 hover:border-sky-500/40'
+                  ? 'bg-[#151326]/90 border-[#8EDCFF]/60 -translate-y-1'
+                  : 'bg-[#151326]/60 border-white/[0.08] hover:border-[#8EDCFF]/40'
               }`}
             >
               {/* Dynamic glowing signal edge on top */}
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-sky-500 to-transparent opacity-70" />
+              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#8EDCFF] to-transparent opacity-70" />
 
               {/* Active atmospheric chemical signal pulses */}
               <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400 relative">
+                <div className="w-10 h-10 rounded-xl bg-[#8EDCFF]/10 border border-[#8EDCFF]/20 flex items-center justify-center text-[#8EDCFF] relative">
                   <Wind className="w-5 h-5" />
-                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-sky-400/70" />
+                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#8EDCFF]/70" />
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-sky-400/70" />
-                  <span className="text-[10px] font-mono text-sky-400 font-bold uppercase tracking-wider bg-sky-500/10 px-2 py-0.5 rounded border border-sky-500/20">
+                  <span className="w-2 h-2 rounded-full bg-[#8EDCFF]/70" />
+                  <span className="text-[10px] font-mono text-[#8EDCFF] font-bold uppercase tracking-wider bg-[#8EDCFF]/10 px-2 py-0.5 rounded border border-[#8EDCFF]/20">
                     Stream 02 // Atmosphere
                   </span>
                 </div>
               </div>
 
-              <h3 className="font-semibold text-base text-white flex items-center gap-2">
+              <h3 className="font-semibold text-base text-[#F4F1EA] flex items-center gap-2">
                 <span>Air Quality Matrix</span>
-                <span className="text-[10px] font-mono text-zinc-500 font-normal">[AQI {currentCity.aqi}]</span>
+                <span className="text-[10px] font-mono text-[#8A8579] font-normal">[AQI {currentCity.aqi}]</span>
               </h3>
-              <p className="text-xs text-zinc-400 mt-1 mb-3 font-light leading-relaxed">
+              <p className="text-xs text-[#C8C3B7] mt-1 mb-3 font-light leading-relaxed">
                 Chemical toxicological density, respirable PM2.5 aerosols, and ground-level tropospheric ozone.
               </p>
 
               {/* Data parameters list */}
-              <div className="space-y-1.5 text-[11px] font-mono text-zinc-300 bg-zinc-950/80 p-3 rounded-xl border border-zinc-800">
+              <div className="space-y-1.5 text-[11px] font-mono text-[#C8C3B7] bg-[#080A16]/80 p-3 rounded-xl border border-white/[0.08]">
                 <div className="flex justify-between items-center">
-                  <span className="text-zinc-500">AQI Category:</span>
-                  <span className="text-emerald-300 font-semibold">{currentCity.aqiCategory}</span>
+                  <span className="text-[#8A8579]">AQI Category:</span>
+                  <span className="text-[#63D9B3] font-semibold">{currentCity.aqiCategory}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-zinc-500">PM2.5 Mass:</span>
-                  <span className="text-sky-300 font-semibold">{currentCity.pollutants.pm25} µg/m³</span>
+                  <span className="text-[#8A8579]">PM2.5 Mass:</span>
+                  <span className="text-[#8EDCFF] font-semibold">{currentCity.pollutants.pm25} µg/m³</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-zinc-500">O3 Tropospheric:</span>
-                  <span className="text-amber-300 font-semibold">{currentCity.pollutants.o3} ppb</span>
+                  <span className="text-[#8A8579]">O3 Tropospheric:</span>
+                  <span className="text-[#F6B73C] font-semibold">{currentCity.pollutants.o3} ppb</span>
                 </div>
               </div>
 
               {/* Bottom Outflow Transmitter Port */}
-              <div className="mt-3 pt-2.5 border-t border-zinc-800/80 flex items-center justify-between text-[10px] font-mono">
-                <span className="text-zinc-500 uppercase">SIGNAL: TRANSMITTING</span>
-                <span className="text-sky-400 font-bold flex items-center gap-1">
+              <div className="mt-3 pt-2.5 border-t border-white/[0.08] flex items-center justify-between text-[10px] font-mono">
+                <span className="text-[#8A8579] uppercase">SIGNAL: TRANSMITTING</span>
+                <span className="text-[#8EDCFF] font-bold flex items-center gap-1">
                   <Zap className="w-3 h-3" />
                   FEEDING AI
                 </span>
@@ -400,7 +400,7 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
             </div>
 
             {/* -------------------------------------------------------- */}
-            {/* STREAM 03: PERSONAL BIO-PROFILE (DIGITAL YOU) */}
+            {/* STREAM 03: PERSONAL BIO-PROFILE (Electric Coral) */}
             {/* -------------------------------------------------------- */}
             <div
               id="analysis-stream-bio"
@@ -410,55 +410,55 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                 revealStage >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               } ${
                 hoveredStream === 3
-                  ? 'bg-zinc-900/90 border-purple-500/45 -translate-y-1'
-                  : 'bg-zinc-900/50 border-zinc-800/90 hover:border-purple-500/40'
+                  ? 'bg-[#151326]/90 border-[#FF5C4D]/60 -translate-y-1'
+                  : 'bg-[#151326]/60 border-white/[0.08] hover:border-[#FF5C4D]/40'
               }`}
             >
               {/* Dynamic glowing signal edge on top */}
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-70" />
+              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#FF5C4D] to-transparent opacity-70" />
 
               {/* Active biological signal pulses */}
               <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 relative">
+                <div className="w-10 h-10 rounded-xl bg-[#FF5C4D]/10 border border-[#FF5C4D]/20 flex items-center justify-center text-[#FF5C4D] relative">
                   <Fingerprint className="w-5 h-5" />
-                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-purple-400/70" />
+                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#FF5C4D]/70" />
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-purple-400/70" />
-                  <span className="text-[10px] font-mono text-purple-400 font-bold uppercase tracking-wider bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                  <span className="w-2 h-2 rounded-full bg-[#FF5C4D]/70" />
+                  <span className="text-[10px] font-mono text-[#FF5C4D] font-bold uppercase tracking-wider bg-[#FF5C4D]/10 px-2 py-0.5 rounded border border-[#FF5C4D]/20">
                     Stream 03 // Digital You
                   </span>
                 </div>
               </div>
 
-              <h3 className="font-semibold text-base text-white flex items-center gap-2">
+              <h3 className="font-semibold text-base text-[#F4F1EA] flex items-center gap-2">
                 <span>Personal Bio-Profile</span>
-                <span className="text-[10px] font-mono text-zinc-500 font-normal">[TWIN ACTIVE]</span>
+                <span className="text-[10px] font-mono text-[#8A8579] font-normal">[TWIN ACTIVE]</span>
               </h3>
-              <p className="text-xs text-zinc-400 mt-1 mb-3 font-light leading-relaxed">
+              <p className="text-xs text-[#C8C3B7] mt-1 mb-3 font-light leading-relaxed">
                 Subject vulnerability curve, respiratory susceptibility, and daily outdoor exposure dosage.
               </p>
 
               {/* Data parameters list */}
-              <div className="space-y-1.5 text-[11px] font-mono text-zinc-300 bg-zinc-950/80 p-3 rounded-xl border border-zinc-800">
+              <div className="space-y-1.5 text-[11px] font-mono text-[#C8C3B7] bg-[#080A16]/80 p-3 rounded-xl border border-white/[0.08]">
                 <div className="flex justify-between items-center">
-                  <span className="text-zinc-500">Demographic:</span>
-                  <span className="capitalize text-purple-300 font-semibold">{userProfile.ageGroup}</span>
+                  <span className="text-[#8A8579]">Demographic:</span>
+                  <span className="capitalize text-[#F4F1EA] font-semibold">{userProfile.ageGroup}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-zinc-500">Vulnerability:</span>
-                  <span className="capitalize text-rose-300 font-semibold">{userProfile.healthCondition.replace('_', ' ')}</span>
+                  <span className="text-[#8A8579]">Vulnerability:</span>
+                  <span className="capitalize text-[#FF5C4D] font-semibold">{userProfile.healthCondition.replace('_', ' ')}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-zinc-500">Daily Exposure:</span>
-                  <span className="capitalize text-amber-300 font-semibold">{userProfile.outdoorExposure} dosage</span>
+                  <span className="text-[#8A8579]">Daily Exposure:</span>
+                  <span className="capitalize text-[#F6B73C] font-semibold">{userProfile.outdoorExposure} dosage</span>
                 </div>
               </div>
 
               {/* Bottom Outflow Transmitter Port */}
-              <div className="mt-3 pt-2.5 border-t border-zinc-800/80 flex items-center justify-between text-[10px] font-mono">
-                <span className="text-zinc-500 uppercase">SIGNAL: TRANSMITTING</span>
-                <span className="text-purple-400 font-bold flex items-center gap-1">
+              <div className="mt-3 pt-2.5 border-t border-white/[0.08] flex items-center justify-between text-[10px] font-mono">
+                <span className="text-[#8A8579] uppercase">SIGNAL: TRANSMITTING</span>
+                <span className="text-[#FF5C4D] font-bold flex items-center gap-1">
                   <Zap className="w-3 h-3" />
                   FEEDING AI
                 </span>
@@ -478,18 +478,18 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                 preserveAspectRatio="none"
               >
                 <defs>
-                  {/* Conduits Linear Gradients */}
+                  {/* Conduits Linear Gradients in Solar Eclipse palette */}
                   <linearGradient id="streamGradWeather" x1="0%" y1="0%" x2="50%" y2="100%">
-                    <stop offset="0%" stopColor="#f97316" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.9" />
+                    <stop offset="0%" stopColor="#F6B73C" stopOpacity="0.9" />
+                    <stop offset="100%" stopColor="#FF5C4D" stopOpacity="0.9" />
                   </linearGradient>
                   <linearGradient id="streamGradAqi" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.9" />
+                    <stop offset="0%" stopColor="#8EDCFF" stopOpacity="0.9" />
+                    <stop offset="100%" stopColor="#FF5C4D" stopOpacity="0.9" />
                   </linearGradient>
                   <linearGradient id="streamGradBio" x1="100%" y1="0%" x2="50%" y2="100%">
-                    <stop offset="0%" stopColor="#a855f7" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor="#10b981" stopOpacity="0.9" />
+                    <stop offset="0%" stopColor="#FF5C4D" stopOpacity="0.9" />
+                    <stop offset="100%" stopColor="#F6B73C" stopOpacity="0.9" />
                   </linearGradient>
                 </defs>
 
@@ -514,7 +514,7 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                 />
 
                 {/* Active Animated Glowing Data Conduits (Feeding into the Center AI Engine) */}
-                {/* 1. Weather Data Conduit (Orange -> Green) */}
+                {/* 1. Weather Data Conduit (Atmospheric Gold -> Electric Coral) */}
                 <path
                   d="M 166,0 C 166,60 480,40 500,120"
                   fill="none"
@@ -522,12 +522,12 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                   strokeWidth={hoveredStream === 1 ? '5' : '2.5'}
                   className="animate-ai-conduit-flow"
                   style={{
-                    filter: hoveredStream === 1 ? 'drop-shadow(0 0 10px #f97316)' : 'drop-shadow(0 0 4px #f97316)',
+                    filter: hoveredStream === 1 ? 'drop-shadow(0 0 10px #F6B73C)' : 'drop-shadow(0 0 4px #F6B73C)',
                     opacity: hoveredStream === null || hoveredStream === 1 ? 1 : 0.4
                   }}
                 />
 
-                {/* 2. Air Quality Conduit (Cyan -> Green) */}
+                {/* 2. Air Quality Conduit (Ice Blue -> Electric Coral) */}
                 <path
                   d="M 500,0 L 500,120"
                   fill="none"
@@ -535,12 +535,12 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                   strokeWidth={hoveredStream === 2 ? '5' : '2.5'}
                   className="animate-ai-conduit-flow"
                   style={{
-                    filter: hoveredStream === 2 ? 'drop-shadow(0 0 10px #38bdf8)' : 'drop-shadow(0 0 4px #38bdf8)',
+                    filter: hoveredStream === 2 ? 'drop-shadow(0 0 10px #8EDCFF)' : 'drop-shadow(0 0 4px #8EDCFF)',
                     opacity: hoveredStream === null || hoveredStream === 2 ? 1 : 0.4
                   }}
                 />
 
-                {/* 3. Bio Profile Conduit (Purple -> Green) */}
+                {/* 3. Bio Profile Conduit (Electric Coral -> Atmospheric Gold) */}
                 <path
                   d="M 833,0 C 833,60 520,40 500,120"
                   fill="none"
@@ -548,22 +548,22 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                   strokeWidth={hoveredStream === 3 ? '5' : '2.5'}
                   className="animate-ai-conduit-flow"
                   style={{
-                    filter: hoveredStream === 3 ? 'drop-shadow(0 0 10px #a855f7)' : 'drop-shadow(0 0 4px #a855f7)',
+                    filter: hoveredStream === 3 ? 'drop-shadow(0 0 10px #FF5C4D)' : 'drop-shadow(0 0 4px #FF5C4D)',
                     opacity: hoveredStream === null || hoveredStream === 3 ? 1 : 0.4
                   }}
                 />
 
                 {/* Convergence Central Vortex Port */}
-                <circle cx="500" cy="115" r="8" fill="#10b981" opacity="0.7" />
-                <circle cx="500" cy="115" r="5" fill="#34d399" />
+                <circle cx="500" cy="115" r="8" fill="#FF5C4D" opacity="0.7" />
+                <circle cx="500" cy="115" r="5" fill="#F6B73C" />
               </svg>
             </div>
 
             {/* Live Data Fusion Badge in between */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-emerald-500/30 text-[11px] font-mono text-emerald-300 shadow-[0_0_16px_rgba(16,185,129,0.2)] -mt-3 z-30">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-spin" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#151326] border border-[#FF5C4D]/30 text-[11px] font-mono text-[#F4F1EA] shadow-[0_0_16px_rgba(255,92,77,0.2)] -mt-3 z-30">
+              <Sparkles className="w-3.5 h-3.5 text-[#F6B73C] animate-spin" />
               <span>DATA CONVERGENCE CONDUIT // 3 INCOMING SIGNALS</span>
-              <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
+              <ArrowRight className="w-3.5 h-3.5 text-[#FF5C4D]" />
             </div>
           </div>
 
@@ -576,21 +576,21 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
               revealStage >= 6 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             } ${
               synthesisComplete
-                ? 'bg-gradient-to-b from-zinc-900/90 via-zinc-950/95 to-zinc-900/90 border-emerald-500/60 shadow-[0_0_60px_rgba(16,185,129,0.22)] ring-1 ring-emerald-500/30'
-                : 'bg-zinc-900/70 border-zinc-800 shadow-[0_20px_50px_rgba(0,0,0,0.8)]'
+                ? 'bg-gradient-to-b from-[#151326]/95 via-[#080A16]/95 to-[#151326]/95 border-[#FF5C4D]/60 shadow-[0_0_60px_rgba(255,92,77,0.22)] ring-1 ring-[#FF5C4D]/30'
+                : 'bg-[#151326]/75 border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.8)]'
             }`}
           >
             {/* Background Holographic Scanlines & Radial Glow */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:100%_4px] pointer-events-none opacity-40" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#FF5C4D]/10 rounded-full blur-3xl pointer-events-none" />
 
             {/* Satisfaction Shockwave Expansion on completion */}
             {shockwaveActive && (
-              <div className="absolute inset-0 rounded-3xl border-2 border-emerald-400 pointer-events-none animate-ai-shockwave" />
+              <div className="absolute inset-0 rounded-3xl border-2 border-[#FF5C4D] pointer-events-none animate-ai-shockwave" />
             )}
 
             {/* Laser scanning beam moving vertically */}
-            <div className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_15px_#34d399] pointer-events-none animate-bio-scan-sweep opacity-75 z-20" />
+            <div className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#FF5C4D] to-transparent shadow-[0_0_15px_#FF5C4D] pointer-events-none animate-bio-scan-sweep opacity-75 z-20" />
 
             {/* Core Card Content Grid */}
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -599,24 +599,24 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                 {/* Visual Neural Core with Orbiting Rings */}
                 <div className="relative w-48 h-48 sm:w-56 sm:h-56 flex items-center justify-center mb-5 select-none">
                   {/* Outer Orbital Ring 1 */}
-                  <div className="absolute inset-0 rounded-full border border-dashed border-emerald-500/30 animate-ai-core-rotate-cw pointer-events-none" />
+                  <div className="absolute inset-0 rounded-full border border-dashed border-[#FF5C4D]/30 animate-ai-core-rotate-cw pointer-events-none" />
                   {/* Outer Orbital Ring 2 (Counter-Clockwise) */}
-                  <div className="absolute inset-3 rounded-full border border-emerald-400/20 animate-ai-core-rotate-ccw pointer-events-none" />
+                  <div className="absolute inset-3 rounded-full border border-[#F6B73C]/20 animate-ai-core-rotate-ccw pointer-events-none" />
                   {/* Inner Ring with Tick Markers */}
-                  <div className="absolute inset-7 rounded-full border-2 border-emerald-500/40 pointer-events-none flex items-center justify-center">
-                    <div className="absolute top-0 w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
-                    <div className="absolute bottom-0 w-2 h-2 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]" />
-                    <div className="absolute left-0 w-1.5 h-1.5 rounded-full bg-orange-400 shadow-[0_0_6px_#f97316]" />
-                    <div className="absolute right-0 w-1.5 h-1.5 rounded-full bg-purple-400 shadow-[0_0_6px_#a855f7]" />
+                  <div className="absolute inset-7 rounded-full border-2 border-[#FF5C4D]/40 pointer-events-none flex items-center justify-center">
+                    <div className="absolute top-0 w-2 h-2 rounded-full bg-[#FF5C4D] shadow-[0_0_8px_#FF5C4D]" />
+                    <div className="absolute bottom-0 w-2 h-2 rounded-full bg-[#8EDCFF] shadow-[0_0_8px_#8EDCFF]" />
+                    <div className="absolute left-0 w-1.5 h-1.5 rounded-full bg-[#F6B73C] shadow-[0_0_6px_#F6B73C]" />
+                    <div className="absolute right-0 w-1.5 h-1.5 rounded-full bg-[#63D9B3] shadow-[0_0_6px_#63D9B3]" />
                   </div>
 
                   {/* Pulsing Core Aura */}
-                  <div className="absolute w-24 h-24 rounded-full bg-emerald-500/20 blur-xl animate-ai-core-pulse" />
+                  <div className="absolute w-24 h-24 rounded-full bg-[#FF5C4D]/20 blur-xl animate-ai-core-pulse" />
 
                   {/* Central Brain/Neural Core Orb */}
-                  <div className="relative w-20 h-20 rounded-2xl bg-zinc-950 border-2 border-emerald-400 flex flex-col items-center justify-center text-emerald-400 shadow-[0_0_18px_rgba(16,185,129,0.28)] group">
+                  <div className="relative w-20 h-20 rounded-2xl bg-[#080A16] border-2 border-[#FF5C4D] flex flex-col items-center justify-center text-[#FF5C4D] shadow-[0_0_18px_rgba(255,92,77,0.35)] group">
                     <Brain className="w-9 h-9" />
-                    <span className="text-[9px] font-mono font-bold tracking-widest text-emerald-300 mt-1">
+                    <span className="text-[9px] font-mono font-bold tracking-widest text-[#F4F1EA] mt-1">
                       AERO-AI
                     </span>
                   </div>
@@ -624,14 +624,14 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
 
                 {/* Animated Status Message Cycler */}
                 <div className="w-full">
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 mb-1 flex items-center justify-center gap-1.5">
-                    <Radio className="w-3 h-3 text-emerald-400" />
+                  <div className="text-[10px] font-mono uppercase tracking-widest text-[#8A8579] mb-1 flex items-center justify-center gap-1.5">
+                    <Radio className="w-3 h-3 text-[#FF5C4D]" />
                     <span>ENGINE PHASE 0{processingPhase + 1} // REAL-TIME INFERENCE</span>
                   </div>
 
                   <div className="h-9 flex items-center justify-center">
-                    <div className="px-3.5 py-1.5 rounded-full bg-zinc-950/80 border border-emerald-500/30 text-emerald-300 font-mono text-xs sm:text-sm font-semibold tracking-wide flex items-center gap-2">
-                      <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                    <div className="px-3.5 py-1.5 rounded-full bg-[#080A16]/80 border border-[#FF5C4D]/30 text-[#F4F1EA] font-mono text-xs sm:text-sm font-semibold tracking-wide flex items-center gap-2">
+                      <Sparkles className="w-3.5 h-3.5 text-[#F6B73C]" />
                       <span>{statusMessages[processingPhase] || statusMessages[statusMessages.length - 1]}</span>
                     </div>
                   </div>
@@ -640,17 +640,17 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
 
               {/* Right Column (7 cols): Synthesized Intelligence Telemetry Metrics */}
               <div className="lg:col-span-7 flex flex-col justify-between">
-                <div className="border-b border-zinc-800 pb-4 mb-5">
+                <div className="border-b border-white/[0.08] pb-4 mb-5">
                   <div className="flex items-center justify-between flex-wrap gap-2">
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
-                      <Zap className="w-4 h-4 text-emerald-400" />
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#FF5C4D] flex items-center gap-1.5">
+                      <Zap className="w-4 h-4 text-[#FF5C4D]" />
                       Synthesized Health Output Matrix
                     </span>
-                    <span className="text-[11px] font-mono text-zinc-400">
-                      CONFIDENCE: <strong className="text-emerald-400 font-bold">98.4%</strong> • LATENCY: 14ms
+                    <span className="text-[11px] font-mono text-[#8A8579]">
+                      CONFIDENCE: <strong className="text-[#8EDCFF] font-bold">98.4%</strong> • LATENCY: 14ms
                     </span>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-light text-white mt-1">
+                  <h3 className="text-xl sm:text-2xl font-light text-[#F4F1EA] mt-1">
                     Personalized Biological Risk Assessment
                   </h3>
                 </div>
@@ -658,12 +658,12 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                 {/* 4 High-Density Synthesized Metric Tiles */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-5">
                   {/* Tile 1: Computed Risk Level */}
-                  <div className="p-3.5 rounded-xl bg-zinc-950/80 border border-zinc-800/90 flex flex-col justify-between">
-                    <span className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
+                  <div className="p-3.5 rounded-xl bg-[#080A16]/80 border border-white/[0.08] flex flex-col justify-between">
+                    <span className="text-[10px] font-mono text-[#8A8579] uppercase block mb-1">
                       Computed Risk Status
                     </span>
                     <div className="flex items-center justify-between">
-                      <span className="text-xl font-semibold text-white capitalize">
+                      <span className="text-xl font-semibold text-[#F4F1EA] capitalize">
                         {assessment.riskLevel} Risk
                       </span>
                       <span className={`px-2.5 py-0.5 rounded-full text-xs font-mono font-bold uppercase border ${riskColor}`}>
@@ -673,18 +673,18 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                   </div>
 
                   {/* Tile 2: Physiological Strain Score */}
-                  <div className="p-3.5 rounded-xl bg-zinc-950/80 border border-zinc-800/90 flex flex-col justify-between">
-                    <span className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
+                  <div className="p-3.5 rounded-xl bg-[#080A16]/80 border border-white/[0.08] flex flex-col justify-between">
+                    <span className="text-[10px] font-mono text-[#8A8579] uppercase block mb-1">
                       Physiological Load Score
                     </span>
                     <div className="flex items-center justify-between">
-                      <span className="text-xl font-bold text-emerald-400 font-mono">
-                        {assessment.riskScore} <span className="text-xs text-zinc-500 font-normal">/ 100</span>
+                      <span className="text-xl font-bold text-[#F6B73C] font-mono">
+                        {assessment.riskScore} <span className="text-xs text-[#8A8579] font-normal">/ 100</span>
                       </span>
                       {/* Mini Bar Gauge */}
-                      <div className="w-24 h-2 bg-zinc-800 rounded-full overflow-hidden">
+                      <div className="w-24 h-2 bg-[#151326] rounded-full overflow-hidden border border-white/5">
                         <div
-                          className="h-full bg-gradient-to-r from-emerald-500 via-amber-500 to-rose-500 transition-all duration-1000 rounded-full"
+                          className="h-full bg-gradient-to-r from-[#63D9B3] via-[#F6B73C] to-[#FF5C4D] transition-all duration-1000 rounded-full"
                           style={{ width: `${assessment.riskScore}%` }}
                         />
                       </div>
@@ -692,21 +692,21 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                   </div>
 
                   {/* Tile 3: Primary Atmospheric Driver */}
-                  <div className="p-3.5 rounded-xl bg-zinc-950/80 border border-zinc-800/90 flex flex-col justify-between">
-                    <span className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
+                  <div className="p-3.5 rounded-xl bg-[#080A16]/80 border border-white/[0.08] flex flex-col justify-between">
+                    <span className="text-[10px] font-mono text-[#8A8579] uppercase block mb-1">
                       Dominant Stressor Vector
                     </span>
-                    <span className="text-sm font-semibold text-zinc-200 truncate">
+                    <span className="text-sm font-semibold text-[#C8C3B7] truncate">
                       {assessment.primaryDriver}
                     </span>
                   </div>
 
                   {/* Tile 4: Vulnerable Target System */}
-                  <div className="p-3.5 rounded-xl bg-zinc-950/80 border border-zinc-800/90 flex flex-col justify-between">
-                    <span className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
+                  <div className="p-3.5 rounded-xl bg-[#080A16]/80 border border-white/[0.08] flex flex-col justify-between">
+                    <span className="text-[10px] font-mono text-[#8A8579] uppercase block mb-1">
                       Vulnerable Anatomical Node
                     </span>
-                    <span className="text-sm font-semibold text-rose-300">
+                    <span className="text-sm font-semibold text-[#FF5C4D]">
                       {userProfile.healthCondition === 'asthma'
                         ? 'Bronchial & Alveolar Matrix'
                         : userProfile.healthCondition === 'heart_condition'
@@ -716,21 +716,21 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
                   </div>
                 </div>
 
-                {/* Synthesis Confirmation Banner (The Synthesis Moment 💥) */}
+                {/* Synthesis Confirmation Banner */}
                 <div
                   className={`p-3.5 rounded-xl border transition-all duration-500 flex items-center justify-between ${
                     synthesisComplete
-                      ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300'
-                      : 'bg-zinc-950/60 border-zinc-800 text-zinc-400'
+                      ? 'bg-[#FF5C4D]/10 border-[#FF5C4D]/40 text-[#F4F1EA]'
+                      : 'bg-[#080A16]/60 border-white/[0.08] text-[#8A8579]'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className={`w-4 h-4 ${synthesisComplete ? 'text-emerald-400 animate-bounce' : 'text-zinc-500'}`} />
+                    <CheckCircle2 className={`w-4 h-4 ${synthesisComplete ? 'text-[#63D9B3] animate-bounce' : 'text-zinc-500'}`} />
                     <span className="text-xs font-mono font-bold">
                       {synthesisComplete ? 'AI HEALTH INTELLIGENCE SYNTHESIZED ✓' : 'SYNTHESIS IN PROGRESS...'}
                     </span>
                   </div>
-                  <span className="text-[11px] font-mono text-emerald-400 hidden sm:inline">
+                  <span className="text-[11px] font-mono text-[#F6B73C] hidden sm:inline">
                     PERSONALIZED RISK MODEL READY
                   </span>
                 </div>
@@ -742,34 +742,34 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
         {/* ============================================================ */}
         {/* 5. LIVE ANALYSIS TERMINAL (Progressive Real-Time Inference Log) */}
         {/* ============================================================ */}
-        <div className="bg-zinc-900/60 rounded-2xl p-5 border border-zinc-800 font-mono text-xs text-zinc-300 mb-8 backdrop-blur-xl">
-          <div className="flex items-center justify-between pb-3 border-b border-zinc-800 mb-3 text-[11px] text-zinc-400 flex-wrap gap-2">
+        <div className="bg-[#151326]/80 rounded-2xl p-5 border border-white/[0.08] font-mono text-xs text-[#C8C3B7] mb-8 backdrop-blur-xl">
+          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-3 text-[11px] text-[#8A8579] flex-wrap gap-2">
             <span className="flex items-center gap-2">
-              <Terminal className="w-4 h-4 text-emerald-400" />
-              <strong className="text-zinc-200">AEROCARE INFERENCE TERMINAL // MULTI-STREAM FUSION ENGINE v4.2</strong>
+              <Terminal className="w-4 h-4 text-[#F6B73C]" />
+              <strong className="text-[#F4F1EA]">AEROCARE INFERENCE TERMINAL // MULTI-STREAM FUSION ENGINE v4.2</strong>
             </span>
             <div className="flex items-center gap-3">
-              <span className="text-emerald-400 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span className="text-[#8EDCFF] flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#8EDCFF] animate-ping" />
                 PIPELINE: SYNCHRONOUS
               </span>
-              <span className="text-zinc-500">THREADS: 8/8 ACTIVE</span>
+              <span className="text-[#8A8579]">THREADS: 8/8 ACTIVE</span>
             </div>
           </div>
 
           <div className="space-y-2 text-[11px] sm:text-xs leading-relaxed max-h-48 overflow-y-auto">
             {terminalLines.map((line, index) => (
               <div key={index} className="flex items-start gap-2.5">
-                <span className="text-emerald-400 font-bold select-none">&gt;</span>
-                <span className={index === terminalLines.length - 1 ? 'text-emerald-300 font-medium' : 'text-zinc-400'}>
+                <span className="text-[#FF5C4D] font-bold select-none">&gt;</span>
+                <span className={index === terminalLines.length - 1 ? 'text-[#8EDCFF] font-medium' : 'text-[#C8C3B7]'}>
                   {line}
                 </span>
               </div>
             ))}
             {/* Blinking Terminal Cursor */}
-            <div className="flex items-center gap-2 text-emerald-400">
+            <div className="flex items-center gap-2 text-[#FF5C4D]">
               <span className="select-none">&gt;</span>
-              <span className="inline-block w-2.5 h-4 bg-emerald-400 animate-ai-terminal-cursor" />
+              <span className="inline-block w-2.5 h-4 bg-[#FF5C4D] animate-ai-terminal-cursor" />
             </div>
           </div>
         </div>
@@ -779,25 +779,25 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
         {/* ============================================================ */}
         <div className="relative pt-4 flex flex-col items-center text-center">
           {/* Animated signal particles flowing downward toward the next section */}
-          <div className="w-[2px] h-14 bg-gradient-to-b from-emerald-400 via-sky-400 to-transparent relative mb-3 overflow-hidden">
+          <div className="w-[2px] h-14 bg-gradient-to-b from-[#FF5C4D] via-[#F6B73C] to-transparent relative mb-3 overflow-hidden">
             <div className="w-full h-4 bg-white rounded-full animate-bio-synth-stream-1 shadow-[0_0_8px_#ffffff]" />
           </div>
 
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-400 mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-300 font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#151326] border border-white/10 text-xs font-mono text-[#8A8579] mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C4D] animate-pulse" />
+            <span className="text-[#F4F1EA] font-semibold uppercase tracking-wider">
               ANALYSIS COMPLETE → PROCEEDING TO PERSONALIZED HEALTH RISK
             </span>
           </div>
 
-          <p className="text-xs text-zinc-400 max-w-md font-light mb-4">
+          <p className="text-xs text-[#C8C3B7] max-w-md font-light mb-4">
             The multi-stream neural correlation model is now armed with your real-time physiological vulnerability parameters.
           </p>
 
           <button
             id="analysis-to-risk-btn"
             onClick={onScrollToNext}
-            className="px-8 py-3.5 bg-white text-black hover:bg-emerald-400 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_35px_rgba(52,211,153,0.5)] transform hover:scale-105"
+            className="px-8 py-3.5 bg-gradient-to-r from-[#FF5C4D] to-[#F6B73C] text-[#080A16] hover:brightness-110 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer shadow-[0_0_30px_rgba(255,92,77,0.25)] hover:shadow-[0_0_35px_rgba(255,92,77,0.45)] transform hover:scale-105 active:scale-95"
           >
             <span>Proceed to 05 Health Risk Analysis</span>
             <ChevronRight className="w-4 h-4 text-black" />

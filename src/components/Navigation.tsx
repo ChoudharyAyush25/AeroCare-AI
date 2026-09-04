@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'motion/react';
 import {
   Wind,
   ShieldAlert,
@@ -12,7 +13,10 @@ import {
   Compass,
   Loader2,
   X,
-  Radio
+  Radio,
+  Sparkles,
+  Menu,
+  RotateCcw
 } from 'lucide-react';
 import { EnvironmentalData, UserProfile, LocationSearchResult } from '../types';
 import { CITIES } from '../data/mockData';
@@ -30,6 +34,7 @@ interface NavigationProps {
   onSelectCoordinates?: (lat: number, lon: number, locationName: string, countryName?: string) => Promise<void>;
   onUseMyLocation?: () => Promise<void>;
   telemetryStatusMessage?: string | null;
+  onReplayIntro?: () => void;
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
@@ -43,9 +48,11 @@ export const Navigation: React.FC<NavigationProps> = ({
   isLoadingTelemetry = false,
   onSelectCoordinates,
   onUseMyLocation,
-  telemetryStatusMessage
+  telemetryStatusMessage,
+  onReplayIntro
 }) => {
   const [cityMenuOpen, setCityMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<LocationSearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -53,13 +60,13 @@ export const Navigation: React.FC<NavigationProps> = ({
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const navItems = [
-    { id: 'hero', label: 'Intro' },
-    { id: 'environment', label: 'Atmosphere', icon: Wind },
-    { id: 'profile', label: 'Bio Profile', icon: Sliders },
-    { id: 'analysis', label: 'AI Synthesis', icon: Activity },
-    { id: 'risk', label: 'Health Risk', icon: ShieldAlert },
-    { id: 'plan', label: 'Daily Plan', icon: Calendar },
-    { id: 'trends', label: 'Trends', icon: TrendingUp },
+    { id: 'hero', label: 'Intro', shortLabel: 'Intro', icon: Sparkles },
+    { id: 'environment', label: 'Atmosphere', shortLabel: 'Atmo', icon: Wind },
+    { id: 'profile', label: 'Bio Profile', shortLabel: 'Bio', icon: Sliders },
+    { id: 'analysis', label: 'AI Synthesis', shortLabel: 'AI', icon: Activity },
+    { id: 'risk', label: 'Health Risk', shortLabel: 'Risk', icon: ShieldAlert },
+    { id: 'plan', label: 'Daily Plan', shortLabel: 'Plan', icon: Calendar },
+    { id: 'trends', label: 'Trends', shortLabel: 'Trends', icon: TrendingUp },
   ];
 
   // Close dropdown on outside click
@@ -132,44 +139,67 @@ export const Navigation: React.FC<NavigationProps> = ({
     }
   };
 
+  const handleSectionClick = (sectionId: string) => {
+    onNavigate(sectionId);
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 py-4 transition-all duration-300 pointer-events-none">
-      <div className="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
-        {/* Brand */}
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#080A16]/85 backdrop-blur-xl border-b border-white/[0.06] transition-all duration-300">
+      {/* Subtle atmospheric light line beneath header */}
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF5C4D]/35 to-transparent pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 sm:gap-6">
+        {/* =========================================================================
+            1. LEFT → BRAND AREA
+            Clean, editorial, no bulky container borders.
+        ========================================================================= */}
         <button
           id="nav-brand-btn"
-          onClick={() => onNavigate('hero')}
-          className="flex items-center gap-3 group focus:outline-none cursor-pointer"
+          onClick={() => handleSectionClick('hero')}
+          className="flex items-center gap-3 group focus:outline-none cursor-pointer text-left shrink-0"
         >
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#72d6a0] to-[#8fc9d6] flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/40 transition-shadow">
-            <div className="w-4 h-4 bg-white/20 rounded-full blur-[1px]" />
-          </div>
-          <div className="text-left">
-            <div className="flex items-center gap-2">
-              <span className="text-xl font-bold tracking-tight text-white group-hover:text-emerald-400 transition-colors">
-                AeroCare <span className="text-emerald-500">AI</span>
-              </span>
-              {currentCity.isRealTelemetry ? (
-                <span className="text-[9px] uppercase font-semibold tracking-wider text-emerald-400/80 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  Live Telemetry
-                </span>
-              ) : (
-                <span className="text-[9px] uppercase font-semibold tracking-wider text-zinc-500">
-                  Preset
-                </span>
-              )}
+          {/* Solar Eclipse Celestial Mark */}
+          <div className="relative w-8 h-8 rounded-full bg-gradient-to-tr from-[#FF5C4D] via-[#F6B73C] to-[#FF5C4D] p-[1.5px] transition-transform duration-300 group-hover:scale-105 shadow-[0_0_14px_rgba(255,92,77,0.3)]">
+            <div className="w-full h-full rounded-full bg-[#080A16] flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#FF5C4D]/25 to-transparent opacity-80" />
+              <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-tr from-[#FF5C4D] to-[#F6B73C] shadow-[0_0_8px_rgba(255,92,77,0.85)]" />
             </div>
-            <p className="text-[10px] font-mono tracking-tighter text-zinc-500 hidden sm:block">
-              {currentCity.isRealTelemetry ? currentCity.lastUpdated : 'SYSTEM: ACTIVE'}
-            </p>
+          </div>
+
+          <div>
+            <div className="flex items-center gap-1.5 leading-tight">
+              <span className="text-sm tracking-[0.14em] font-bold text-[#F4F1EA] group-hover:text-white transition-colors uppercase">
+                AeroCare
+              </span>
+              <span className="text-[10px] font-mono font-bold tracking-widest text-[#FF5C4D] px-1 py-0.5 rounded bg-[#FF5C4D]/10 border border-[#FF5C4D]/20">
+                AI
+              </span>
+            </div>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <span
+                className={`w-1.5 h-1.5 rounded-full ${
+                  currentCity.isRealTelemetry
+                    ? 'bg-[#8EDCFF] shadow-[0_0_6px_#8EDCFF]'
+                    : 'bg-[#63D9B3] shadow-[0_0_6px_#63D9B3]'
+                } animate-pulse`}
+              />
+              <span className="text-[9px] font-mono tracking-widest text-[#8A8579] uppercase">
+                {currentCity.isRealTelemetry ? 'Live Telemetry' : 'Station Active'}
+              </span>
+            </div>
           </div>
         </button>
 
-        {/* Center Desktop Navigation Pill */}
+        {/* =========================================================================
+            2. CENTER → PRIMARY STORY NAVIGATION TIMELINE
+            Apple-level simplicity + futuristic instrument. Uncluttered, generous breathing
+            room, with one signature active treatment.
+        ========================================================================= */}
         <nav
           id="main-nav-pill"
-          className="hidden md:flex items-center gap-1 px-2 py-1.5 rounded-full bg-[#071413]/60 backdrop-blur-xl border border-white/[0.06]"
+          aria-label="Story sections navigation"
+          className="hidden md:flex items-center gap-1 lg:gap-2 px-2 py-1 relative"
         >
           {navItems.map((item, idx) => {
             const isActive = activeSection === item.id;
@@ -177,78 +207,123 @@ export const Navigation: React.FC<NavigationProps> = ({
               <button
                 key={item.id}
                 id={`nav-link-${item.id}`}
-                onClick={() => onNavigate(item.id)}
-                className={`relative px-3.5 py-1.5 rounded-full text-xs uppercase tracking-widest font-semibold transition-all duration-200 cursor-pointer ${
+                onClick={() => handleSectionClick(item.id)}
+                className={`relative px-3 py-1.5 text-xs font-mono transition-colors duration-200 cursor-pointer flex items-center gap-1.5 rounded-full ${
                   isActive
-                    ? 'text-emerald-300 bg-white/5 border-b border-emerald-400/70'
-                    : 'text-zinc-500 hover:text-zinc-200 hover:bg-white/5'
+                    ? 'text-[#F4F1EA] font-semibold'
+                    : 'text-[#8A8579] hover:text-[#F4F1EA]'
                 }`}
               >
-                0{idx + 1} {item.label}
+                {/* Unified Sliding Active Indicator */}
+                {isActive && (
+                  <motion.div
+                    layoutId="activeNavIndicator"
+                    className="absolute inset-0 rounded-full bg-white/[0.07] border border-[#FF5C4D]/40 shadow-[0_0_12px_rgba(255,92,77,0.2)]"
+                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                  />
+                )}
+
+                {/* Section Index Marker */}
+                <span
+                  className={`relative z-10 text-[9px] font-mono transition-colors ${
+                    isActive ? 'text-[#FF5C4D] font-bold' : 'text-[#8A8579]/60'
+                  }`}
+                >
+                  0{idx + 1}
+                </span>
+
+                {/* Section Title */}
+                <span className="relative z-10 font-sans tracking-wide uppercase text-[11px]">
+                  <span className="hidden xl:inline">{item.label}</span>
+                  <span className="xl:hidden">{item.shortLabel}</span>
+                </span>
               </button>
             );
           })}
         </nav>
 
-        {/* Right Controls: City Selector + Temp Toggle + Profile Pill */}
-        <div className="flex items-center gap-2">
-          {/* City Selector dropdown */}
+        {/* =========================================================================
+            3. RIGHT → CONSOLIDATED SCIENTIFIC INSTRUMENT CONTROLS
+            No row of 4-5 disconnected floating pills. Grouped cleanly by function.
+        ========================================================================= */}
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+          {/* Replay Cinematic Intro - Subtle icon button */}
+          {onReplayIntro && (
+            <button
+              id="nav-replay-intro-btn"
+              onClick={onReplayIntro}
+              title="Replay Opening Sequence"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-[#8A8579] hover:text-[#F6B73C] hover:bg-white/[0.05] transition-colors cursor-pointer"
+              aria-label="Replay intro sequence"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+            </button>
+          )}
+
+          {/* Location Selector Dropdown Trigger */}
           <div className="relative" ref={dropdownRef}>
             <button
               id="nav-city-select-btn"
               onClick={() => setCityMenuOpen(!cityMenuOpen)}
-              className="flex items-center gap-2 bg-[#071413]/60 hover:bg-white/5 px-3 py-1.5 rounded-xl border border-white/[0.08] hover:border-white/20 text-xs text-zinc-300 transition-all cursor-pointer"
+              className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-1.5 rounded-lg text-xs text-[#F4F1EA] hover:bg-white/[0.06] transition-colors cursor-pointer border border-transparent hover:border-white/10"
               title="Select or search location"
             >
               {isLoadingTelemetry ? (
-                <Loader2 className="w-3.5 h-3.5 text-emerald-400 animate-spin" />
+                <Loader2 className="w-3.5 h-3.5 text-[#F6B73C] animate-spin" />
               ) : (
-                <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                <MapPin className="w-3.5 h-3.5 text-[#FF5C4D]" />
               )}
-              <span className="max-w-[110px] truncate font-medium">{currentCity.location.split(',')[0]}</span>
-              <ChevronDown className={`w-3 h-3 text-zinc-500 transition-transform ${cityMenuOpen ? 'rotate-180' : ''}`} />
+              <span className="font-medium max-w-[85px] sm:max-w-[120px] truncate text-[12px] sm:text-[13px]">
+                {currentCity.location.split(',')[0]}
+              </span>
+              <ChevronDown
+                className={`w-3 h-3 text-[#8A8579] transition-transform duration-200 ${
+                  cityMenuOpen ? 'rotate-180 text-[#FF5C4D]' : ''
+                }`}
+              />
             </button>
 
+            {/* City Dropdown Menu */}
             {cityMenuOpen && (
               <div
                 id="nav-city-dropdown"
-                className="absolute right-0 mt-2 w-72 sm:w-80 rounded-2xl glass-panel-glow bg-zinc-950/95 border border-zinc-800 shadow-2xl p-2.5 z-50 animate-in fade-in zoom-in-95 duration-150"
+                className="absolute right-0 mt-2 w-72 sm:w-80 rounded-2xl bg-[#151326]/95 backdrop-blur-2xl border border-white/10 shadow-2xl p-3 z-50 animate-in fade-in zoom-in-95 duration-150"
               >
                 {/* Geolocation Trigger */}
                 <button
                   id="nav-use-my-location-btn"
                   onClick={handleMyLocationClick}
                   disabled={isLoadingTelemetry}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 font-medium transition-colors cursor-pointer group mb-2.5"
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs bg-[#FF5C4D]/10 hover:bg-[#FF5C4D]/20 border border-[#FF5C4D]/30 text-[#FF5C4D] font-medium transition-colors cursor-pointer group mb-2.5"
                 >
                   <div className="flex items-center gap-2">
                     {isLoadingTelemetry ? (
-                      <Loader2 className="w-3.5 h-3.5 animate-spin text-emerald-400" />
+                      <Loader2 className="w-3.5 h-3.5 animate-spin text-[#F6B73C]" />
                     ) : (
-                      <Compass className="w-3.5 h-3.5 text-emerald-400 group-hover:rotate-45 transition-transform" />
+                      <Compass className="w-3.5 h-3.5 text-[#FF5C4D] group-hover:rotate-45 transition-transform duration-300" />
                     )}
                     <span>Use My Current Location</span>
                   </div>
-                  <span className="text-[9px] font-mono uppercase tracking-wider text-emerald-400/90 bg-emerald-500/20 px-1.5 py-0.5 rounded">
+                  <span className="text-[9px] font-mono uppercase tracking-wider text-[#F6B73C] bg-[#F6B73C]/15 px-1.5 py-0.5 rounded border border-[#F6B73C]/20">
                     GPS
                   </span>
                 </button>
 
                 {/* Search Bar */}
                 <div className="relative mb-2">
-                  <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <Search className="w-3.5 h-3.5 text-[#8A8579] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
                     ref={searchInputRef}
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search global city or region..."
-                    className="w-full bg-zinc-900/80 border border-zinc-800 rounded-xl pl-8 pr-7 py-1.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-emerald-500/50 transition-colors"
+                    className="w-full bg-[#080A16] border border-white/10 rounded-xl pl-8 pr-7 py-1.5 text-xs text-[#F4F1EA] placeholder-[#8A8579] focus:outline-none focus:border-[#FF5C4D]/50 transition-colors"
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery('')}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-200"
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#8A8579] hover:text-[#F4F1EA]"
                     >
                       <X className="w-3 h-3" />
                     </button>
@@ -264,20 +339,20 @@ export const Navigation: React.FC<NavigationProps> = ({
 
                 {/* Search Results */}
                 {searchQuery.trim().length >= 2 && (
-                  <div className="mb-2.5 pb-2.5 border-b border-zinc-800/80">
-                    <div className="px-1 py-1 text-[10px] uppercase font-bold tracking-widest text-zinc-500 flex items-center justify-between">
+                  <div className="mb-2.5 pb-2.5 border-b border-white/[0.08]">
+                    <div className="px-1 py-1 text-[10px] uppercase font-bold tracking-widest text-[#8A8579] flex items-center justify-between">
                       <span>Global Search Results</span>
-                      {isSearching && <Loader2 className="w-3 h-3 animate-spin text-emerald-400" />}
+                      {isSearching && <Loader2 className="w-3 h-3 animate-spin text-[#F6B73C]" />}
                     </div>
 
                     {isSearching && searchResults.length === 0 && (
-                      <div className="py-3 text-center text-xs text-zinc-500">
+                      <div className="py-3 text-center text-xs text-[#8A8579]">
                         Querying atmospheric telemetry...
                       </div>
                     )}
 
                     {!isSearching && searchResults.length === 0 && (
-                      <div className="py-2.5 text-center text-xs text-zinc-500">
+                      <div className="py-2.5 text-center text-xs text-[#8A8579]">
                         No locations found for &ldquo;{searchQuery}&rdquo;
                       </div>
                     )}
@@ -287,17 +362,17 @@ export const Navigation: React.FC<NavigationProps> = ({
                         <button
                           key={`${result.id}-${result.latitude}-${result.longitude}`}
                           onClick={() => handleSelectSearchResult(result)}
-                          className="w-full text-left px-2.5 py-2 rounded-xl text-xs flex items-center justify-between text-zinc-300 hover:bg-zinc-800/70 hover:text-emerald-300 transition-colors cursor-pointer group"
+                          className="w-full text-left px-2.5 py-2 rounded-xl text-xs flex items-center justify-between text-[#C8C3B7] hover:bg-white/5 hover:text-[#F4F1EA] transition-colors cursor-pointer group"
                         >
                           <div className="truncate pr-2">
-                            <p className="font-medium text-zinc-200 group-hover:text-emerald-300 truncate">
+                            <p className="font-medium text-[#F4F1EA] group-hover:text-[#FF5C4D] truncate">
                               {result.name}
                             </p>
-                            <p className="text-[10px] text-zinc-500 truncate">
+                            <p className="text-[10px] text-[#8A8579] truncate">
                               {[result.admin1, result.country].filter(Boolean).join(', ')}
                             </p>
                           </div>
-                          <Radio className="w-3 h-3 text-zinc-600 group-hover:text-emerald-400 shrink-0" />
+                          <Radio className="w-3 h-3 text-[#8A8579] group-hover:text-[#8EDCFF] shrink-0" />
                         </button>
                       ))}
                     </div>
@@ -306,7 +381,7 @@ export const Navigation: React.FC<NavigationProps> = ({
 
                 {/* Preset Stations */}
                 <div>
-                  <div className="px-1 py-1 text-[10px] uppercase font-bold tracking-widest text-zinc-500 flex items-center justify-between">
+                  <div className="px-1 py-1 text-[10px] uppercase font-bold tracking-widest text-[#8A8579] flex items-center justify-between">
                     <span>Preset Telemetry Stations</span>
                   </div>
                   <div className="py-0.5 max-h-48 overflow-y-auto space-y-0.5">
@@ -322,22 +397,22 @@ export const Navigation: React.FC<NavigationProps> = ({
                           }}
                           className={`w-full text-left px-2.5 py-1.5 rounded-xl text-xs flex items-center justify-between transition-colors cursor-pointer ${
                             isSelected
-                              ? 'bg-emerald-500/15 text-emerald-300 font-semibold border border-emerald-500/30'
-                              : 'text-zinc-300 hover:bg-zinc-800/60'
+                              ? 'bg-[#FF5C4D]/15 text-[#F4F1EA] font-semibold border border-[#FF5C4D]/30'
+                              : 'text-[#C8C3B7] hover:bg-white/5'
                           }`}
                         >
                           <div>
                             <p className="font-medium">{c.location}</p>
-                            <p className="text-[10px] text-zinc-500">{c.country}</p>
+                            <p className="text-[10px] text-[#8A8579]">{c.country}</p>
                           </div>
                           <div className="text-right">
                             <span
                               className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-mono ${
                                 c.aqi <= 50
-                                  ? 'bg-emerald-500/20 text-emerald-300'
+                                  ? 'bg-[#63D9B3]/20 text-[#63D9B3]'
                                   : c.aqi <= 100
-                                  ? 'bg-amber-500/20 text-amber-300'
-                                  : 'bg-rose-500/20 text-rose-300'
+                                  ? 'bg-[#F6B73C]/20 text-[#F6B73C]'
+                                  : 'bg-[#FF5C4D]/20 text-[#FF5C4D]'
                               }`}
                             >
                               AQI {c.aqi}
@@ -352,32 +427,104 @@ export const Navigation: React.FC<NavigationProps> = ({
             )}
           </div>
 
-          {/* Unit Switcher °C / °F */}
+          {/* Temperature Unit Toggle Button */}
           <button
             id="nav-temp-unit-toggle"
             onClick={onToggleTempUnit}
             title="Toggle Celsius / Fahrenheit"
-            className="glass-panel bg-zinc-900/60 px-2.5 py-1.5 rounded-xl border border-zinc-800 text-xs font-mono font-medium text-emerald-400 hover:bg-emerald-500/10 transition-colors cursor-pointer"
+            className="px-2 py-1.5 rounded-lg text-xs font-mono font-medium text-[#F6B73C] hover:text-[#FF5C4D] hover:bg-white/[0.05] transition-colors cursor-pointer"
           >
             {isCelsius ? '°C' : '°F'}
           </button>
 
-          {/* Quick Profile Status pill */}
+          {/* User Bio-Profile Quick Jump */}
           <button
             id="nav-profile-pill-btn"
-            onClick={() => onNavigate('profile')}
-            className="hidden lg:flex items-center gap-1.5 glass-panel bg-zinc-900/60 px-3 py-1.5 rounded-xl border border-zinc-800 text-xs text-zinc-300 hover:border-emerald-500/40 transition-all cursor-pointer"
-            title="Current Bio-Profile"
+            onClick={() => handleSectionClick('profile')}
+            title="Biological Profile & Telemetry Calibration"
+            className="hidden sm:flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[#F4F1EA] hover:bg-white/[0.06] transition-colors cursor-pointer group border border-transparent hover:border-white/10"
           >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="capitalize font-medium text-zinc-200">
+            <div className="w-5 h-5 rounded-full bg-[#FF5C4D]/10 border border-[#FF5C4D]/30 flex items-center justify-center">
+              <Sliders className="w-2.5 h-2.5 text-[#FF5C4D]" />
+            </div>
+            <span className="capitalize text-xs font-medium text-[#C8C3B7] group-hover:text-[#F4F1EA]">
               {userProfile.healthCondition === 'heart_condition' ? 'Cardiac' : userProfile.healthCondition}
             </span>
-            <span className="text-zinc-600">•</span>
-            <span className="text-zinc-400 capitalize">{userProfile.ageGroup}</span>
+          </button>
+
+          {/* Mobile Drawer Menu Toggle (Only visible on small screens) */}
+          <button
+            id="nav-mobile-menu-btn"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden w-8 h-8 rounded-lg flex items-center justify-center text-[#F4F1EA] hover:bg-white/[0.06] transition-colors cursor-pointer"
+            aria-label="Toggle story menu"
+          >
+            {mobileMenuOpen ? (
+              <X className="w-4 h-4 text-[#FF5C4D]" />
+            ) : (
+              <Menu className="w-4 h-4 text-[#C8C3B7]" />
+            )}
           </button>
         </div>
       </div>
+
+      {/* =========================================================================
+          4. MOBILE STORY DRAWER
+          Collapsible panel on mobile viewports for effortless 1-tap navigation.
+      ========================================================================= */}
+      {mobileMenuOpen && (
+        <div
+          id="nav-mobile-drawer"
+          className="md:hidden bg-[#080A16]/95 backdrop-blur-2xl border-b border-white/10 px-4 py-3 space-y-2.5 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-150"
+        >
+          <div className="text-[10px] font-mono uppercase tracking-widest text-[#8A8579] px-1">
+            Story Sequence Timeline
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+            {navItems.map((item, idx) => {
+              const isActive = activeSection === item.id;
+              const Icon = item.icon;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => handleSectionClick(item.id)}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-mono transition-colors cursor-pointer ${
+                    isActive
+                      ? 'bg-[#FF5C4D]/15 text-[#F4F1EA] font-semibold border border-[#FF5C4D]/30'
+                      : 'text-[#C8C3B7] hover:bg-white/5'
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className={isActive ? 'text-[#FF5C4D] font-bold' : 'text-[#8A8579]'}>
+                      0{idx + 1}
+                    </span>
+                    <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-[#FF5C4D]' : 'text-[#8A8579]'}`} />
+                    <span className="font-sans font-medium text-xs tracking-wide uppercase">
+                      {item.label}
+                    </span>
+                  </div>
+                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C4D] shadow-[0_0_6px_#FF5C4D]" />}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Quick Profile Jump in Mobile Drawer */}
+          <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between px-1">
+            <span className="text-[11px] font-mono text-[#8A8579]">Bio Profile:</span>
+            <button
+              onClick={() => handleSectionClick('profile')}
+              className="flex items-center gap-1.5 text-xs text-[#FF5C4D] font-medium"
+            >
+              <span className="capitalize">
+                {userProfile.healthCondition === 'heart_condition' ? 'Cardiac' : userProfile.healthCondition}
+              </span>
+              <span className="text-[#8A8579]">({userProfile.ageGroup})</span>
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

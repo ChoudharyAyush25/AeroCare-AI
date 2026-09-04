@@ -116,13 +116,13 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
       tagline: 'START YOUR DAY SAFELY',
       time: '06:00 – 11:30',
       icon: Sunrise,
-      themeColor: '#10b981',
-      ambientGlow: 'rgba(245, 158, 11, 0.12)',
-      auroraColor: 'rgba(16, 185, 129, 0.15)',
-      accent: 'from-amber-500/10 via-emerald-500/5 to-transparent',
-      border: 'border-emerald-500/40',
-      badge: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
-      tagColor: 'text-amber-300',
+      themeColor: '#63D9B3',
+      ambientGlow: 'rgba(246, 183, 60, 0.12)',
+      auroraColor: 'rgba(99, 217, 179, 0.15)',
+      accent: 'from-[#F6B73C]/10 via-[#63D9B3]/5 to-transparent',
+      border: 'border-[#63D9B3]/40',
+      badge: 'bg-[#63D9B3]/15 text-[#63D9B3] border-[#63D9B3]/30',
+      tagColor: 'text-[#F6B73C]',
       guidance: `Optimal atmospheric boundary conditions before photochemical solar activation. Utilize this window for scheduled outdoor tasks and home cross-ventilation while ground ozone is minimal. Protect airways if ${userProfile.healthCondition.replace('_', ' ')} sensitivities trigger with early morning humidity.`
     },
     afternoon: {
@@ -199,11 +199,11 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
           <div>
             {/* First reveal: YOUR PERSONALIZED PLAN IS READY */}
             <div
-              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/80 border border-zinc-800 text-emerald-400 text-xs font-mono uppercase tracking-wider mb-3 shadow-sm transition-all duration-500 ${
+              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#151326]/80 border border-white/10 text-[#FF5C4D] text-xs font-mono uppercase tracking-wider mb-3 shadow-sm transition-all duration-500 ${
                 entryPhase >= 0 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
               }`}
             >
-              <Calendar className="w-3.5 h-3.5 animate-pulse text-emerald-400" />
+              <Calendar className="w-3.5 h-3.5 animate-pulse text-[#FF5C4D]" />
               <span>YOUR PERSONALIZED PLAN IS READY // PROTOCOL 06</span>
             </div>
 
@@ -231,15 +231,15 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
           {/* Location & Progress Tracker Header */}
           <div className="flex flex-col items-start md:items-end gap-2 text-xs font-mono">
             <div className="flex items-center gap-2 text-zinc-400">
-              <Compass className="w-3.5 h-3.5 text-emerald-400" />
+              <Compass className="w-3.5 h-3.5 text-[#8EDCFF]" />
               <span>Location: <strong className="text-white">{currentCity.location}</strong></span>
             </div>
 
             {/* Daily Actions Completion Counter */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/80 border border-zinc-800 text-[11px] text-zinc-400">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#151326]/80 border border-white/10 text-[11px] text-zinc-400">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#63D9B3]" />
               <span>
-                <strong className="text-emerald-400 font-bold">{totalCompletedCount}</strong> / 12 PROTOCOL ACTIONS COMPLETED
+                <strong className="text-[#63D9B3] font-bold">{totalCompletedCount}</strong> / 12 PROTOCOL ACTIONS COMPLETED
               </span>
             </div>
           </div>
@@ -250,10 +250,10 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
         {/* ============================================================ */}
         <div className="mb-8 relative">
           {/* Day Progress Track Line */}
-          <div className="relative p-2 rounded-2xl bg-zinc-900/70 border border-zinc-800/90 backdrop-blur-xl shadow-xl overflow-hidden">
+          <div className="relative p-2 rounded-2xl bg-[#151326]/70 border border-white/10 backdrop-blur-xl shadow-xl overflow-hidden">
             {/* Ambient traveling glowing signal beam across full timeline */}
-            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px] bg-gradient-to-r from-emerald-500/20 via-white/40 to-sky-500/20 pointer-events-none" />
-            <div className="absolute top-1/2 -translate-y-1/2 w-32 h-2 bg-gradient-to-r from-transparent via-emerald-400 to-transparent blur-[2px] pointer-events-none animate-plan-signal" />
+            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px] bg-gradient-to-r from-[#FF5C4D]/20 via-white/40 to-[#8EDCFF]/20 pointer-events-none" />
+            <div className="absolute top-1/2 -translate-y-1/2 w-32 h-2 bg-gradient-to-r from-transparent via-[#FF5C4D] to-transparent blur-[2px] pointer-events-none animate-plan-signal" />
 
             {/* Timeline Switcher Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2 relative z-10">
@@ -325,10 +325,10 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
                       <span
                         className={`text-[10px] uppercase font-mono px-2 py-0.5 rounded font-semibold ${
                           periodData.activityRating === 'Recommended'
-                            ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
+                            ? 'bg-[#63D9B3]/15 text-[#63D9B3] border border-[#63D9B3]/30'
                             : periodData.activityRating === 'Caution'
-                            ? 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
-                            : 'bg-rose-500/15 text-rose-300 border border-rose-500/30'
+                            ? 'bg-[#F6B73C]/15 text-[#F6B73C] border border-[#F6B73C]/30'
+                            : 'bg-[#FF5C4D]/15 text-[#FF5C4D] border border-[#FF5C4D]/30'
                         }`}
                       >
                         {periodData.activityRating}
@@ -367,7 +367,7 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
               <div>
                 <div className="flex items-center gap-2 mb-0.5">
                   <span className="text-xs font-mono font-bold uppercase tracking-wider text-white flex items-center gap-1.5">
-                    <Zap className="w-3.5 h-3.5 text-emerald-400" />
+                    <Zap className="w-3.5 h-3.5 text-[#FF5C4D]" />
                     AEROCARE AI GUIDANCE // {currentConfig.label.toUpperCase()} PROTOCOL
                   </span>
                   <span className="text-[10px] font-mono text-zinc-500 hidden sm:inline">
@@ -381,7 +381,7 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
             </div>
 
             <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
-              <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded bg-zinc-950 text-emerald-400 border border-zinc-800">
+              <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded bg-[#080A16] text-[#FF5C4D] border border-white/10">
                 AI ACTIVE
               </span>
             </div>
@@ -426,12 +426,12 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
             <div className="flex items-center gap-4 bg-zinc-950/90 p-3.5 rounded-2xl border border-zinc-800 font-mono text-xs shadow-inner">
               <div className="text-center px-2">
                 <span className="text-zinc-500 block text-[10px]">Predicted AQI</span>
-                <span className="text-emerald-400 font-bold text-lg">{slotData.aqi}</span>
+                <span className="text-[#63D9B3] font-bold text-lg">{slotData.aqi}</span>
               </div>
               <div className="h-8 w-px bg-zinc-800" />
               <div className="text-center px-2">
                 <span className="text-zinc-500 block text-[10px]">Temperature</span>
-                <span className="text-orange-300 font-bold text-lg">{formatTemp(slotData.temp)}</span>
+                <span className="text-[#F6B73C] font-bold text-lg">{formatTemp(slotData.temp)}</span>
               </div>
               <div className="h-8 w-px bg-zinc-800" />
               <div className="text-center px-2">
@@ -454,13 +454,13 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
                 <div
                   className={`p-5 rounded-2xl border transition-all duration-300 flex flex-col justify-between space-y-3 relative overflow-hidden ${
                     isDone
-                      ? 'bg-zinc-950/95 border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.15)]'
+                      ? 'bg-[#151326]/95 border-[#63D9B3]/50 shadow-[0_0_20px_rgba(99,217,179,0.15)]'
                       : 'bg-zinc-950/80 border-zinc-800/90 hover:border-zinc-700'
                   }`}
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-emerald-400">
+                      <div className="flex items-center gap-2 text-[#8EDCFF]">
                         <Footprints className="w-4 h-4" />
                         <span className="text-xs font-semibold text-zinc-200 uppercase font-mono tracking-wider">
                           Outdoor Exertion
@@ -469,10 +469,10 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
                       <span
                         className={`text-[10px] font-mono px-2 py-0.5 rounded font-semibold ${
                           slotData.activityRating === 'Recommended'
-                            ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
+                            ? 'bg-[#63D9B3]/15 text-[#63D9B3] border border-[#63D9B3]/30'
                             : slotData.activityRating === 'Caution'
-                            ? 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
-                            : 'bg-rose-500/15 text-rose-300 border border-rose-500/30'
+                            ? 'bg-[#F6B73C]/15 text-[#F6B73C] border border-[#F6B73C]/30'
+                            : 'bg-[#FF5C4D]/15 text-[#FF5C4D] border border-[#FF5C4D]/30'
                         }`}
                       >
                         {slotData.activityRating}
@@ -495,11 +495,11 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
                     onClick={() => toggleActionCompleted(actionKey)}
                     className={`w-full py-2 px-3 rounded-xl text-xs font-mono font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
                       isDone
-                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                        ? 'bg-[#63D9B3]/20 text-[#63D9B3] border border-[#63D9B3]/40'
                         : 'bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800'
                     }`}
                   >
-                    <Check className={`w-3.5 h-3.5 ${isDone ? 'text-emerald-400 stroke-[3]' : 'text-zinc-500'}`} />
+                    <Check className={`w-3.5 h-3.5 ${isDone ? 'text-[#63D9B3] stroke-[3]' : 'text-zinc-500'}`} />
                     <span>{isDone ? 'Action Completed ✓' : 'Mark as completed'}</span>
                   </button>
                 </div>
@@ -515,19 +515,19 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
                 <div
                   className={`p-5 rounded-2xl border transition-all duration-300 flex flex-col justify-between space-y-3 relative overflow-hidden ${
                     isDone
-                      ? 'bg-zinc-950/95 border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.15)]'
+                      ? 'bg-[#151326]/95 border-[#63D9B3]/50 shadow-[0_0_20px_rgba(99,217,179,0.15)]'
                       : 'bg-zinc-950/80 border-zinc-800/90 hover:border-zinc-700'
                   }`}
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-sky-400">
+                      <div className="flex items-center gap-2 text-[#8EDCFF]">
                         <Home className="w-4 h-4" />
                         <span className="text-xs font-semibold text-zinc-200 uppercase font-mono tracking-wider">
                           Airflow & Windows
                         </span>
                       </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#8EDCFF]/10 text-[#8EDCFF] border border-[#8EDCFF]/20">
                         Ventilation
                       </span>
                     </div>
@@ -546,11 +546,11 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
                     onClick={() => toggleActionCompleted(actionKey)}
                     className={`w-full py-2 px-3 rounded-xl text-xs font-mono font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
                       isDone
-                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                        ? 'bg-[#63D9B3]/20 text-[#63D9B3] border border-[#63D9B3]/40'
                         : 'bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800'
                     }`}
                   >
-                    <Check className={`w-3.5 h-3.5 ${isDone ? 'text-emerald-400 stroke-[3]' : 'text-zinc-500'}`} />
+                    <Check className={`w-3.5 h-3.5 ${isDone ? 'text-[#63D9B3] stroke-[3]' : 'text-zinc-500'}`} />
                     <span>{isDone ? 'Action Completed ✓' : 'Mark as completed'}</span>
                   </button>
                 </div>
@@ -566,13 +566,13 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
                 <div
                   className={`p-5 rounded-2xl border transition-all duration-300 flex flex-col justify-between space-y-3 relative overflow-hidden ${
                     isDone
-                      ? 'bg-zinc-950/95 border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.15)]'
+                      ? 'bg-[#151326]/95 border-[#63D9B3]/50 shadow-[0_0_20px_rgba(99,217,179,0.15)]'
                       : 'bg-zinc-950/80 border-zinc-800/90 hover:border-zinc-700'
                   }`}
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-indigo-400">
+                      <div className="flex items-center gap-2 text-[#8EDCFF]">
                         <Shield className="w-4 h-4" />
                         <span className="text-xs font-semibold text-zinc-200 uppercase font-mono tracking-wider">
                           Respiratory Mask
@@ -581,7 +581,7 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
                       <span
                         className={`text-[10px] font-mono px-2 py-0.5 rounded font-semibold ${
                           slotData.maskAdvised
-                            ? 'bg-orange-500/15 text-orange-300 border border-orange-500/30'
+                            ? 'bg-[#FF5C4D]/15 text-[#FF5C4D] border border-[#FF5C4D]/30'
                             : 'bg-zinc-800 text-zinc-400'
                         }`}
                       >
@@ -603,11 +603,11 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
                     onClick={() => toggleActionCompleted(actionKey)}
                     className={`w-full py-2 px-3 rounded-xl text-xs font-mono font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
                       isDone
-                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                        ? 'bg-[#63D9B3]/20 text-[#63D9B3] border border-[#63D9B3]/40'
                         : 'bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800'
                     }`}
                   >
-                    <Check className={`w-3.5 h-3.5 ${isDone ? 'text-emerald-400 stroke-[3]' : 'text-zinc-500'}`} />
+                    <Check className={`w-3.5 h-3.5 ${isDone ? 'text-[#63D9B3] stroke-[3]' : 'text-zinc-500'}`} />
                     <span>{isDone ? 'Action Completed ✓' : 'Mark as completed'}</span>
                   </button>
                 </div>
@@ -623,19 +623,19 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
                 <div
                   className={`p-5 rounded-2xl border transition-all duration-300 flex flex-col justify-between space-y-3 relative overflow-hidden ${
                     isDone
-                      ? 'bg-zinc-950/95 border-emerald-500/50 shadow-[0_0_20px_rgba(16,185,129,0.15)]'
+                      ? 'bg-[#151326]/95 border-[#63D9B3]/50 shadow-[0_0_20px_rgba(99,217,179,0.15)]'
                       : 'bg-zinc-950/80 border-zinc-800/90 hover:border-zinc-700'
                   }`}
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2 text-amber-400">
+                      <div className="flex items-center gap-2 text-[#F6B73C]">
                         <Sparkles className="w-4 h-4" />
                         <span className="text-xs font-semibold text-zinc-200 uppercase font-mono tracking-wider">
                           Targeted Action
                         </span>
                       </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#F6B73C]/10 text-[#F6B73C] border border-[#F6B73C]/20">
                         Physiological
                       </span>
                     </div>
@@ -654,11 +654,11 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
                     onClick={() => toggleActionCompleted(actionKey)}
                     className={`w-full py-2 px-3 rounded-xl text-xs font-mono font-medium flex items-center justify-center gap-2 transition-all cursor-pointer ${
                       isDone
-                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                        ? 'bg-[#63D9B3]/20 text-[#63D9B3] border border-[#63D9B3]/40'
                         : 'bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800 border border-zinc-800'
                     }`}
                   >
-                    <Check className={`w-3.5 h-3.5 ${isDone ? 'text-emerald-400 stroke-[3]' : 'text-zinc-500'}`} />
+                    <Check className={`w-3.5 h-3.5 ${isDone ? 'text-[#63D9B3] stroke-[3]' : 'text-zinc-500'}`} />
                     <span>{isDone ? 'Action Completed ✓' : 'Mark as completed'}</span>
                   </button>
                 </div>
@@ -672,13 +672,13 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
         {/* ============================================================ */}
         <div className="relative pt-2 flex flex-col items-center text-center">
           {/* Animated signal conduit moving toward Section 07 */}
-          <div className="w-[2px] h-12 bg-gradient-to-b from-emerald-400 via-sky-400 to-transparent relative mb-3 overflow-hidden">
+          <div className="w-[2px] h-12 bg-gradient-to-b from-[#FF5C4D] via-[#F6B73C] to-transparent relative mb-3 overflow-hidden">
             <div className="w-full h-4 bg-white rounded-full animate-bio-synth-stream-1 shadow-[0_0_8px_#ffffff]" />
           </div>
 
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-400 mb-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-300 font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#151326] border border-white/10 text-xs font-mono text-zinc-400 mb-2">
+            <span className="w-2 h-2 rounded-full bg-[#63D9B3] animate-pulse" />
+            <span className="text-[#63D9B3] font-semibold uppercase tracking-wider">
               TODAY&apos;S PLAN ACTIVE
             </span>
           </div>
@@ -693,10 +693,10 @@ export const PlanSection: React.FC<PlanSectionProps> = ({
           <button
             id="plan-to-trends-cta"
             onClick={onScrollToNext}
-            className="px-8 py-3.5 bg-white text-black hover:bg-emerald-400 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_35px_rgba(52,211,153,0.5)] transform hover:scale-105"
+            className="px-8 py-3.5 bg-white text-black hover:bg-[#FF5C4D] hover:text-white rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_35px_rgba(255,92,77,0.5)] transform hover:scale-105"
           >
             <span>Proceed to 07 Environmental Trends</span>
-            <ChevronRight className="w-4 h-4 text-black" />
+            <ChevronRight className="w-4 h-4 text-current" />
           </button>
         </div>
       </div>

@@ -110,8 +110,8 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
       label: 'AQI Curve',
       fullName: 'Air Quality (AQI)',
       unit: 'AQI',
-      color: '#34d399', // emerald-400
-      glowColor: 'rgba(52, 211, 153, 0.25)',
+      color: '#63D9B3',
+      glowColor: 'rgba(99, 217, 179, 0.25)',
       gradientId: 'aqiTrendGradient',
       min: 0,
       max: Math.max(150, Math.max(...trends.map((t) => t.aqi)) + 20),
@@ -279,12 +279,12 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
           <div>
             {/* Reveal 1: FORECAST ENGINE ACTIVE */}
             <div
-              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/80 border border-zinc-800 text-xs font-mono uppercase tracking-wider mb-3 transition-all duration-500 shadow-sm ${
+              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#151326]/80 border border-white/10 text-xs font-mono uppercase tracking-wider mb-3 transition-all duration-500 shadow-sm ${
                 entryPhase >= 0 ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
               }`}
             >
-              <TrendingUp className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-              <span className="text-emerald-400 font-semibold">FORECAST ENGINE ACTIVE // PROTOCOL 07</span>
+              <TrendingUp className="w-3.5 h-3.5 text-[#FF5C4D] animate-pulse" />
+              <span className="text-[#FF5C4D] font-semibold">FORECAST ENGINE ACTIVE // PROTOCOL 07</span>
             </div>
 
             {/* Reveal 2: 24-Hour Environmental Trends */}
@@ -349,18 +349,18 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
           <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
             {/* Timeline Directional Heading */}
             <div className="flex items-center gap-3 text-xs font-mono tracking-wider text-zinc-400 shrink-0">
-              <Clock className="w-4 h-4 text-emerald-400" />
+              <Clock className="w-4 h-4 text-[#8EDCFF]" />
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-zinc-500">← PAST 24 HOURS</span>
                 <span className="text-zinc-600 font-bold">•</span>
-                <span className="text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                <span className="text-[#63D9B3] font-bold bg-[#63D9B3]/10 px-2 py-0.5 rounded border border-[#63D9B3]/20">
                   NOW ({trends[4]?.time || '12:00'})
                 </span>
                 <span className="text-zinc-600 font-bold">•</span>
                 <span className="text-sky-400">NEXT 24 HOURS (PROJECTED) →</span>
                 {currentCity.isRealTelemetry && (
-                  <span className="text-[10px] font-mono text-emerald-400/90 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-[10px] font-mono text-[#63D9B3]/90 bg-[#63D9B3]/10 px-2 py-0.5 rounded border border-[#63D9B3]/20 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#63D9B3] animate-pulse" />
                     LIVE SYNC
                   </span>
                 )}
@@ -383,14 +383,14 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
                       isSelected
                         ? 'bg-white text-black font-bold shadow-[0_0_15px_rgba(255,255,255,0.4)] border-white scale-105'
                         : isNow
-                        ? 'bg-zinc-800 text-emerald-300 border-emerald-500/50 hover:bg-zinc-700'
+                        ? 'bg-[#151326] text-[#63D9B3] border-[#63D9B3]/50 hover:bg-zinc-800'
                         : isFuture
                         ? 'bg-zinc-950 text-zinc-400 border-zinc-800 hover:text-white hover:border-zinc-700'
                         : 'bg-zinc-950 text-zinc-500 border-zinc-900 hover:text-zinc-300'
                     }`}
                   >
                     {isNow && !isSelected && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#63D9B3] animate-pulse" />
                     )}
                     <span>{pt.time}</span>
                     {isNow && (
@@ -485,12 +485,12 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
                   <span
                     className={`text-[10px] font-mono px-2 py-0.5 rounded uppercase font-semibold ${
                       activeSelected.point.riskLevel === 'low'
-                        ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
+                        ? 'bg-[#63D9B3]/15 text-[#63D9B3] border border-[#63D9B3]/30'
                         : activeSelected.point.riskLevel === 'moderate'
-                        ? 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
+                        ? 'bg-[#F6B73C]/15 text-[#F6B73C] border border-[#F6B73C]/30'
                         : activeSelected.point.riskLevel === 'high'
                         ? 'bg-orange-500/15 text-orange-300 border border-orange-500/30'
-                        : 'bg-rose-500/15 text-rose-300 border border-rose-500/30'
+                        : 'bg-[#FF5C4D]/15 text-[#FF5C4D] border border-[#FF5C4D]/30'
                     }`}
                   >
                     STATUS: {activeSelected.point.riskLevel}
@@ -591,7 +591,7 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
                     <text
                       x={points[4].x}
                       y={paddingY - 14}
-                      fill="#34d399"
+                      fill="#63D9B3"
                       fontSize="9"
                       fontFamily="monospace"
                       textAnchor="middle"
@@ -738,7 +738,7 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
                       <text
                         x={pt.x}
                         y={chartHeight - 10}
-                        fill={isSelected ? '#ffffff' : pt.isNow ? '#34d399' : '#71717a'}
+                        fill={isSelected ? '#ffffff' : pt.isNow ? '#63D9B3' : '#71717a'}
                         fontSize="11"
                         fontFamily="monospace"
                         textAnchor="middle"
@@ -756,12 +756,12 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
           {/* Chart Interaction Footer Guide */}
           <div className="pt-4 mt-2 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-4 text-xs text-zinc-400">
             <div className="flex items-center gap-2 font-mono">
-              <Info className="w-3.5 h-3.5 text-emerald-400" />
+              <Info className="w-3.5 h-3.5 text-[#8EDCFF]" />
               <span>Click or tap any time node to steer the time scanner and inspect atmospheric layers</span>
             </div>
             <div className="flex items-center gap-4 font-mono text-[11px]">
               <span className="flex items-center gap-1.5 text-zinc-400">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" /> Past Observation
+                <span className="w-2.5 h-2.5 rounded-full bg-[#63D9B3]" /> Past Observation
               </span>
               <span className="flex items-center gap-1.5 text-white font-bold">
                 <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse" /> Active Scanner
@@ -780,7 +780,7 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
           {/* Card 1: Selected Moment Environmental Breakdown */}
           <div className="bg-zinc-900/60 p-6 rounded-2xl border border-zinc-800 space-y-3 relative overflow-hidden">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-semibold flex items-center gap-1.5">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-[#8EDCFF] font-semibold flex items-center gap-1.5">
                 <Eye className="w-3.5 h-3.5" />
                 ENVIRONMENT AT {activeSelected.point.time}
               </span>
@@ -792,7 +792,7 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
             <div className="grid grid-cols-3 gap-2 py-1 font-mono text-center">
               <div className="p-2 rounded-xl bg-zinc-950 border border-zinc-800">
                 <span className="text-[10px] text-zinc-500 block">Air Quality</span>
-                <span className="text-emerald-400 font-bold text-sm">AQI {activeSelected.point.aqi}</span>
+                <span className="text-[#63D9B3] font-bold text-sm">AQI {activeSelected.point.aqi}</span>
               </div>
               <div className="p-2 rounded-xl bg-zinc-950 border border-zinc-800">
                 <span className="text-[10px] text-zinc-500 block">Ambient Temp</span>
@@ -877,14 +877,14 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
           className="bg-zinc-900/50 backdrop-blur-2xl rounded-3xl p-8 sm:p-10 border border-zinc-800 mb-8 relative overflow-hidden shadow-2xl"
         >
           {/* Subtle Ambient Accent */}
-          <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-[#FF5C4D]/10 rounded-full blur-[120px] pointer-events-none" />
 
           <div className="relative z-10 space-y-8">
             {/* Header: AEROCARE DAILY INTELLIGENCE COMPLETE */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800/80 pb-6">
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-mono uppercase tracking-wider mb-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#63D9B3]/15 border border-[#63D9B3]/30 text-[#63D9B3] text-xs font-mono uppercase tracking-wider mb-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#63D9B3]" />
                   <span>AEROCARE DAILY INTELLIGENCE COMPLETE</span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-light text-white">
@@ -900,9 +900,9 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
                 <button
                   id="trends-recalibrate-btn"
                   onClick={onScrollToTop}
-                  className="px-6 py-3.5 rounded-full bg-white hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(52,211,153,0.4)] cursor-pointer hover:scale-105"
+                  className="px-6 py-3.5 rounded-full bg-white hover:bg-[#FF5C4D] hover:text-white text-black font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,92,77,0.4)] cursor-pointer hover:scale-105"
                 >
-                  <RotateCcw className="w-4 h-4 text-black" />
+                  <RotateCcw className="w-4 h-4 text-current" />
                   <span>↻ Recalibrate AeroCare</span>
                 </button>
               </div>
@@ -929,7 +929,7 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
                   >
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-lg">{item.icon}</span>
-                      <span className="text-[10px] font-mono text-emerald-400">✓ {item.step}</span>
+                      <span className="text-[10px] font-mono text-[#63D9B3]">✓ {item.step}</span>
                     </div>
                     <div>
                       <span className="text-xs font-medium text-white block leading-tight">
@@ -949,7 +949,7 @@ export const TrendsSection: React.FC<TrendsSectionProps> = ({
               <span>AeroCare AI Engine v4.8 • Grounded in Environmental Sensing Data</span>
               <button
                 onClick={onNavigateToProfile}
-                className="hover:text-emerald-400 transition-colors underline underline-offset-4 cursor-pointer"
+                className="hover:text-[#FF5C4D] transition-colors underline underline-offset-4 cursor-pointer"
               >
                 Modify Bio-Profile Parameters →
               </button>

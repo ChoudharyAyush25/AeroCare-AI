@@ -122,11 +122,11 @@ export const HeroAtmosphere: React.FC<HeroAtmosphereProps> = ({
       const isWarm = condition === 'sunny' || condition === 'poor_aqi';
       const color = isWarm
         ? Math.random() > 0.4
-          ? '245, 158, 11' // Amber
-          : '254, 240, 138' // Light warm yellow
+          ? '246, 183, 60' // Atmospheric Gold
+          : '255, 92, 77' // Electric Coral
         : Math.random() > 0.5
-        ? '16, 185, 129' // Emerald
-        : '226, 232, 240'; // Soft silver-blue
+        ? '142, 220, 255' // Ice Blue
+        : '244, 241, 234'; // Warm Ivory
 
       return {
         x: Math.random() * width,
@@ -214,11 +214,11 @@ export const HeroAtmosphere: React.FC<HeroAtmosphereProps> = ({
         };
       case 'cloudy':
         return {
-          skyGradient: 'from-[#080d18] via-[#0f1726] to-[#151f30]',
-          horizonWarmth: 'from-slate-400/15 via-teal-500/5 to-transparent',
+          skyGradient: 'from-[#080A16] via-[#151326] to-[#1A1830]',
+          horizonWarmth: 'from-indigo-400/15 via-violet-500/10 to-transparent',
           sunVisible: false,
           sunColor: 'from-slate-200 via-slate-400 to-zinc-500',
-          rayColor: '#94a3b8',
+          rayColor: '#8EDCFF',
           cloudFarHighlight: '#64748b',
           cloudFarBase: '#141d2e',
           cloudMidHighlight: '#94a3b8', // Silvery platinum crown
@@ -236,7 +236,7 @@ export const HeroAtmosphere: React.FC<HeroAtmosphereProps> = ({
           horizonWarmth: 'from-sky-500/20 via-blue-500/10 to-transparent',
           sunVisible: false,
           sunColor: '',
-          rayColor: '#38bdf8',
+          rayColor: '#8EDCFF',
           cloudFarHighlight: '#475569',
           cloudFarBase: '#0f1726',
           cloudMidHighlight: '#64748b',
@@ -250,20 +250,20 @@ export const HeroAtmosphere: React.FC<HeroAtmosphereProps> = ({
         };
       case 'windy':
         return {
-          skyGradient: 'from-[#060c18] via-[#0b1a29] to-[#0e2738]',
-          horizonWarmth: 'from-teal-400/25 via-sky-400/10 to-transparent',
+          skyGradient: 'from-[#080A16] via-[#111728] to-[#151d32]',
+          horizonWarmth: 'from-[#8EDCFF]/20 via-indigo-500/10 to-transparent',
           sunVisible: false,
           sunColor: '',
-          rayColor: '#2dd4bf',
-          cloudFarHighlight: '#5eead4',
+          rayColor: '#8EDCFF',
+          cloudFarHighlight: '#8EDCFF',
           cloudFarBase: '#112233',
-          cloudMidHighlight: '#38bdf8',
+          cloudMidHighlight: '#8EDCFF',
           cloudMidShadow: '#13283c',
           cloudMidDark: '#0a1724',
-          cloudForeHighlight: '#2dd4bf',
+          cloudForeHighlight: '#8EDCFF',
           cloudForeShadow: '#071018',
-          mistHighlight: '#99f6e4',
-          mistBase: '#134e4a',
+          mistHighlight: '#8EDCFF',
+          mistBase: '#151326',
           mistOpacity: 0.55,
         };
       case 'storm':

@@ -176,10 +176,10 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
   const getAqiTheme = (aqi: number) => {
     if (aqi <= 50) {
       return {
-        stroke: '#10b981',
-        glow: 'rgba(16, 185, 129, 0.25)',
-        text: 'text-emerald-400',
-        bg: 'bg-emerald-500/10 border-emerald-500/30',
+        stroke: '#63D9B3',
+        glow: 'rgba(99, 217, 179, 0.25)',
+        text: 'text-[#63D9B3]',
+        bg: 'bg-[#63D9B3]/10 border-[#63D9B3]/30',
         label: 'Good Air Quality'
       };
     }
@@ -255,8 +255,8 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
       />
 
       {/* 3. Subtle backdrop ambient glow spots */}
-      <div className="absolute top-1/4 -right-40 w-96 h-96 bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 -left-40 w-96 h-96 bg-sky-500/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/4 -right-40 w-96 h-96 bg-[#FF5C4D]/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 -left-40 w-96 h-96 bg-[#8EDCFF]/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         {/* Section Header with smooth entrance reveal */}
@@ -267,13 +267,13 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
         >
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-emerald-400 text-xs font-mono uppercase tracking-wider">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/60 border border-zinc-800 text-[#FF5C4D] text-xs font-mono uppercase tracking-wider">
                 <CloudSun className="w-3.5 h-3.5" />
                 <span>Telemetry Matrix 01</span>
               </div>
               {currentCity.isRealTelemetry && (
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[11px] font-mono">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#63D9B3]/10 border border-[#63D9B3]/30 text-[#63D9B3] text-[11px] font-mono">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#63D9B3] animate-pulse" />
                   <span>LIVE // {currentCity.lastUpdated || 'OBSERVED TELEMETRY'}</span>
                 </div>
               )}
@@ -297,7 +297,7 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
                   onClick={() => onSelectCity(c)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 shadow-sm font-semibold'
+                      ? 'bg-[#FF5C4D]/15 text-[#FF5C4D] border border-[#FF5C4D]/30 shadow-sm font-semibold'
                       : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
                   }`}
                 >
@@ -310,9 +310,9 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
             {!CITIES.some((c) => c.location.split(',')[0].toLowerCase() === currentCity.location.split(',')[0].toLowerCase()) && (
               <button
                 id="env-city-custom"
-                className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 shadow-sm flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-[#FF5C4D]/15 text-[#FF5C4D] border border-[#FF5C4D]/30 shadow-sm flex items-center gap-1.5"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C4D] animate-pulse" />
                 <span>{currentCity.location.split(',')[0]}</span>
               </button>
             )}
@@ -411,7 +411,7 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
               {/* Status Context Info */}
               <div className="space-y-2 text-left max-w-xs">
                 <div className="flex items-center gap-2">
-                  <Gauge className="w-4 h-4 text-emerald-400" />
+                  <Gauge className="w-4 h-4 text-[#8EDCFF]" />
                   <span className="text-xs font-semibold text-zinc-200">
                     {aqiTheme.label}
                   </span>
@@ -422,7 +422,7 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
                 <div className="pt-2 flex items-center gap-4 text-xs font-mono">
                   <div>
                     <span className="text-zinc-500 block text-[10px]">PM2.5</span>
-                    <span className="text-emerald-400 font-semibold">{currentCity.pollutants.pm25} µg/m³</span>
+                    <span className="text-[#63D9B3] font-semibold">{currentCity.pollutants.pm25} µg/m³</span>
                   </div>
                   <div className="h-6 w-px bg-zinc-800" />
                   <div>
@@ -441,14 +441,14 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
             <div className="pt-4 border-t border-zinc-800/80 flex items-center justify-between text-xs text-zinc-400 relative z-10">
               <span className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#63D9B3] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#63D9B3]" />
                 </span>
                 <span>{currentCity.lastUpdated}</span>
               </span>
               <button
                 onClick={() => setShowPollutantDetails(!showPollutantDetails)}
-                className="text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-medium cursor-pointer transition-colors"
+                className="text-[#8EDCFF] hover:text-white flex items-center gap-1 font-medium cursor-pointer transition-colors"
               >
                 <Layers className="w-3.5 h-3.5" />
                 <span>{showPollutantDetails ? 'Hide Composition' : 'View Breakdown'}</span>
@@ -481,7 +481,7 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
                 </div>
                 <button
                   onClick={onToggleTempUnit}
-                  className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded bg-zinc-800 text-zinc-300 hover:text-emerald-400 border border-zinc-700 cursor-pointer"
+                  className="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded bg-zinc-800 text-zinc-300 hover:text-[#F6B73C] border border-zinc-700 cursor-pointer"
                 >
                   Convert Unit
                 </button>
@@ -517,7 +517,7 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
               </div>
               <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs text-zinc-500 relative z-10">
                 <span>Diurnal Range: ±4°C</span>
-                <span className="text-emerald-400 font-medium">Comfort: Nominal</span>
+                <span className="text-[#63D9B3] font-medium">Comfort: Nominal</span>
               </div>
             </div>
 
@@ -541,11 +541,11 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
                 </div>
                 {/* Droplet 2 */}
                 <div className="absolute top-0 left-[30%] animate-droplet-fall-2">
-                  <div className="w-1.5 h-3 rounded-b-full rounded-t-sm bg-gradient-to-b from-sky-300 via-sky-400 to-teal-400 shadow-[0_0_8px_#38bdf8]" />
+                  <div className="w-1.5 h-3 rounded-b-full rounded-t-sm bg-gradient-to-b from-sky-300 via-sky-400 to-[#8EDCFF] shadow-[0_0_8px_#8EDCFF]" />
                 </div>
                 {/* Droplet 3 */}
                 <div className="absolute top-0 left-[48%] animate-droplet-fall-3">
-                  <div className="w-2.5 h-4 rounded-b-full rounded-t-sm bg-gradient-to-b from-cyan-200 via-sky-400 to-sky-600 shadow-[0_0_12px_#38bdf8]" />
+                  <div className="w-2.5 h-4 rounded-b-full rounded-t-sm bg-gradient-to-b from-[#8EDCFF]/80 via-sky-400 to-sky-600 shadow-[0_0_12px_#8EDCFF]" />
                 </div>
                 {/* Droplet 4 */}
                 <div className="absolute top-0 left-[66%] animate-droplet-fall-4">
@@ -591,7 +591,7 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
             {/* 3. Wind Speed Card - Slides upward with slight rotation (600ms delay) + 3 Continuous Flow Lines */}
             <div
               id="env-wind-card"
-              className={`bg-zinc-900/40 rounded-2xl p-5 border border-zinc-800 flex flex-col justify-between hover:border-emerald-500/40 hover:-translate-y-1.5 hover:shadow-[0_14px_34px_rgba(16,185,129,0.16)] transition-all duration-700 ease-out group backdrop-blur-xl relative overflow-hidden transform ${
+              className={`bg-zinc-900/40 rounded-2xl p-5 border border-zinc-800 flex flex-col justify-between hover:border-[#8EDCFF]/40 hover:-translate-y-1.5 hover:shadow-[0_14px_34px_rgba(142,220,255,0.16)] transition-all duration-700 ease-out group backdrop-blur-xl relative overflow-hidden transform ${
                 hasEntered
                   ? 'opacity-100 translate-y-0 rotate-0 pointer-events-auto'
                   : 'opacity-0 translate-y-28 -rotate-6 pointer-events-none'
@@ -604,30 +604,30 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
               <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl z-0">
                 {/* Wind Flow Line 1 (Upper) */}
                 <div className="absolute top-[28%] left-0 w-full h-[3px]">
-                  <div className="w-36 h-full rounded-full bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_12px_#10b981] animate-wind-flow-fast" />
+                  <div className="w-36 h-full rounded-full bg-gradient-to-r from-transparent via-[#8EDCFF] to-transparent shadow-[0_0_12px_#8EDCFF] animate-wind-flow-fast" />
                 </div>
                 {/* Wind Flow Line 2 (Middle) */}
                 <div className="absolute top-[52%] left-0 w-full h-[3.5px]">
-                  <div className="w-48 h-full rounded-full bg-gradient-to-r from-transparent via-teal-300 to-transparent shadow-[0_0_14px_#2dd4bf] animate-wind-flow-med" />
+                  <div className="w-48 h-full rounded-full bg-gradient-to-r from-transparent via-[#F6B73C] to-transparent shadow-[0_0_14px_#F6B73C] animate-wind-flow-med" />
                 </div>
                 {/* Wind Flow Line 3 (Lower) */}
                 <div className="absolute top-[75%] left-0 w-full h-[2.5px]">
-                  <div className="w-32 h-full rounded-full bg-gradient-to-r from-transparent via-emerald-300 to-transparent shadow-[0_0_10px_#34d399] animate-wind-flow-slow" />
+                  <div className="w-32 h-full rounded-full bg-gradient-to-r from-transparent via-[#8EDCFF]/80 to-transparent shadow-[0_0_10px_#8EDCFF] animate-wind-flow-slow" />
                 </div>
 
                 {/* Flowing SVG wind streamlines that continuously travel across */}
                 <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 320 180">
                   <defs>
                     <linearGradient id="windStreamGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#10b981" stopOpacity="0" />
-                      <stop offset="40%" stopColor="#34d399" stopOpacity="0.9" />
-                      <stop offset="60%" stopColor="#6ee7b7" stopOpacity="1" />
-                      <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+                      <stop offset="0%" stopColor="#8EDCFF" stopOpacity="0" />
+                      <stop offset="40%" stopColor="#8EDCFF" stopOpacity="0.9" />
+                      <stop offset="60%" stopColor="#d1f2ff" stopOpacity="1" />
+                      <stop offset="100%" stopColor="#8EDCFF" stopOpacity="0" />
                     </linearGradient>
                     <linearGradient id="windStreamGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#14b8a6" stopOpacity="0" />
-                      <stop offset="50%" stopColor="#2dd4bf" stopOpacity="0.95" />
-                      <stop offset="100%" stopColor="#14b8a6" stopOpacity="0" />
+                      <stop offset="0%" stopColor="#F6B73C" stopOpacity="0" />
+                      <stop offset="50%" stopColor="#fde047" stopOpacity="0.95" />
+                      <stop offset="100%" stopColor="#F6B73C" stopOpacity="0" />
                     </linearGradient>
                   </defs>
                   <path
@@ -658,10 +658,10 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
               </div>
 
               <div className="flex items-center justify-between mb-3 relative z-10">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shadow-sm">
-                  <Wind className="w-5 h-5 text-emerald-400" />
+                <div className="w-10 h-10 rounded-xl bg-[#8EDCFF]/10 border border-[#8EDCFF]/20 flex items-center justify-center shadow-sm">
+                  <Wind className="w-5 h-5 text-[#8EDCFF]" />
                 </div>
-                <span className="text-[10px] uppercase tracking-wider font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                <span className="text-[10px] uppercase tracking-wider font-mono text-[#8EDCFF] bg-[#8EDCFF]/10 px-2 py-0.5 rounded border border-[#8EDCFF]/20">
                   {currentCity.windDirection} Vector
                 </span>
               </div>
@@ -679,7 +679,7 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
               </div>
               <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs text-zinc-500 relative z-10">
                 <span>Dispersal: Moderate</span>
-                <span className="text-emerald-400 font-medium">No Stagnation</span>
+                <span className="text-[#63D9B3] font-medium">No Stagnation</span>
               </div>
             </div>
 
@@ -772,7 +772,7 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
           >
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-semibold text-zinc-300 flex items-center gap-1.5">
-                <Info className="w-3.5 h-3.5 text-emerald-400" />
+                <Info className="w-3.5 h-3.5 text-[#8EDCFF]" />
                 Airborne Pollutant Breakdown (Concentration Density)
               </span>
               <span className="text-[10px] text-zinc-500 font-mono">WHO Standards Compliant</span>
@@ -781,9 +781,9 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
               <div className="p-3 rounded-xl bg-zinc-950/80 border border-zinc-800">
                 <span className="text-[10px] uppercase font-mono text-zinc-500 block">PM2.5 (Fine)</span>
-                <span className="text-lg font-light font-mono text-emerald-400">{currentCity.pollutants.pm25} <span className="text-xs text-zinc-500 font-normal">µg/m³</span></span>
+                <span className="text-lg font-light font-mono text-[#63D9B3]">{currentCity.pollutants.pm25} <span className="text-xs text-zinc-500 font-normal">µg/m³</span></span>
                 <div className="w-full bg-zinc-800 h-1.5 rounded-full mt-2 overflow-hidden">
-                  <div className="bg-emerald-400 h-full rounded-full transition-all duration-1000" style={{ width: `${Math.min(100, (currentCity.pollutants.pm25 / 35) * 100)}%` }} />
+                  <div className="bg-[#63D9B3] h-full rounded-full transition-all duration-1000" style={{ width: `${Math.min(100, (currentCity.pollutants.pm25 / 35) * 100)}%` }} />
                 </div>
               </div>
 
@@ -815,7 +815,7 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
                 <span className="text-[10px] uppercase font-mono text-zinc-500 block">CO</span>
                 <span className="text-lg font-light font-mono text-zinc-200">{currentCity.pollutants.co} <span className="text-xs text-zinc-500 font-normal">ppm</span></span>
                 <div className="w-full bg-zinc-800 h-1.5 rounded-full mt-2 overflow-hidden">
-                  <div className="bg-emerald-500 h-full rounded-full transition-all duration-1000" style={{ width: `${Math.min(100, (currentCity.pollutants.co / 2) * 100)}%` }} />
+                  <div className="bg-[#63D9B3] h-full rounded-full transition-all duration-1000" style={{ width: `${Math.min(100, (currentCity.pollutants.co / 2) * 100)}%` }} />
                 </div>
               </div>
             </div>
@@ -832,7 +832,7 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
           }}
         >
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+            <div className="w-10 h-10 rounded-xl bg-[#FF5C4D]/10 border border-[#FF5C4D]/30 flex items-center justify-center text-[#FF5C4D]">
               <Shield className="w-5 h-5" />
             </div>
             <div>
@@ -848,7 +848,7 @@ export const EnvironmentSection: React.FC<EnvironmentSectionProps> = ({
           <button
             id="env-to-profile-btn"
             onClick={onScrollToNext}
-            className="w-full sm:w-auto px-6 py-3.5 bg-white text-black rounded-full text-xs font-bold uppercase tracking-widest hover:bg-emerald-400 transition-colors flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+            className="w-full sm:w-auto px-6 py-3.5 bg-white text-black rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#FF5C4D] hover:text-white transition-colors flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
           >
             <span>Calibrate Bio-Profile</span>
             <ChevronRight className="w-4 h-4" />

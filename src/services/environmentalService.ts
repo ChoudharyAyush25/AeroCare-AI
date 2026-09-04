@@ -206,7 +206,10 @@ export function getUserCoordinates(): Promise<{ latitude: number; longitude: num
             msg = 'Location request timed out.';
             break;
         }
-        reject(new Error(msg));
+        const err = new Error(msg);
+        (err as any).code = error.code;
+        (err as any).isDenied = error.code === error.PERMISSION_DENIED;
+        reject(err);
       },
       {
         enableHighAccuracy: false,

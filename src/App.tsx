@@ -9,6 +9,7 @@ import { PlanSection } from './components/PlanSection';
 import { TrendsSection } from './components/TrendsSection';
 import { StoryProgress } from './components/StoryProgress';
 import { WeatherEnvironment } from './components/WeatherEnvironment';
+import { CinematicIntro } from './components/CinematicIntro';
 
 import {
   UserProfile,
@@ -39,6 +40,7 @@ export default function App() {
   const [weatherOverride, setWeatherOverride] = useState<WeatherVisualType | null>(null);
   const [isLoadingTelemetry, setIsLoadingTelemetry] = useState<boolean>(false);
   const [telemetryError, setTelemetryError] = useState<string | null>(null);
+  const [showCinematicIntro, setShowCinematicIntro] = useState<boolean>(true);
 
   // Load real telemetry for given coordinates
   const loadTelemetryForCoordinates = async (
@@ -209,7 +211,15 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-zinc-100 selection:bg-emerald-500/30 selection:text-emerald-200 relative font-sans">
+    <div className="min-h-screen bg-[#080A16] text-[#F4F1EA] selection:bg-[#FF5C4D]/30 selection:text-[#F4F1EA] relative font-sans">
+      {/* Cinematic Opening Intelligence Boot Sequence */}
+      {showCinematicIntro && (
+        <CinematicIntro
+          currentCity={currentCity}
+          onComplete={() => setShowCinematicIntro(false)}
+        />
+      )}
+
       {/* Living Atmospheric Weather Environment System */}
       <WeatherEnvironment
         currentCity={currentCity}
@@ -232,6 +242,7 @@ export default function App() {
         onSelectCoordinates={handleSelectCoordinates}
         onUseMyLocation={handleUseMyLocation}
         telemetryStatusMessage={telemetryError}
+        onReplayIntro={() => setShowCinematicIntro(true)}
       />
 
       {/* Side Vertical Story Dots Navigation */}
@@ -250,6 +261,7 @@ export default function App() {
         weatherOverride={weatherOverride}
         onScrollToNext={() => scrollToSection('environment')}
         onNavigate={scrollToSection}
+        onReplayIntro={() => setShowCinematicIntro(true)}
       />
 
       {/* 2. Environment Section */}
@@ -311,16 +323,16 @@ export default function App() {
       />
 
       {/* Elegant Dark Footer Disclaimer */}
-      <footer className="w-full border-t border-zinc-800/80 py-8 px-4 sm:px-8 text-center text-xs text-zinc-400 bg-[#050505]">
+      <footer className="w-full border-t border-white/10 py-8 px-4 sm:px-8 text-center text-xs text-[#8A8579] bg-[#080A16]">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3 text-[10px] text-zinc-500 uppercase tracking-[0.2em] font-semibold">
-            <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
-            <span>© 2024 AEROCARE AI SYSTEMS</span>
+          <div className="flex items-center gap-3 text-[10px] text-[#8A8579] uppercase tracking-[0.2em] font-semibold">
+            <div className="w-2 h-2 rounded-full bg-[#FF5C4D]"></div>
+            <span>© 2025 AEROCARE AI • ATMOSPHERIC INTELLIGENCE</span>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-6 text-[10px] text-zinc-600 uppercase tracking-[0.2em] font-medium">
-            <span className="hover:text-zinc-400 transition-colors">GDPR Compliant Data</span>
-            <span className="hover:text-zinc-400 transition-colors">Clinical Validation v4.1</span>
-            <span className="hover:text-zinc-400 transition-colors">Protocol 882-X</span>
+          <div className="flex flex-wrap items-center justify-center gap-6 text-[10px] text-[#8A8579]/70 uppercase tracking-[0.2em] font-medium">
+            <span className="hover:text-[#F4F1EA] transition-colors">GDPR Compliant Data</span>
+            <span className="hover:text-[#F4F1EA] transition-colors">Clinical Validation v4.1</span>
+            <span className="hover:text-[#F4F1EA] transition-colors">Solar Eclipse Intelligence v2</span>
           </div>
         </div>
       </footer>

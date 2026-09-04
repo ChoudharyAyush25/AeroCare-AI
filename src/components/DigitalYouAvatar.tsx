@@ -91,9 +91,9 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
     const particles: Particle[] = [];
 
     const colorsByExposure: Record<OutdoorExposure, string[]> = {
-      low: ['#34d399', '#38bdf8', '#a7f3d0', '#67e8f9'], // Clean filtered air
-      medium: ['#38bdf8', '#fbbf24', '#94a3b8', '#6ee7b7'], // Mixed ambient
-      high: ['#f97316', '#fbbf24', '#f43f5e', '#e2e8f0'], // Rich airborne pollutants/ozone
+      low: ['#63D9B3', '#8EDCFF', '#F4F1EA', '#a7f3d0'], // Clean shielded / filtered air
+      medium: ['#8EDCFF', '#F6B73C', '#8A8579', '#63D9B3'], // Mixed ambient telemetry
+      high: ['#FF5C4D', '#F6B73C', '#e26d5c', '#F4F1EA'], // Rich airborne pollutants / ozone
     };
 
     const palette = colorsByExposure[userProfile.outdoorExposure];
@@ -184,7 +184,7 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
 
       // Draw subtle connective data-filaments between nearby particles in high exposure
       if (userProfile.outdoorExposure === 'high') {
-        ctx.strokeStyle = 'rgba(249, 115, 22, 0.12)';
+        ctx.strokeStyle = 'rgba(255, 92, 77, 0.15)';
         ctx.lineWidth = 0.75;
         for (let i = 0; i < particles.length; i += 3) {
           for (let j = i + 1; j < Math.min(i + 4, particles.length); j++) {
@@ -220,45 +220,45 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
 
   const conditionTheme = isAsthma
     ? {
-        color: 'text-sky-400',
-        bg: 'bg-sky-500/10',
-        border: 'border-sky-500/30',
+        color: 'text-[#8EDCFF]',
+        bg: 'bg-[#8EDCFF]/10',
+        border: 'border-[#8EDCFF]/30',
         label: 'Bronchial Reactivity High',
         organ: 'Respiratory Tract / Alveoli',
       }
     : isHeart
     ? {
-        color: 'text-rose-400',
-        bg: 'bg-rose-500/10',
-        border: 'border-rose-500/30',
+        color: 'text-[#FF5C4D]',
+        bg: 'bg-[#FF5C4D]/10',
+        border: 'border-[#FF5C4D]/30',
         label: 'Cardiovascular Load Guarded',
         organ: 'Myocardial / Microvascular',
       }
     : {
-        color: 'text-emerald-400',
-        bg: 'bg-emerald-500/10',
-        border: 'border-emerald-500/30',
+        color: 'text-[#63D9B3]',
+        bg: 'bg-[#63D9B3]/10',
+        border: 'border-[#63D9B3]/30',
         label: 'Physiological Homeostasis',
         organ: 'Epithelial Mucociliary Defense',
       };
 
   const exposureLevel = {
-    low: { label: 'Shielded (Indoor Filtered)', factor: '88% Shielded', color: 'text-emerald-400', bar: 'w-1/4 bg-emerald-500' },
-    medium: { label: 'Moderate Ambient Drift', factor: '62% Exposed', color: 'text-sky-400', bar: 'w-2/4 bg-sky-500' },
-    high: { label: 'Direct Atmospheric Infiltration', factor: '94% Cumulative Dosage', color: 'text-orange-400', bar: 'w-full bg-orange-500' },
+    low: { label: 'Shielded (Indoor Filtered)', factor: '88% Shielded', color: 'text-[#63D9B3]', bar: 'w-1/4 bg-[#63D9B3]' },
+    medium: { label: 'Moderate Ambient Drift', factor: '62% Exposed', color: 'text-[#8EDCFF]', bar: 'w-2/4 bg-[#8EDCFF]' },
+    high: { label: 'Direct Atmospheric Infiltration', factor: '94% Cumulative Dosage', color: 'text-[#FF5C4D]', bar: 'w-full bg-[#FF5C4D]' },
   }[userProfile.outdoorExposure];
 
   return (
     <div
       id="digital-you-pod"
-      className={`relative w-full h-[540px] sm:h-[600px] lg:h-[660px] rounded-2xl bg-zinc-950/80 border transition-all duration-700 overflow-hidden flex flex-col justify-between p-5 backdrop-blur-2xl group ${
+      className={`relative w-full h-[540px] sm:h-[600px] lg:h-[660px] rounded-2xl bg-[#151326]/85 border transition-all duration-700 overflow-hidden flex flex-col justify-between p-5 backdrop-blur-2xl group ${
         isCompleted
-          ? 'border-emerald-500/60 shadow-[0_0_50px_rgba(16,185,129,0.22)] ring-1 ring-emerald-500/30'
-          : 'border-zinc-800 shadow-[0_20px_50px_rgba(0,0,0,0.8)] hover:border-zinc-700'
+          ? 'border-[#FF5C4D]/60 shadow-[0_0_50px_rgba(255,92,77,0.22)] ring-1 ring-[#FF5C4D]/30'
+          : 'border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] hover:border-white/20'
       }`}
     >
       {/* Background Holographic Grid Pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(#10b98115_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none opacity-40" />
+      <div className="absolute inset-0 bg-[radial-gradient(#FF5C4D15_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none opacity-40" />
 
       {/* Ambient Radial Vignette */}
       <div
@@ -269,10 +269,10 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
         <div
           className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-3xl transition-colors duration-700 ${
             isAsthma
-              ? 'bg-sky-500/15'
+              ? 'bg-[#8EDCFF]/15'
               : isHeart
-              ? 'bg-rose-500/15'
-              : 'bg-emerald-500/15'
+              ? 'bg-[#FF5C4D]/15'
+              : 'bg-[#63D9B3]/15'
           }`}
         />
       </div>
@@ -284,25 +284,25 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
       />
 
       {/* Top Pod HUD Telemetry Header */}
-      <div className="relative z-10 flex items-start justify-between gap-2 border-b border-zinc-800/80 pb-3">
+      <div className="relative z-10 flex items-start justify-between gap-2 border-b border-white/10 pb-3">
         <div>
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5C4D] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF5C4D]" />
             </span>
-            <span className="text-[11px] font-mono font-bold tracking-wider text-emerald-400 uppercase">
+            <span className="text-[11px] font-mono font-bold tracking-wider text-[#FF5C4D] uppercase">
               Digital You // Bio-Twin
             </span>
           </div>
-          <p className="text-[10px] text-zinc-400 font-mono mt-0.5">
+          <p className="text-[10px] text-[#8A8579] font-mono mt-0.5">
             NODE #BIO-8942 • REAL-TIME CALIBRATION
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="px-2.5 py-1 rounded-full bg-zinc-900/80 border border-zinc-800 text-[10px] font-mono text-zinc-300 flex items-center gap-1.5 shadow-sm">
-            <Radio className="w-3 h-3 text-emerald-400 animate-pulse" />
+          <div className="px-2.5 py-1 rounded-full bg-[#151326]/80 border border-white/10 text-[10px] font-mono text-[#F4F1EA] flex items-center gap-1.5 shadow-sm">
+            <Radio className="w-3 h-3 text-[#FF5C4D] animate-pulse" />
             <span className="capitalize">{userProfile.ageGroup}</span>
           </div>
           <div className={`px-2.5 py-1 rounded-full border text-[10px] font-mono capitalize shadow-sm ${conditionTheme.bg} ${conditionTheme.border} ${conditionTheme.color}`}>
@@ -315,26 +315,26 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
       <div className="relative z-10 flex-1 flex items-center justify-center my-2 select-none">
         {/* Horizontal Laser Scanning Beam moving vertically */}
         <div className="absolute inset-x-8 h-1 pointer-events-none z-30 animate-bio-scan-sweep">
-          <div className="w-full h-full bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_12px_#34d399]" />
-          <div className="w-full h-8 -mt-4 bg-gradient-to-b from-emerald-500/10 via-emerald-400/5 to-transparent blur-[2px]" />
+          <div className="w-full h-full bg-gradient-to-r from-transparent via-[#FF5C4D] to-transparent shadow-[0_0_12px_#FF5C4D]" />
+          <div className="w-full h-8 -mt-4 bg-gradient-to-b from-[#FF5C4D]/10 via-[#FF5C4D]/5 to-transparent blur-[2px]" />
         </div>
 
         {/* Subtle Horizontal CRT Raster Scan Lines */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:100%_4px] pointer-events-none opacity-30 rounded-xl" />
 
         {/* Target Reticles & Coordinate Overlay */}
-        <div className="absolute inset-6 border border-zinc-800/40 rounded-xl pointer-events-none flex flex-col justify-between p-3">
-          <div className="flex justify-between text-[9px] font-mono text-zinc-600">
+        <div className="absolute inset-6 border border-white/5 rounded-xl pointer-events-none flex flex-col justify-between p-3">
+          <div className="flex justify-between text-[9px] font-mono text-[#8A8579]/70">
             <span>+ 47.1102 N</span>
             <span>GRID: RES-8</span>
             <span>+ 12.4490 E</span>
           </div>
-          <div className="flex justify-between items-center text-[9px] font-mono text-zinc-600">
+          <div className="flex justify-between items-center text-[9px] font-mono text-[#8A8579]/70">
             <span>CALIB: SYNC</span>
-            <div className="w-12 h-[1px] bg-zinc-800" />
+            <div className="w-12 h-[1px] bg-white/10" />
             <span>BIO: 98.6%</span>
           </div>
-          <div className="flex justify-between text-[9px] font-mono text-zinc-600">
+          <div className="flex justify-between text-[9px] font-mono text-[#8A8579]/70">
             <span>SYS: RECEPTIVE</span>
             <span>TARGET: {conditionTheme.organ}</span>
             <span>FREQ: 1.2 Hz</span>
@@ -342,11 +342,11 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
         </div>
 
         {/* Outer Rotating Bio-Shield Harmonic Rings */}
-        <div className="absolute w-72 h-72 sm:w-80 sm:h-80 rounded-full border border-emerald-500/15 pointer-events-none animate-bio-shield-orbit">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#34d399]" />
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_6px_#38bdf8]" />
+        <div className="absolute w-72 h-72 sm:w-80 sm:h-80 rounded-full border border-[#FF5C4D]/15 pointer-events-none animate-bio-shield-orbit">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#FF5C4D] shadow-[0_0_8px_#FF5C4D]" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#8EDCFF] shadow-[0_0_6px_#8EDCFF]" />
         </div>
-        <div className="absolute w-60 h-60 sm:w-68 sm:h-68 rounded-full border border-dashed border-zinc-700/40 pointer-events-none animate-bio-shield-orbit" style={{ animationDirection: 'reverse', animationDuration: '36s' }} />
+        <div className="absolute w-60 h-60 sm:w-68 sm:h-68 rounded-full border border-dashed border-white/10 pointer-events-none animate-bio-shield-orbit" style={{ animationDirection: 'reverse', animationDuration: '36s' }} />
 
         {/* SVG Holographic Human Figure */}
         <div className="relative w-48 h-80 sm:w-56 sm:h-96 flex items-center justify-center">
@@ -356,25 +356,25 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
           >
             <defs>
               <linearGradient id="bodyMeshGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.85" />
-                <stop offset="35%" stopColor="#34d399" stopOpacity="0.9" />
-                <stop offset="70%" stopColor="#10b981" stopOpacity="0.75" />
-                <stop offset="100%" stopColor="#059669" stopOpacity="0.5" />
+                <stop offset="0%" stopColor="#8EDCFF" stopOpacity="0.9" />
+                <stop offset="35%" stopColor="#F6B73C" stopOpacity="0.85" />
+                <stop offset="70%" stopColor="#FF5C4D" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#b83227" stopOpacity="0.5" />
               </linearGradient>
 
               <linearGradient id="healthyShieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#10b981" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="#34d399" stopOpacity="0.05" />
+                <stop offset="0%" stopColor="#63D9B3" stopOpacity="0.35" />
+                <stop offset="100%" stopColor="#63D9B3" stopOpacity="0.05" />
               </linearGradient>
 
               <radialGradient id="lungAuraGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.95" />
-                <stop offset="50%" stopColor="#0284c7" stopOpacity="0.6" />
+                <stop offset="0%" stopColor="#8EDCFF" stopOpacity="0.95" />
+                <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.6" />
                 <stop offset="100%" stopColor="#0284c7" stopOpacity="0" />
               </radialGradient>
 
               <radialGradient id="heartAuraGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#f43f5e" stopOpacity="0.95" />
+                <stop offset="0%" stopColor="#FF5C4D" stopOpacity="0.95" />
                 <stop offset="45%" stopColor="#e11d48" stopOpacity="0.6" />
                 <stop offset="100%" stopColor="#e11d48" stopOpacity="0" />
               </radialGradient>
@@ -387,7 +387,7 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
               rx={isHealthy ? '84' : '76'}
               ry={isHealthy ? '170' : '160'}
               fill={isHealthy ? 'url(#healthyShieldGrad)' : 'none'}
-              stroke={isHealthy ? '#10b981' : 'rgba(255,255,255,0.08)'}
+              stroke={isHealthy ? '#63D9B3' : 'rgba(255,255,255,0.08)'}
               strokeWidth={isHealthy ? '2' : '1'}
               strokeDasharray={isHealthy ? 'none' : '4 6'}
               className={isHealthy ? 'animate-bio-shield-pulse' : ''}
@@ -402,11 +402,11 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
               fill="none"
               stroke="url(#bodyMeshGrad)"
               strokeWidth="2"
-              className="drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]"
+              className="drop-shadow-[0_0_8px_rgba(142,220,255,0.5)]"
             />
             {/* Cranial Neural Node */}
-            <circle cx="100" cy="45" r="3" fill="#38bdf8" className="animate-pulse" />
-            <circle cx="100" cy="45" r="7" fill="none" stroke="#38bdf8" strokeWidth="0.75" strokeDasharray="2 3" />
+            <circle cx="100" cy="45" r="3" fill="#8EDCFF" className="animate-pulse" />
+            <circle cx="100" cy="45" r="7" fill="none" stroke="#8EDCFF" strokeWidth="0.75" strokeDasharray="2 3" />
 
             {/* Neck & Cervical Conduit */}
             <line x1="100" y1="67" x2="100" y2="82" stroke="url(#bodyMeshGrad)" strokeWidth="3" />
@@ -496,8 +496,8 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
             />
 
             {/* Knee Joints */}
-            <circle cx="76" cy="275" r="3.5" fill="none" stroke="#34d399" strokeWidth="1.5" />
-            <circle cx="124" cy="275" r="3.5" fill="none" stroke="#34d399" strokeWidth="1.5" />
+            <circle cx="76" cy="275" r="3.5" fill="none" stroke="#8EDCFF" strokeWidth="1.5" />
+            <circle cx="124" cy="275" r="3.5" fill="none" stroke="#8EDCFF" strokeWidth="1.5" />
 
             {/* ============================================================ */}
             {/* ANATOMICAL SENSITIVITY OVERLAYS */}
@@ -525,32 +525,32 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
               {/* Left Lung Silhouette Path */}
               <path
                 d="M 97,112 C 86,112 76,120 78,136 C 80,146 90,146 96,140 Z"
-                fill={isAsthma ? 'rgba(56,189,248,0.25)' : 'rgba(255,255,255,0.04)'}
-                stroke={isAsthma ? '#38bdf8' : 'rgba(255,255,255,0.2)'}
+                fill={isAsthma ? 'rgba(142,220,255,0.25)' : 'rgba(255,255,255,0.04)'}
+                stroke={isAsthma ? '#8EDCFF' : 'rgba(255,255,255,0.2)'}
                 strokeWidth={isAsthma ? '2' : '1'}
-                style={{ filter: isAsthma ? 'drop-shadow(0 0 8px #38bdf8)' : 'none' }}
+                style={{ filter: isAsthma ? 'drop-shadow(0 0 8px #8EDCFF)' : 'none' }}
               />
               {/* Right Lung Silhouette Path */}
               <path
                 d="M 103,112 C 114,112 124,120 122,136 C 120,146 110,146 104,140 Z"
-                fill={isAsthma ? 'rgba(56,189,248,0.25)' : 'rgba(255,255,255,0.04)'}
-                stroke={isAsthma ? '#38bdf8' : 'rgba(255,255,255,0.2)'}
+                fill={isAsthma ? 'rgba(142,220,255,0.25)' : 'rgba(255,255,255,0.04)'}
+                stroke={isAsthma ? '#8EDCFF' : 'rgba(255,255,255,0.2)'}
                 strokeWidth={isAsthma ? '2' : '1'}
-                style={{ filter: isAsthma ? 'drop-shadow(0 0 8px #38bdf8)' : 'none' }}
+                style={{ filter: isAsthma ? 'drop-shadow(0 0 8px #8EDCFF)' : 'none' }}
               />
 
               {/* Bronchial Trachea Branching lines */}
-              <line x1="100" y1="106" x2="100" y2="120" stroke={isAsthma ? '#38bdf8' : '#71717a'} strokeWidth="2" />
-              <path d="M 100,120 Q 92,126 86,134" fill="none" stroke={isAsthma ? '#38bdf8' : '#71717a'} strokeWidth="1.5" />
-              <path d="M 100,120 Q 108,126 114,134" fill="none" stroke={isAsthma ? '#38bdf8' : '#71717a'} strokeWidth="1.5" />
+              <line x1="100" y1="106" x2="100" y2="120" stroke={isAsthma ? '#8EDCFF' : '#71717a'} strokeWidth="2" />
+              <path d="M 100,120 Q 92,126 86,134" fill="none" stroke={isAsthma ? '#8EDCFF' : '#71717a'} strokeWidth="1.5" />
+              <path d="M 100,120 Q 108,126 114,134" fill="none" stroke={isAsthma ? '#8EDCFF' : '#71717a'} strokeWidth="1.5" />
 
               {/* Glowing Alveolar cluster nodes */}
               {isAsthma && (
                 <>
-                  <circle cx="84" cy="132" r="2.5" fill="#bae6fd" className="animate-ping" />
-                  <circle cx="116" cy="132" r="2.5" fill="#bae6fd" className="animate-ping" />
-                  <circle cx="90" cy="140" r="2" fill="#38bdf8" />
-                  <circle cx="110" cy="140" r="2" fill="#38bdf8" />
+                  <circle cx="84" cy="132" r="2.5" fill="#8EDCFF" className="animate-ping" />
+                  <circle cx="116" cy="132" r="2.5" fill="#8EDCFF" className="animate-ping" />
+                  <circle cx="90" cy="140" r="2" fill="#8EDCFF" />
+                  <circle cx="110" cy="140" r="2" fill="#8EDCFF" />
                 </>
               )}
             </g>
@@ -577,17 +577,17 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
                 cx="94"
                 cy="134"
                 r={isHeart ? '9' : '6'}
-                fill={isHeart ? '#f43f5e' : 'rgba(255,255,255,0.08)'}
-                stroke={isHeart ? '#fda4af' : 'rgba(255,255,255,0.2)'}
+                fill={isHeart ? '#FF5C4D' : 'rgba(255,255,255,0.08)'}
+                stroke={isHeart ? '#ff948a' : 'rgba(255,255,255,0.2)'}
                 strokeWidth={isHeart ? '2' : '1'}
-                style={{ filter: isHeart ? 'drop-shadow(0 0 12px #f43f5e)' : 'none' }}
+                style={{ filter: isHeart ? 'drop-shadow(0 0 12px #FF5C4D)' : 'none' }}
               />
 
               {/* Vascular Aorta Arch */}
               <path
                 d="M 94,125 Q 98,118 104,122"
                 fill="none"
-                stroke={isHeart ? '#f43f5e' : '#71717a'}
+                stroke={isHeart ? '#FF5C4D' : '#71717a'}
                 strokeWidth={isHeart ? '2.5' : '1'}
               />
 
@@ -596,11 +596,11 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
                 <path
                   d="M 68,134 L 82,134 L 86,124 L 92,144 L 96,128 L 102,138 L 106,134 L 120,134"
                   fill="none"
-                  stroke="#fb7185"
+                  stroke="#FF5C4D"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="drop-shadow-[0_0_6px_#f43f5e]"
+                  className="drop-shadow-[0_0_6px_#FF5C4D]"
                 />
               )}
             </g>
@@ -608,26 +608,26 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
             {/* Homeostasis Protective Equilibrium Rings when 'healthy' */}
             {isHealthy && (
               <g className="animate-bio-shield-pulse">
-                <circle cx="100" cy="130" r="42" fill="none" stroke="#10b981" strokeWidth="1" strokeDasharray="5 5" opacity="0.6" />
-                <circle cx="100" cy="130" r="54" fill="none" stroke="#34d399" strokeWidth="0.75" strokeDasharray="2 8" opacity="0.4" />
-                <circle cx="100" cy="130" r="5" fill="#10b981" className="animate-pulse" />
+                <circle cx="100" cy="130" r="42" fill="none" stroke="#63D9B3" strokeWidth="1" strokeDasharray="5 5" opacity="0.6" />
+                <circle cx="100" cy="130" r="54" fill="none" stroke="#63D9B3" strokeWidth="0.75" strokeDasharray="2 8" opacity="0.4" />
+                <circle cx="100" cy="130" r="5" fill="#63D9B3" className="animate-pulse" />
               </g>
             )}
           </svg>
         </div>
 
         {/* Floating Callout Badge pointing to the active biological node */}
-        <div className="absolute right-3 sm:right-6 top-1/4 max-w-[150px] bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5 backdrop-blur-xl shadow-lg pointer-events-none transform transition-all duration-500">
+        <div className="absolute right-3 sm:right-6 top-1/4 max-w-[150px] bg-[#151326]/90 border border-white/10 rounded-xl p-2.5 backdrop-blur-xl shadow-lg pointer-events-none transform transition-all duration-500">
           <div className="flex items-center gap-1.5 mb-1">
-            <span className={`w-2 h-2 rounded-full ${isAsthma ? 'bg-sky-400' : isHeart ? 'bg-rose-400' : 'bg-emerald-400'} animate-ping`} />
-            <span className="text-[9px] font-mono uppercase font-bold text-zinc-300">
+            <span className={`w-2 h-2 rounded-full ${isAsthma ? 'bg-[#8EDCFF]' : isHeart ? 'bg-[#FF5C4D]' : 'bg-[#63D9B3]'} animate-ping`} />
+            <span className="text-[9px] font-mono uppercase font-bold text-[#8A8579]">
               Target Node
             </span>
           </div>
-          <p className="text-[11px] font-semibold text-white leading-tight">
+          <p className="text-[11px] font-semibold text-[#F4F1EA] leading-tight">
             {isAsthma ? 'Bronchial Airway' : isHeart ? 'Cardiovascular Center' : 'Systemic Equilibrium'}
           </p>
-          <p className="text-[9px] text-zinc-400 mt-1 font-light leading-snug">
+          <p className="text-[9px] text-[#8A8579] mt-1 font-light leading-snug">
             {isAsthma
               ? 'Hyper-reactive spasm zone on PM2.5 deposition.'
               : isHeart
@@ -637,14 +637,14 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
         </div>
 
         {/* Floating Demographic Indicator Badge on the left */}
-        <div className="absolute left-3 sm:left-6 bottom-1/4 max-w-[140px] bg-zinc-900/90 border border-zinc-800 rounded-xl p-2.5 backdrop-blur-xl shadow-lg pointer-events-none transform transition-all duration-500">
-          <span className="text-[9px] font-mono uppercase font-bold text-zinc-400 block mb-1">
+        <div className="absolute left-3 sm:left-6 bottom-1/4 max-w-[140px] bg-[#151326]/90 border border-white/10 rounded-xl p-2.5 backdrop-blur-xl shadow-lg pointer-events-none transform transition-all duration-500">
+          <span className="text-[9px] font-mono uppercase font-bold text-[#8A8579] block mb-1">
             Physio Profile
           </span>
-          <p className="text-xs font-semibold text-white capitalize">
+          <p className="text-xs font-semibold text-[#F4F1EA] capitalize">
             {userProfile.ageGroup} Cohort
           </p>
-          <p className="text-[9px] text-zinc-400 mt-0.5">
+          <p className="text-[9px] text-[#8A8579] mt-0.5">
             {userProfile.ageGroup === 'child'
               ? 'Elevated ventilation/kg'
               : userProfile.ageGroup === 'senior'
@@ -656,53 +656,53 @@ export const DigitalYouAvatar: React.FC<DigitalYouAvatarProps> = ({
 
       {/* Real-time Signal Notification Ribbon (Shows when user clicks any option) */}
       {recentSignal && (
-        <div className="relative z-20 mx-auto -mt-3 mb-2 px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-mono flex items-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.3)] animate-bounce">
-          <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-spin" />
+        <div className="relative z-20 mx-auto -mt-3 mb-2 px-4 py-1.5 rounded-full bg-[#FF5C4D]/20 border border-[#FF5C4D]/40 text-[#F4F1EA] text-xs font-mono flex items-center gap-2 shadow-[0_0_20px_rgba(255,92,77,0.3)] animate-bounce">
+          <Sparkles className="w-3.5 h-3.5 text-[#FF5C4D] animate-spin" />
           <span className="font-bold tracking-wide">{recentSignal.label}</span>
-          <span className="text-[10px] text-emerald-400/80">({recentSignal.type})</span>
+          <span className="text-[10px] text-[#FF5C4D]">({recentSignal.type})</span>
         </div>
       )}
 
       {/* Bottom Telemetry HUD: Exposure & Biological Vulnerability Status */}
-      <div className="relative z-10 border-t border-zinc-800/80 pt-3 grid grid-cols-2 gap-3">
+      <div className="relative z-10 border-t border-white/10 pt-3 grid grid-cols-2 gap-3">
         {/* Exposure Status */}
-        <div className="bg-zinc-900/60 rounded-xl p-2.5 border border-zinc-800/80">
+        <div className="bg-[#080A16]/60 rounded-xl p-2.5 border border-white/10">
           <div className="flex items-center justify-between text-[10px] font-mono mb-1">
-            <span className="text-zinc-500 uppercase">Exposure Shield</span>
+            <span className="text-[#8A8579] uppercase">Exposure Shield</span>
             <span className={`font-semibold ${exposureLevel.color}`}>{exposureLevel.factor}</span>
           </div>
-          <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden mb-1">
+          <div className="w-full h-1.5 bg-[#232038] rounded-full overflow-hidden mb-1">
             <div className={`h-full rounded-full transition-all duration-500 ${exposureLevel.bar}`} />
           </div>
-          <p className="text-[10px] text-zinc-400 truncate">{exposureLevel.label}</p>
+          <p className="text-[10px] text-[#8A8579] truncate">{exposureLevel.label}</p>
         </div>
 
         {/* Biological Vulnerability Status */}
-        <div className="bg-zinc-900/60 rounded-xl p-2.5 border border-zinc-800/80">
+        <div className="bg-[#080A16]/60 rounded-xl p-2.5 border border-white/10">
           <div className="flex items-center justify-between text-[10px] font-mono mb-1">
-            <span className="text-zinc-500 uppercase">Organ Vulnerability</span>
+            <span className="text-[#8A8579] uppercase">Organ Vulnerability</span>
             <span className={`font-semibold ${conditionTheme.color}`}>
               {isAsthma ? 'High (Lungs)' : isHeart ? 'Guarded (Vascular)' : 'Low (Optimal)'}
             </span>
           </div>
-          <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden mb-1">
+          <div className="w-full h-1.5 bg-[#232038] rounded-full overflow-hidden mb-1">
             <div
               className={`h-full rounded-full transition-all duration-500 ${
                 isAsthma
-                  ? 'w-4/5 bg-sky-500'
+                  ? 'w-4/5 bg-[#8EDCFF]'
                   : isHeart
-                  ? 'w-3/4 bg-rose-500'
-                  : 'w-1/5 bg-emerald-500'
+                  ? 'w-3/4 bg-[#FF5C4D]'
+                  : 'w-1/5 bg-[#63D9B3]'
               }`}
             />
           </div>
-          <p className="text-[10px] text-zinc-400 truncate">{conditionTheme.organ}</p>
+          <p className="text-[10px] text-[#8A8579] truncate">{conditionTheme.organ}</p>
         </div>
       </div>
 
       {/* Completion Overlay Flash */}
       {isCompleted && (
-        <div className="absolute inset-0 pointer-events-none rounded-2xl border-2 border-emerald-400/40 animate-bio-completion-glow" />
+        <div className="absolute inset-0 pointer-events-none rounded-2xl border-2 border-[#FF5C4D]/40 animate-bio-completion-glow" />
       )}
     </div>
   );

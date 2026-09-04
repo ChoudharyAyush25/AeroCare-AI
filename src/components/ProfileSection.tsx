@@ -177,15 +177,15 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
       className="relative min-h-screen w-full flex flex-col justify-center px-4 sm:px-8 py-24 earth-section-muted text-zinc-100 overflow-hidden"
     >
       {/* Subtle backdrop glowing ambient auras */}
-      <div className="absolute top-1/4 left-1/4 w-[550px] h-[550px] bg-emerald-500/[0.035] rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-1/3 right-1/4 w-[550px] h-[550px] bg-sky-500/[0.025] rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-[550px] h-[550px] bg-[#FF5C4D]/[0.035] rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-1/3 right-1/4 w-[550px] h-[550px] bg-[#8EDCFF]/[0.025] rounded-full blur-[160px] pointer-events-none" />
 
       {/* Holographic Entry Scan line that sweeps down the whole section when user scrolls in */}
       <div
-        className={`absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent pointer-events-none z-30 transition-all duration-1000 ${
+        className={`absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-[#FF5C4D]/60 to-transparent pointer-events-none z-30 transition-all duration-1000 ${
           hasEntered ? 'top-full opacity-0' : 'top-0 opacity-80'
         }`}
-        style={{ transitionDuration: '2.4s', filter: 'drop-shadow(0 0 5px #72d6a0)' }}
+        style={{ transitionDuration: '2.4s', filter: 'drop-shadow(0 0 5px #FF5C4D)' }}
       />
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
@@ -193,12 +193,12 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
             <div className="inline-flex items-center gap-2 story-kicker mb-3">
-              <Fingerprint className="w-3.5 h-3.5 text-emerald-400" />
+              <Fingerprint className="w-3.5 h-3.5 text-[#FF5C4D]" />
               <span>Bio-Calibration 03 // Digital You</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl text-white font-light tracking-tight flex items-center gap-3">
               <span>Calibrate Your Digital You</span>
-              <span className="hidden sm:inline-block text-xs font-mono px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">
+              <span className="hidden sm:inline-block text-xs font-mono px-2.5 py-1 rounded-md bg-[#FF5C4D]/10 border border-[#FF5C4D]/30 text-[#FF5C4D]">
                 LIVE BIO-TWIN
               </span>
             </h2>
@@ -210,7 +210,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
           {/* Quick Archetype Switcher */}
           <div className="flex flex-col items-start md:items-end gap-1.5">
             <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest font-bold text-zinc-500">
-              <Sparkles className="w-3 h-3 text-emerald-400" />
+              <Sparkles className="w-3 h-3 text-[#F6B73C]" />
               <span>Quick Archetypes</span>
             </div>
             <div className="flex flex-wrap gap-1.5">
@@ -232,8 +232,8 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
                     }}
                     className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-all duration-300 cursor-pointer ${
                       isActive
-                        ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/35 scale-[1.02]'
-                        : 'bg-zinc-900/30 text-zinc-400 border-white/[0.08] hover:border-emerald-500/25 hover:text-zinc-200'
+                        ? 'bg-[#FF5C4D]/15 text-[#FF5C4D] border-[#FF5C4D]/40 scale-[1.02]'
+                        : 'bg-zinc-900/30 text-zinc-400 border-white/[0.08] hover:border-[#FF5C4D]/30 hover:text-zinc-200'
                     }`}
                   >
                     {preset.name}
@@ -249,7 +249,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
           id="profile-completion-hud"
           className={`mb-8 p-4 sm:p-5 rounded-2xl border transition-all duration-700 flex flex-col sm:flex-row items-center justify-between gap-4 backdrop-blur-xl ${
             isCompleted
-              ? 'bg-emerald-950/20 border-emerald-500/40 shadow-[0_0_30px_rgba(16,185,129,0.15)]'
+              ? 'bg-[#151326] border-[#63D9B3]/40 shadow-[0_0_30px_rgba(99,217,179,0.15)]'
               : 'bg-zinc-900/50 border-zinc-800'
           }`}
         >
@@ -257,15 +257,15 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
             <div
               className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-colors ${
                 isCompleted
-                  ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300 shadow-[0_0_16px_rgba(16,185,129,0.35)]'
+                  ? 'bg-[#63D9B3]/20 border-[#63D9B3]/40 text-[#63D9B3] shadow-[0_0_16px_rgba(99,217,179,0.35)]'
                   : 'bg-zinc-800/80 border-zinc-700 text-zinc-400'
               }`}
             >
-              <Radio className="w-5 h-5 animate-pulse text-emerald-400" />
+              <Radio className="w-5 h-5 animate-pulse text-[#63D9B3]" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-300">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#63D9B3]">
                   Bio Profile Synchronization
                 </span>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
@@ -274,14 +274,14 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
               </div>
               <div className="flex items-center gap-2 mt-1">
                 {/* Visual Progress indicator: ████████████████████ 100% */}
-                <div className="flex items-center font-mono text-xs text-emerald-400 tracking-tighter select-none font-bold">
+                <div className="flex items-center font-mono text-xs text-[#63D9B3] tracking-tighter select-none font-bold">
                   <span>[</span>
-                  <span className="text-emerald-400 animate-pulse">████████████████████</span>
+                  <span className="text-[#63D9B3] animate-pulse">████████████████████</span>
                   <span>]</span>
                 </div>
-                <span className="text-xs font-mono text-emerald-300 font-bold">100%</span>
+                <span className="text-xs font-mono text-[#63D9B3] font-bold">100%</span>
                 <span className="text-xs font-mono text-zinc-400 hidden sm:inline">•</span>
-                <span className="text-xs font-mono text-emerald-300 font-semibold hidden sm:inline">
+                <span className="text-xs font-mono text-[#63D9B3] font-semibold hidden sm:inline">
                   DIGITAL YOU READY ✓
                 </span>
               </div>
@@ -290,17 +290,17 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
 
           <div className="flex items-center gap-2.5 w-full sm:w-auto justify-end">
             {activeSignal && (
-              <div className="px-3 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-mono flex items-center gap-2 animate-pulse shadow-sm">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="px-3 py-1.5 rounded-full bg-[#63D9B3]/20 border border-[#63D9B3]/40 text-[#63D9B3] text-xs font-mono flex items-center gap-2 animate-pulse shadow-sm">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#63D9B3]" />
                 <span className="font-bold">{activeSignal.label}</span>
               </div>
             )}
             <button
               id="resync-digital-you-btn"
               onClick={triggerCompletion}
-              className="px-4 py-2 rounded-xl bg-zinc-800/80 hover:bg-emerald-500/20 hover:border-emerald-500/40 border border-zinc-700 text-xs font-mono text-zinc-200 hover:text-emerald-300 transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-zinc-800/80 hover:bg-[#FF5C4D]/20 hover:border-[#FF5C4D]/40 border border-zinc-700 text-xs font-mono text-zinc-200 hover:text-[#FF5C4D] transition-all flex items-center gap-1.5 cursor-pointer"
             >
-              <Zap className="w-3.5 h-3.5 text-emerald-400" />
+              <Zap className="w-3.5 h-3.5 text-[#FF5C4D]" />
               <span>Sync Signals</span>
             </button>
           </div>
@@ -310,7 +310,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-10 relative">
           {/* Signal beam trajectory effect overlay */}
           {signalBeamActive && (
-            <div className="hidden lg:block absolute left-[56%] top-1/3 w-28 h-[2px] bg-gradient-to-r from-emerald-400 via-sky-400 to-transparent z-40 pointer-events-none animate-bio-packet-flow" />
+            <div className="hidden lg:block absolute left-[56%] top-1/3 w-28 h-[2px] bg-gradient-to-r from-[#FF5C4D] via-[#8EDCFF] to-transparent z-40 pointer-events-none animate-bio-packet-flow" />
           )}
 
           {/* Left Column (7 cols): Step-by-Step Bio-Signal Calibration Controls */}
@@ -322,7 +322,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                  <div className="w-8 h-8 rounded-xl bg-[#8EDCFF]/10 border border-[#8EDCFF]/20 flex items-center justify-center text-[#8EDCFF]">
                     <Baby className="w-4 h-4" />
                   </div>
                   <div>
@@ -333,7 +333,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
                     <p className="text-xs text-zinc-400 font-light">Physiological lung volume, airway caliber & cellular turnover</p>
                   </div>
                 </div>
-                <span className="text-[10px] uppercase font-mono tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 capitalize font-bold">
+                <span className="text-[10px] uppercase font-mono tracking-wider text-[#8EDCFF] bg-[#8EDCFF]/10 px-2.5 py-1 rounded-full border border-[#8EDCFF]/20 capitalize font-bold">
                   {userProfile.ageGroup}
                 </span>
               </div>
@@ -373,20 +373,20 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
                       onClick={() => handleUpdate('ageGroup', item.id)}
                       className={`p-4 rounded-xl text-left border transition-all duration-300 flex flex-col justify-between cursor-pointer relative overflow-hidden transform ${
                         isSelected
-                          ? 'bg-emerald-500/10 border-emerald-400 text-emerald-200 ring-2 ring-emerald-500/30 shadow-[0_0_24px_rgba(16,185,129,0.25)] scale-[1.03] z-10'
+                          ? 'bg-[#FF5C4D]/10 border-[#FF5C4D] text-[#FF5C4D] ring-2 ring-[#FF5C4D]/30 shadow-[0_0_24px_rgba(255,92,77,0.25)] scale-[1.03] z-10'
                           : 'bg-zinc-950/60 border-zinc-800/80 text-zinc-400 opacity-60 hover:opacity-100 hover:border-zinc-700 hover:bg-zinc-900/60'
                       }`}
                     >
                       {/* Subtly animated active glow pulse on selected card */}
                       {isSelected && (
-                        <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 via-transparent to-transparent pointer-events-none" />
+                        <div className="absolute inset-0 bg-gradient-to-tr from-[#FF5C4D]/10 via-transparent to-transparent pointer-events-none" />
                       )}
 
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <Icon className={`w-5 h-5 transition-colors ${isSelected ? 'text-emerald-400' : 'text-zinc-500'}`} />
+                          <Icon className={`w-5 h-5 transition-colors ${isSelected ? 'text-[#FF5C4D]' : 'text-zinc-500'}`} />
                           {isSelected ? (
-                            <span className="flex items-center gap-1 text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/20 px-1.5 py-0.5 rounded">
+                            <span className="flex items-center gap-1 text-[10px] font-mono text-[#FF5C4D] font-bold bg-[#FF5C4D]/20 px-1.5 py-0.5 rounded">
                               <CheckCircle2 className="w-3.5 h-3.5" />
                               SYNCED
                             </span>
@@ -412,7 +412,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
               {/* Status indicator ribbon */}
               <div className="mt-3 pt-3 border-t border-zinc-800/60 flex items-center justify-between text-[10px] font-mono text-zinc-500">
                 <span>SELECTION TRAJECTORY: BIOMETRIC AVATAR</span>
-                <span className="text-emerald-400 font-semibold">SIGNAL ACTIVE ✓</span>
+                <span className="text-[#63D9B3] font-semibold">SIGNAL ACTIVE ✓</span>
               </div>
             </div>
 
@@ -448,7 +448,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
                     sub: 'Full-Body Shield',
                     desc: 'Intact cilia and robust pulmonary macrophage defense. Balanced cellular equilibrium.',
                     icon: Shield,
-                    accent: 'emerald',
+                    accent: 'mint',
                     organLabel: 'Systemic Shield'
                   },
                   {
@@ -474,8 +474,8 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
                   const Icon = item.icon;
 
                   const colorStyles = {
-                    emerald: isSelected
-                      ? 'bg-emerald-500/10 border-emerald-400 text-emerald-200 ring-2 ring-emerald-500/30 shadow-[0_0_24px_rgba(16,185,129,0.25)]'
+                    mint: isSelected
+                      ? 'bg-[#63D9B3]/10 border-[#63D9B3] text-[#63D9B3] ring-2 ring-[#63D9B3]/30 shadow-[0_0_24px_rgba(99,217,179,0.25)]'
                       : 'border-zinc-800/80',
                     sky: isSelected
                       ? 'bg-sky-500/10 border-sky-400 text-sky-200 ring-2 ring-sky-500/30 shadow-[0_0_24px_rgba(56,189,248,0.25)]'
@@ -505,7 +505,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
                                   ? 'text-rose-400'
                                   : item.accent === 'sky'
                                   ? 'text-sky-400'
-                                  : 'text-emerald-400'
+                                  : 'text-[#63D9B3]'
                                 : 'text-zinc-500'
                             }`}
                           />
@@ -651,7 +651,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
               {/* Futuristic Interactive Spectrum Bar */}
               <div className="p-4 rounded-xl bg-zinc-950/70 border border-zinc-800 mb-4">
                 <div className="flex justify-between items-center text-xs font-mono text-zinc-400 mb-3 font-semibold">
-                  <span className="flex items-center gap-1.5 text-emerald-400">
+                  <span className="flex items-center gap-1.5 text-[#63D9B3]">
                     <Shield className="w-3.5 h-3.5" />
                     INDOOR (SHIELDED)
                   </span>
@@ -666,16 +666,16 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
 
                 {/* Visual Spectrum Track with clickable interactive nodes */}
                 <div className="relative h-6 flex items-center my-2">
-                  <div className="absolute inset-x-0 h-2 rounded-full bg-gradient-to-r from-emerald-500 via-sky-500 to-orange-500 opacity-60" />
+                  <div className="absolute inset-x-0 h-2 rounded-full bg-gradient-to-r from-[#63D9B3] via-[#8EDCFF] to-[#FF5C4D] opacity-60" />
                   
                   {/* Glowing scrub indicator positioned by current selection */}
                   <div
                     className={`absolute top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border-2 shadow-[0_0_16px_rgba(255,255,255,0.8)] transition-all duration-300 pointer-events-none ${
                       userProfile.outdoorExposure === 'low'
-                        ? 'left-0 border-emerald-400 bg-emerald-100 shadow-[0_0_16px_#10b981]'
+                        ? 'left-0 border-[#63D9B3] bg-[#63D9B3]/20 shadow-[0_0_16px_#63D9B3]'
                         : userProfile.outdoorExposure === 'medium'
                         ? 'left-1/2 -translate-x-1/2 border-sky-400 bg-sky-100 shadow-[0_0_16px_#38bdf8]'
-                        : 'left-full -translate-x-full border-orange-400 bg-orange-100 shadow-[0_0_16px_#f97316]'
+                        : 'left-full -translate-x-full border-[#FF5C4D] bg-[#FF5C4D]/20 shadow-[0_0_16px_#FF5C4D]'
                     }`}
                   />
                 </div>
@@ -696,7 +696,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
                     sub: '< 1 Hour / Day',
                     desc: 'Calm particle perimeter. Reduced aerosol deposition rate.',
                     dosage: 'Dosage: Minimal (22% Baseline)',
-                    badgeColor: 'text-emerald-400'
+                    badgeColor: 'text-[#63D9B3]'
                   },
                   {
                     id: 'medium' as OutdoorExposure,
@@ -772,7 +772,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
               {/* Live Biometric Telemetry Summary Card */}
               <div className="bg-zinc-900/40 rounded-xl p-4 border border-zinc-800 text-xs font-mono text-zinc-400 flex flex-col gap-2">
                 <div className="flex items-center justify-between text-zinc-300 font-semibold border-b border-zinc-800/60 pb-2">
-                  <span className="text-[11px] uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                  <span className="text-[11px] uppercase tracking-wider text-[#8EDCFF] flex items-center gap-1.5">
                     <Activity className="w-3.5 h-3.5" />
                     Biometric Telemetry Checksum
                   </span>
@@ -810,28 +810,28 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
         >
           {/* Animated data particles / signal lines streaming downward toward AI Synthesis section */}
           <div className="absolute inset-x-0 bottom-0 h-14 pointer-events-none overflow-hidden opacity-40">
-            <div className="absolute left-[15%] w-[1.5px] h-full bg-gradient-to-b from-emerald-400 to-transparent animate-bio-synth-stream-1" />
-            <div className="absolute left-[35%] w-[2px] h-full bg-gradient-to-b from-sky-400 to-transparent animate-bio-synth-stream-2" />
-            <div className="absolute left-[55%] w-[1.5px] h-full bg-gradient-to-b from-emerald-400 to-transparent animate-bio-synth-stream-3" />
-            <div className="absolute left-[75%] w-[2px] h-full bg-gradient-to-b from-teal-300 to-transparent animate-bio-synth-stream-1" />
-            <div className="absolute left-[90%] w-[1.5px] h-full bg-gradient-to-b from-sky-400 to-transparent animate-bio-synth-stream-2" />
+            <div className="absolute left-[15%] w-[1.5px] h-full bg-gradient-to-b from-[#FF5C4D] to-transparent animate-bio-synth-stream-1" />
+            <div className="absolute left-[35%] w-[2px] h-full bg-gradient-to-b from-[#8EDCFF] to-transparent animate-bio-synth-stream-2" />
+            <div className="absolute left-[55%] w-[1.5px] h-full bg-gradient-to-b from-[#FF5C4D] to-transparent animate-bio-synth-stream-3" />
+            <div className="absolute left-[75%] w-[2px] h-full bg-gradient-to-b from-[#F6B73C] to-transparent animate-bio-synth-stream-1" />
+            <div className="absolute left-[90%] w-[1.5px] h-full bg-gradient-to-b from-[#8EDCFF] to-transparent animate-bio-synth-stream-2" />
           </div>
 
           <div className="flex items-center gap-4 relative z-10 w-full md:w-auto">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.25)] shrink-0">
-              <Sparkles className="w-6 h-6 text-emerald-400 animate-spin" style={{ animationDuration: '8s' }} />
+            <div className="w-12 h-12 rounded-2xl bg-[#FF5C4D]/15 border border-[#FF5C4D]/30 flex items-center justify-center text-[#FF5C4D] shadow-[0_0_20px_rgba(255,92,77,0.25)] shrink-0">
+              <Sparkles className="w-6 h-6 text-[#FF5C4D] animate-spin" style={{ animationDuration: '8s' }} />
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2">
                 <p className="font-semibold text-white text-base">
                   Bio-Profile Synthesized &amp; Ready
                 </p>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 font-mono font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/40">
+                <span className="text-[10px] bg-[#63D9B3]/20 text-[#63D9B3] font-mono font-bold px-2.5 py-0.5 rounded-full border border-[#63D9B3]/40">
                   DIGITAL YOU READY ✓
                 </span>
               </div>
               <p className="text-xs text-zinc-400 mt-1 font-light flex items-center gap-1.5">
-                <span className="text-emerald-400 font-mono font-semibold">
+                <span className="text-[#FF5C4D] font-mono font-semibold">
                   PROFILE DATA READY FOR AI SYNTHESIS →
                 </span>
                 <span className="hidden sm:inline text-zinc-500">
@@ -845,10 +845,10 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({
             <button
               id="profile-to-analysis-btn"
               onClick={onScrollToNext}
-              className="w-full sm:w-auto px-7 py-3.5 bg-white text-black rounded-full text-xs font-bold uppercase tracking-widest hover:bg-emerald-400 hover:shadow-[0_0_30px_rgba(52,211,153,0.5)] transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer group"
+              className="w-full sm:w-auto px-7 py-3.5 bg-white text-black rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#FF5C4D] hover:text-white hover:shadow-[0_0_30px_rgba(255,92,77,0.5)] transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer group"
             >
               <span>Run AI Cross-Analysis</span>
-              <ChevronRight className="w-4 h-4 text-black group-hover:translate-x-1 transition-transform" />
+              <ChevronRight className="w-4 h-4 text-black group-hover:text-white group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>

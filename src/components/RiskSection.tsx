@@ -91,13 +91,13 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
   > = {
     low: {
       title: 'Low Environmental Risk',
-      color: 'text-emerald-400',
-      borderColor: '#10b981',
-      border: 'border-emerald-500/40',
-      bg: 'from-emerald-950/20 via-zinc-950 to-[#050505]',
-      glow: 'rgba(16, 185, 129, 0.16)',
-      halo: 'rgba(16, 185, 129, 0.28)',
-      badge: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+      color: 'text-[#63D9B3]',
+      borderColor: '#63D9B3',
+      border: 'border-[#63D9B3]/40',
+      bg: 'from-[#63D9B3]/15 via-[#151326] to-[#080A16]',
+      glow: 'rgba(99, 217, 179, 0.16)',
+      halo: 'rgba(99, 217, 179, 0.28)',
+      badge: 'bg-[#63D9B3]/15 text-[#63D9B3] border-[#63D9B3]/30',
       icon: ShieldCheck,
       description: 'Atmospheric conditions represent minimal physiological threat to your bio-profile. Routine ventilation and normal outdoor exertion permitted.',
       actionUrgency: 'Baseline precautions only.',
@@ -105,13 +105,13 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
     },
     moderate: {
       title: 'Moderate Health Sensitivity',
-      color: 'text-amber-400',
-      borderColor: '#f59e0b',
-      border: 'border-amber-500/40',
-      bg: 'from-amber-950/20 via-zinc-950 to-[#050505]',
-      glow: 'rgba(245, 158, 11, 0.16)',
-      halo: 'rgba(245, 158, 11, 0.28)',
-      badge: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
+      color: 'text-[#F6B73C]',
+      borderColor: '#F6B73C',
+      border: 'border-[#F6B73C]/40',
+      bg: 'from-[#F6B73C]/15 via-[#151326] to-[#080A16]',
+      glow: 'rgba(246, 183, 60, 0.16)',
+      halo: 'rgba(246, 183, 60, 0.28)',
+      badge: 'bg-[#F6B73C]/15 text-[#F6B73C] border-[#F6B73C]/30',
       icon: AlertTriangle,
       description: 'Minor respiratory and microvascular friction detected. Sensitive individuals may experience mild airway tightness during strenuous midday exertion.',
       actionUrgency: 'Guard sensitive individuals during midday.',
@@ -119,13 +119,13 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
     },
     high: {
       title: 'High Biological Vulnerability',
-      color: 'text-orange-400',
-      borderColor: '#f97316',
-      border: 'border-orange-500/40',
-      bg: 'from-orange-950/25 via-zinc-950 to-[#050505]',
-      glow: 'rgba(249, 115, 22, 0.2)',
-      halo: 'rgba(249, 115, 22, 0.35)',
-      badge: 'bg-orange-500/15 text-orange-300 border-orange-500/30',
+      color: 'text-[#FF5C4D]',
+      borderColor: '#FF5C4D',
+      border: 'border-[#FF5C4D]/40',
+      bg: 'from-[#FF5C4D]/20 via-[#151326] to-[#080A16]',
+      glow: 'rgba(255, 92, 77, 0.22)',
+      halo: 'rgba(255, 92, 77, 0.35)',
+      badge: 'bg-[#FF5C4D]/15 text-[#FF5C4D] border-[#FF5C4D]/30',
       icon: Flame,
       description: 'Substantial air toxicant concentration interacting with personal sensitivities. Elevated risk of bronchospasms, cardiac exertion, and systemic inflammation.',
       actionUrgency: 'Active indoor filtration and protective respirators.',
@@ -133,13 +133,13 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
     },
     severe: {
       title: 'Severe Acute Health Hazard',
-      color: 'text-rose-400',
-      borderColor: '#f43f5e',
-      border: 'border-rose-500/40',
-      bg: 'from-rose-950/30 via-zinc-950 to-[#050505]',
-      glow: 'rgba(244, 63, 94, 0.25)',
-      halo: 'rgba(244, 63, 94, 0.45)',
-      badge: 'bg-rose-500/15 text-rose-300 border-rose-500/30',
+      color: 'text-[#FF5C4D]',
+      borderColor: '#FF5C4D',
+      border: 'border-[#FF5C4D]/60',
+      bg: 'from-[#FF5C4D]/30 via-[#151326] to-[#080A16]',
+      glow: 'rgba(255, 92, 77, 0.35)',
+      halo: 'rgba(255, 92, 77, 0.45)',
+      badge: 'bg-[#FF5C4D]/25 text-[#FF5C4D] border-[#FF5C4D]/50',
       icon: ShieldAlert,
       description: 'Hazardous atmospheric condition. Particulate and oxidant concentrations pose immediate physiological stress across all age groups, especially vulnerable profiles.',
       actionUrgency: 'Remain indoors; avoid all outdoor exertion.',
@@ -287,22 +287,22 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
           <div className="flex flex-col items-center justify-center py-20 text-center animate-fade-in">
             <div className="relative w-24 h-24 mb-6 flex items-center justify-center">
               {/* Outer rotating scanner ring */}
-              <div className="absolute inset-0 rounded-full border-2 border-dashed border-emerald-400/40 animate-risk-scanner" />
-              <div className="absolute inset-2 rounded-full border border-emerald-500/20 animate-risk-scanner-reverse" />
-              <div className="w-12 h-12 rounded-full bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.35)] animate-pulse">
+              <div className="absolute inset-0 rounded-full border-2 border-dashed border-[#FF5C4D]/40 animate-risk-scanner" />
+              <div className="absolute inset-2 rounded-full border border-[#F6B73C]/20 animate-risk-scanner-reverse" />
+              <div className="w-12 h-12 rounded-full bg-[#FF5C4D]/15 border border-[#FF5C4D]/40 flex items-center justify-center text-[#FF5C4D] shadow-[0_0_20px_rgba(255,92,77,0.35)] animate-pulse">
                 <Target className="w-6 h-6 animate-spin" />
               </div>
             </div>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-emerald-500/30 text-emerald-300 text-xs font-mono uppercase tracking-wider mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#151326] border border-[#FF5C4D]/30 text-[#F4F1EA] text-xs font-mono uppercase tracking-wider mb-2">
+              <Sparkles className="w-3.5 h-3.5 text-[#F6B73C] animate-pulse" />
               <span>PERSONALIZED ASSESSMENT READY</span>
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-light text-white font-mono tracking-wide mt-1">
+            <h3 className="text-xl sm:text-2xl font-light text-[#F4F1EA] font-mono tracking-wide mt-1">
               ANALYZING FINAL HEALTH CORRELATIONS...
             </h3>
-            <p className="text-xs text-zinc-400 font-mono mt-2">
+            <p className="text-xs text-[#8A8579] font-mono mt-2">
               Fusing atmospheric chemistry with calibrated Digital You biomarkers
             </p>
           </div>
@@ -315,28 +315,28 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
           {/* Section Header & Interactive Simulation Switcher */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/80 border border-zinc-800 text-emerald-400 text-xs font-mono uppercase tracking-wider mb-3 shadow-sm">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#151326] border border-white/10 text-[#FF5C4D] text-xs font-mono uppercase tracking-wider mb-3 shadow-sm">
                 <Activity className="w-3.5 h-3.5 animate-pulse" />
                 <span>Bio-Impact Verdict 05 // Personalized Health Risk</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl text-white font-light tracking-tight flex items-center gap-3 flex-wrap">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl text-[#F4F1EA] font-light tracking-tight flex items-center gap-3 flex-wrap">
                 <span>Personalized Health Risk</span>
                 <span className={`text-xs font-mono px-2.5 py-1 rounded-md border ${theme.badge} font-semibold uppercase tracking-wide`}>
                   {activeLevel} Risk Alert
                 </span>
               </h2>
-              <p className="text-zinc-400 text-sm sm:text-base mt-2 max-w-2xl font-light">
+              <p className="text-[#C8C3B7] text-sm sm:text-base mt-2 max-w-2xl font-light">
                 Synthesized from your personal biomarkers ({userProfile.ageGroup}, {userProfile.healthCondition.replace('_', ' ')}, {userProfile.outdoorExposure} exposure) and {currentCity.location}&apos;s live atmospheric load.
               </p>
             </div>
 
             {/* Interactive Simulation Switcher: Test all 4 states with silky transitions */}
             <div className="flex flex-col items-start md:items-end gap-1.5">
-              <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-wider font-mono text-zinc-400">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
+              <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-wider font-mono text-[#8A8579]">
+                <SlidersHorizontal className="w-3.5 h-3.5 text-[#F6B73C]" />
                 <span>Explore Risk States</span>
               </div>
-              <div className="flex items-center gap-1.5 p-1 rounded-full bg-zinc-900/80 border border-zinc-800 shadow-inner">
+              <div className="flex items-center gap-1.5 p-1 rounded-full bg-[#151326] border border-white/10 shadow-inner">
                 {(['low', 'moderate', 'high', 'severe'] as RiskLevel[]).map((lvl) => {
                   const isSelected = activeLevel === lvl;
                   return (
@@ -350,7 +350,7 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
                       className={`px-3.5 py-1.5 rounded-full text-xs font-medium capitalize transition-all duration-300 cursor-pointer ${
                         isSelected
                           ? `${levelThemes[lvl].badge} font-bold shadow-[0_0_15px_rgba(255,255,255,0.1)] scale-105`
-                          : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50'
+                          : 'text-[#8A8579] hover:text-[#F4F1EA] hover:bg-white/5'
                       }`}
                     >
                       {lvl}
@@ -360,7 +360,7 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
                 {simulationLevel && (
                   <button
                     onClick={() => setSimulationLevel(null)}
-                    className="px-2.5 py-1 rounded text-[10px] font-mono text-zinc-500 hover:text-zinc-300 hover:underline cursor-pointer"
+                    className="px-2.5 py-1 rounded text-[10px] font-mono text-[#8A8579] hover:text-[#F4F1EA] hover:underline cursor-pointer"
                     title="Reset to live calculated score"
                   >
                     Reset
@@ -375,7 +375,7 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
           {/* ============================================================ */}
           <div
             id="risk-hero-reveal"
-            className={`rounded-3xl p-6 sm:p-10 border ${theme.border} bg-zinc-900/50 backdrop-blur-2xl shadow-2xl mb-8 relative overflow-hidden transition-all duration-700`}
+            className={`rounded-3xl p-6 sm:p-10 border ${theme.border} bg-[#151326]/75 backdrop-blur-2xl shadow-2xl mb-8 relative overflow-hidden transition-all duration-700`}
             style={{
               boxShadow: `0 0 50px ${theme.glow}`
             }}
@@ -394,15 +394,15 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
                   />
 
                   {/* Rotating Scanner Tick Ring */}
-                  <div className="absolute inset-0 rounded-full border border-dashed border-zinc-700/60 animate-risk-scanner pointer-events-none" />
-                  <div className="absolute inset-3 rounded-full border border-zinc-800 animate-risk-scanner-reverse pointer-events-none" />
+                  <div className="absolute inset-0 rounded-full border border-dashed border-white/15 animate-risk-scanner pointer-events-none" />
+                  <div className="absolute inset-3 rounded-full border border-white/10 animate-risk-scanner-reverse pointer-events-none" />
 
                   {/* SVG Radial Meter with animated stroke and gradient */}
                   <svg className="w-full h-full transform -rotate-90 relative z-10" viewBox="0 0 220 220">
                     <defs>
                       <linearGradient id="scoreProgressGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#10b981" />
-                        <stop offset="50%" stopColor="#f59e0b" />
+                        <stop offset="0%" stopColor="#63D9B3" />
+                        <stop offset="50%" stopColor="#F6B73C" />
                         <stop offset="100%" stopColor={theme.borderColor} />
                       </linearGradient>
                     </defs>
@@ -422,7 +422,7 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
                       cx="110"
                       cy="110"
                       r="92"
-                      stroke={activeLevel === 'low' ? '#10b981' : activeLevel === 'moderate' ? '#f59e0b' : activeLevel === 'high' ? '#f97316' : '#f43f5e'}
+                      stroke={activeLevel === 'low' ? '#63D9B3' : activeLevel === 'moderate' ? '#F6B73C' : '#FF5C4D'}
                       strokeWidth="14"
                       fill="transparent"
                       strokeDasharray={2 * Math.PI * 92}
@@ -446,19 +446,19 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
 
                   {/* Center Score & Icon Display */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-20">
-                    <div className="w-12 h-12 rounded-2xl bg-zinc-950/80 border border-zinc-800 flex items-center justify-center mb-1.5 shadow-inner">
+                    <div className="w-12 h-12 rounded-2xl bg-[#080A16]/90 border border-white/10 flex items-center justify-center mb-1.5 shadow-inner">
                       <IconComponent className={`w-7 h-7 ${theme.color} transition-all duration-500`} />
                     </div>
 
                     {/* Live Count-Up Score */}
                     <div className="flex items-baseline justify-center">
-                      <span className="text-5xl sm:text-6xl font-mono font-light text-white tracking-tight">
+                      <span className="text-5xl sm:text-6xl font-mono font-light text-[#F4F1EA] tracking-tight">
                         {animatedScore}
                       </span>
-                      <span className="text-xs font-mono text-zinc-500 ml-1">/100</span>
+                      <span className="text-xs font-mono text-[#8A8579] ml-1">/100</span>
                     </div>
 
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 mt-0.5">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#8A8579] mt-0.5">
                       HEALTH STRAIN INDEX
                     </span>
                   </div>
@@ -472,8 +472,8 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
                   </div>
 
                   {revealStage >= 2 && (
-                    <div className="text-[11px] font-mono text-emerald-400 flex items-center gap-1 animate-fade-in">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    <div className="text-[11px] font-mono text-[#63D9B3] flex items-center gap-1 animate-fade-in">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#63D9B3]" />
                       <span>PERSONALIZED ENVIRONMENTAL IMPACT ASSESSED ✓</span>
                     </div>
                   )}
@@ -484,21 +484,21 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
               <div className="lg:col-span-7 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between flex-wrap gap-2 mb-2">
-                    <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider">
+                    <span className="text-xs font-mono text-[#8A8579] uppercase tracking-wider">
                       Atmospheric Synthesis Verdict
                     </span>
                     {/* Primary Environmental Driver Highlight */}
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-950 border border-amber-500/40 text-[11px] font-mono text-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.2)]">
-                      <Zap className="w-3 h-3 text-amber-400 animate-pulse" />
-                      <span className="text-zinc-400">PRIMARY ENVIRONMENTAL DRIVER:</span>
-                      <strong className="font-bold text-white">{assessment.primaryDriver}</strong>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#080A16] border border-[#F6B73C]/40 text-[11px] font-mono text-[#F6B73C] shadow-[0_0_12px_rgba(246,183,60,0.2)]">
+                      <Zap className="w-3 h-3 text-[#F6B73C] animate-pulse" />
+                      <span className="text-[#8A8579]">PRIMARY ENVIRONMENTAL DRIVER:</span>
+                      <strong className="font-bold text-[#F4F1EA]">{assessment.primaryDriver}</strong>
                     </div>
                   </div>
 
-                  <h3 className="text-2xl sm:text-3xl font-light text-white mb-2">
+                  <h3 className="text-2xl sm:text-3xl font-light text-[#F4F1EA] mb-2">
                     {theme.title}
                   </h3>
-                  <p className="text-sm sm:text-base text-zinc-300 leading-relaxed font-light mb-6">
+                  <p className="text-sm sm:text-base text-[#C8C3B7] leading-relaxed font-light mb-6">
                     {theme.description}
                   </p>
                 </div>
@@ -507,12 +507,12 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
                 {/* 4. PERSONALIZED BIOLOGICAL RISK FACTORS (Staggered Animations) */}
                 {/* ============================================================ */}
                 <div className="space-y-3 mb-6">
-                  <div className="flex items-center justify-between text-xs font-semibold text-zinc-300">
+                  <div className="flex items-center justify-between text-xs font-semibold text-[#F4F1EA]">
                     <span className="flex items-center gap-2">
-                      <Activity className="w-3.5 h-3.5 text-emerald-400" />
+                      <Activity className="w-3.5 h-3.5 text-[#FF5C4D]" />
                       <span>Target Organ System Susceptibility</span>
                     </span>
-                    <span className="font-mono text-zinc-400 text-[11px]">Biological Strain Breakdown</span>
+                    <span className="font-mono text-[#8A8579] text-[11px]">Biological Strain Breakdown</span>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -523,12 +523,12 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
                       return (
                         <div
                           key={impact.category}
-                          className={`p-4 rounded-2xl bg-zinc-950/90 border transition-all duration-500 space-y-2.5 relative overflow-hidden ${
+                          className={`p-4 rounded-2xl bg-[#080A16]/80 border transition-all duration-500 space-y-2.5 relative overflow-hidden ${
                             revealStage >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                           } ${
                             isPrimary
-                              ? 'border-amber-500/50 shadow-[0_0_20px_rgba(245,158,11,0.18)] ring-1 ring-amber-500/30'
-                              : 'border-zinc-800/90 hover:border-zinc-700'
+                              ? 'border-[#F6B73C]/50 shadow-[0_0_20px_rgba(246,183,60,0.18)] ring-1 ring-[#F6B73C]/30'
+                              : 'border-white/[0.08] hover:border-white/20'
                           }`}
                           style={{
                             transitionDelay: `${index * 120}ms`
@@ -536,37 +536,37 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
                         >
                           {/* Highlight Tag for Primary Contributing Factor */}
                           {isPrimary && (
-                            <div className="absolute top-2 right-2 flex items-center gap-1 text-[9px] font-mono uppercase bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded border border-amber-500/40">
-                              <Zap className="w-2.5 h-2.5 text-amber-400 animate-pulse" />
+                            <div className="absolute top-2 right-2 flex items-center gap-1 text-[9px] font-mono uppercase bg-[#F6B73C]/20 text-[#F6B73C] px-2 py-0.5 rounded border border-[#F6B73C]/40">
+                              <Zap className="w-2.5 h-2.5 text-[#F6B73C] animate-pulse" />
                               <span>PRIMARY DRIVER</span>
                             </div>
                           )}
 
                           <div className="flex items-center justify-between pt-0.5">
                             <div className="flex items-center gap-2">
-                              <div className="w-7 h-7 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-center text-emerald-400">
-                                <BioIcon className="w-4 h-4 text-emerald-400" />
+                              <div className="w-7 h-7 rounded-lg bg-[#151326] border border-white/10 flex items-center justify-center text-[#8EDCFF]">
+                                <BioIcon className="w-4 h-4 text-[#8EDCFF]" />
                               </div>
-                              <span className="text-xs font-medium text-zinc-200">{impact.title}</span>
+                              <span className="text-xs font-medium text-[#F4F1EA]">{impact.title}</span>
                             </div>
-                            <span className="text-xs font-mono font-bold text-white pr-1">{impact.percentage}%</span>
+                            <span className="text-xs font-mono font-bold text-[#F4F1EA] pr-1">{impact.percentage}%</span>
                           </div>
 
                           {/* Animated Progress Bar */}
-                          <div className="w-full bg-zinc-900 h-2 rounded-full overflow-hidden border border-zinc-800/80">
+                          <div className="w-full bg-[#151326] h-2 rounded-full overflow-hidden border border-white/5">
                             <div
                               className={`h-full rounded-full transition-all duration-1000 ease-out ${
                                 impact.percentage >= 70
-                                  ? 'bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]'
+                                  ? 'bg-[#FF5C4D] shadow-[0_0_8px_rgba(255,92,77,0.6)]'
                                   : impact.percentage >= 45
-                                  ? 'bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]'
-                                  : 'bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.6)]'
+                                  ? 'bg-[#F6B73C] shadow-[0_0_8px_rgba(246,183,60,0.6)]'
+                                  : 'bg-[#63D9B3] shadow-[0_0_8px_rgba(99,217,179,0.6)]'
                               }`}
                               style={{ width: barProgressReady ? `${impact.percentage}%` : '0%' }}
                             />
                           </div>
 
-                          <p className="text-[11px] text-zinc-400 font-light leading-snug">
+                          <p className="text-[11px] text-[#8A8579] font-light leading-snug">
                             {impact.details}
                           </p>
                         </div>
@@ -576,16 +576,16 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
                 </div>
 
                 {/* Priority Action Callout */}
-                <div className="p-4 rounded-2xl bg-zinc-950/90 border border-zinc-800 flex items-center justify-between gap-4 flex-wrap sm:flex-nowrap">
+                <div className="p-4 rounded-2xl bg-[#080A16]/80 border border-white/[0.08] flex items-center justify-between gap-4 flex-wrap sm:flex-nowrap">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0 shadow-[0_0_12px_rgba(16,185,129,0.2)]">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                    <div className="w-9 h-9 rounded-xl bg-[#FF5C4D]/10 border border-[#FF5C4D]/30 flex items-center justify-center text-[#FF5C4D] shrink-0 shadow-[0_0_12px_rgba(255,92,77,0.2)]">
+                      <CheckCircle2 className="w-5 h-5 text-[#FF5C4D]" />
                     </div>
                     <div>
-                      <span className="text-[10px] uppercase font-mono tracking-wider text-zinc-400 block">
+                      <span className="text-[10px] uppercase font-mono tracking-wider text-[#8A8579] block">
                         Tactical Health Advisory
                       </span>
-                      <span className="text-xs sm:text-sm font-medium text-white">
+                      <span className="text-xs sm:text-sm font-medium text-[#F4F1EA]">
                         {assessment.keyPrecautions[0] || 'Maintain scheduled indoor air filtration routines.'}
                       </span>
                     </div>
@@ -594,10 +594,10 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
                   <button
                     id="risk-to-plan-btn"
                     onClick={onScrollToNext}
-                    className="px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold uppercase tracking-wider hover:bg-emerald-400 transition-colors flex items-center gap-1.5 cursor-pointer whitespace-nowrap shadow-md transform hover:scale-105"
+                    className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#FF5C4D] to-[#F6B73C] text-[#080A16] hover:brightness-110 text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-1.5 cursor-pointer whitespace-nowrap shadow-md transform hover:scale-105 active:scale-95"
                   >
                     <span>View Today&apos;s Plan</span>
-                    <ChevronRight className="w-4 h-4 text-black" />
+                    <ChevronRight className="w-4 h-4 text-[#080A16]" />
                   </button>
                 </div>
               </div>
@@ -609,12 +609,12 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
             {assessment.keyPrecautions.slice(0, 3).map((precaution, idx) => (
               <div
                 key={idx}
-                className="bg-zinc-900/60 p-4.5 rounded-2xl border border-zinc-800/90 flex items-start gap-3.5 backdrop-blur-xl hover:border-zinc-700 transition-colors"
+                className="bg-[#151326]/75 p-4.5 rounded-2xl border border-white/[0.08] flex items-start gap-3.5 backdrop-blur-xl hover:border-white/20 transition-colors"
               >
-                <div className="w-7 h-7 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0 mt-0.5 font-mono text-xs font-bold">
+                <div className="w-7 h-7 rounded-xl bg-[#FF5C4D]/10 border border-[#FF5C4D]/20 flex items-center justify-center text-[#FF5C4D] shrink-0 mt-0.5 font-mono text-xs font-bold">
                   0{idx + 1}
                 </div>
-                <p className="text-xs text-zinc-300 leading-relaxed font-light">
+                <p className="text-xs text-[#C8C3B7] leading-relaxed font-light">
                   {precaution}
                 </p>
               </div>
@@ -626,35 +626,35 @@ export const RiskSection: React.FC<RiskSectionProps> = ({
           {/* ============================================================ */}
           <div className="relative pt-2 flex flex-col items-center text-center">
             {/* Animated signal path moving toward the next section */}
-            <div className="w-[2px] h-12 bg-gradient-to-b from-emerald-400 via-sky-400 to-transparent relative mb-3 overflow-hidden">
+            <div className="w-[2px] h-12 bg-gradient-to-b from-[#FF5C4D] via-[#F6B73C] to-transparent relative mb-3 overflow-hidden">
               <div className="w-full h-4 bg-white rounded-full animate-bio-synth-stream-1 shadow-[0_0_8px_#ffffff]" />
             </div>
 
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-400 mb-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-emerald-300 font-semibold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#151326] border border-white/10 text-xs font-mono text-[#8A8579] mb-2">
+              <span className="w-2 h-2 rounded-full bg-[#FF5C4D] animate-pulse" />
+              <span className="text-[#F4F1EA] font-semibold uppercase tracking-wider">
                 RISK ASSESSMENT COMPLETE
               </span>
             </div>
 
-            <h4 className="text-sm font-mono text-white tracking-wide mb-1">
+            <h4 className="text-sm font-mono text-[#F4F1EA] tracking-wide mb-1">
               GENERATING YOUR PERSONALIZED DAILY PLAN →
             </h4>
-            <p className="text-xs text-zinc-400 max-w-md font-light mb-4">
+            <p className="text-xs text-[#C8C3B7] max-w-md font-light mb-4">
               AeroCare’s tactical schedule converts your biological risk matrix into time-windowed ventilation and activity directives.
             </p>
 
             <button
               id="risk-to-plan-cta"
               onClick={onScrollToNext}
-              className="px-8 py-3.5 bg-white text-black hover:bg-emerald-400 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:shadow-[0_0_35px_rgba(52,211,153,0.5)] transform hover:scale-105"
+              className="px-8 py-3.5 bg-gradient-to-r from-[#FF5C4D] to-[#F6B73C] text-[#080A16] hover:brightness-110 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer shadow-[0_0_30px_rgba(255,92,77,0.25)] hover:shadow-[0_0_35px_rgba(255,92,77,0.45)] transform hover:scale-105 active:scale-95"
             >
               <span>Proceed to 06 Personalized Daily Plan</span>
-              <ChevronRight className="w-4 h-4 text-black" />
+              <ChevronRight className="w-4 h-4 text-[#080A16]" />
             </button>
 
             {/* Responsible health guidance disclaimer */}
-            <div className="mt-8 text-[11px] font-mono text-zinc-500 max-w-xl text-center leading-relaxed">
+            <div className="mt-8 text-[11px] font-mono text-[#8A8579] max-w-xl text-center leading-relaxed">
               *Environmental Health Guidance: Predictive exposure and physiological stress estimates are synthesized for preventive lifestyle planning and do not constitute clinical diagnosis.
             </div>
           </div>

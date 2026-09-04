@@ -28,10 +28,10 @@ export const StoryProgress: React.FC<StoryProgressProps> = ({
           >
             {/* Hover Tooltip Label */}
             <span
-              className={`text-[10px] font-mono tracking-widest uppercase transition-all duration-200 px-2.5 py-0.5 rounded-lg glass-panel bg-zinc-900/90 border border-zinc-800 ${
+              className={`text-[10px] font-mono tracking-widest uppercase transition-all duration-200 px-2.5 py-0.5 rounded-lg glass-panel bg-[#151326]/95 border border-white/10 ${
                 isActive
-                  ? 'opacity-100 text-emerald-400 translate-x-0 font-semibold'
-                  : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 text-zinc-500'
+                  ? 'opacity-100 text-[#FF5C4D] translate-x-0 font-semibold'
+                  : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 text-[#8A8579]'
               }`}
             >
               0{idx + 1} {section.label}
@@ -41,8 +41,8 @@ export const StoryProgress: React.FC<StoryProgressProps> = ({
             <div
               className={`transition-all duration-300 rounded-full relative overflow-hidden ${
                 isActive
-                  ? 'w-2.5 h-7 bg-emerald-400 shadow-lg shadow-emerald-500/50'
-                  : 'w-2 h-2 bg-zinc-700 group-hover:bg-emerald-400 group-hover:scale-125'
+                  ? 'w-2.5 h-7 bg-[#FF5C4D] shadow-lg shadow-[#FF5C4D]/50'
+                  : 'w-2 h-2 bg-white/20 group-hover:bg-[#FF5C4D] group-hover:scale-125'
               }`}
             >
               {/* Traveling shimmer beam when on Hero section to show scrollability */}
