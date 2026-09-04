@@ -1,0 +1,6 @@
+{
+  "name": "AeroCare AI – Personalized Weather & AQI Health Advisory",
+  "description": "Personalized environmental health intelligence platform helping users understand how weather and air quality conditions affect them personally based on their health profile and lifestyle.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
