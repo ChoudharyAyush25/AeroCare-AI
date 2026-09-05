@@ -24,8 +24,9 @@ import {
   TrendingUp,
   AlertTriangle
 } from 'lucide-react';
+import { getAIHealthAdvice } from "../services/aiService";
 import { EnvironmentalData, UserProfile, HealthRiskAssessment } from '../types';
-
+import ReactMarkdown from "react-markdown";
 interface AnalysisSectionProps {
   currentCity: EnvironmentalData;
   userProfile: UserProfile;
@@ -53,6 +54,8 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
   const [isSynthesizing, setIsSynthesizing] = useState(false);
   const [synthesisComplete, setSynthesisComplete] = useState(false);
   const [shockwaveActive, setShockwaveActive] = useState(false);
+  const [aiAdvice, setAiAdvice] = useState<string>("");
+  const [isLoadingAdvice, setIsLoadingAdvice] = useState(false);
 
   // Terminal log lines progressively written
   const [terminalLines, setTerminalLines] = useState<string[]>([]);
@@ -109,9 +112,9 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
     const t4 = setTimeout(() => setRevealStage(5), 1350);
     // AI Engine activates at 1700ms and triggers first synthesis cycle
     const t5 = setTimeout(() => {
-      setRevealStage(6);
-      triggerSynthesisSequence();
-    }, 1700);
+  setRevealStage(6);
+  triggerSynthesisSequence();
+}, 1700);
 
     return () => {
       clearTimeout(t1);
@@ -127,9 +130,37 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
     setIsSynthesizing(true);
     setSynthesisComplete(false);
     setProcessingPhase(0);
+    setIsLoadingAdvice(true);
+    setAiAdvice("");
     setTerminalLines([
       '> Telemetry handshake initialized across 3 distributed sensory streams...'
     ]);
+
+    // Get personalized advice from Gemini in parallel
+getAIHealthAdvice(userProfile, currentCity, assessment)
+  .then((advice) => {
+    setAiAdvice(advice);
+    setIsLoadingAdvice(false);
+
+    setTerminalLines((prev) => [
+      ...prev,
+      '> Gemini AI response received successfully.'
+    ]);
+  })
+  .catch((error) => {
+  console.error("Gemini AI Error:", error);
+
+  setAiAdvice(
+    "AI advice is temporarily unavailable. Please follow the environmental precautions shown above."
+  );
+
+  setIsLoadingAdvice(false);
+
+  setTerminalLines((prev) => [
+    ...prev,
+    '> Gemini AI response unavailable.'
+  ]);
+});
 
     // Step 1: Weather correlation
     setTimeout(() => {
@@ -183,19 +214,24 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
     }, 3000);
   };
 
-  // Re-run synthesis if city or profile changes
-  useEffect(() => {
-    if (revealStage >= 6) {
-      triggerSynthesisSequence();
-    }
-  }, [currentCity.city, userProfile.healthCondition, userProfile.outdoorExposure, userProfile.ageGroup]);
+ // Re-run synthesis if city or profile changes
+useEffect(() => {
+  if (revealStage >= 6) {
+    triggerSynthesisSequence();
+  }
+}, [
+  currentCity.location,
+  userProfile.healthCondition,
+  userProfile.outdoorExposure,
+  userProfile.ageGroup
+]);
 
   // Risk styling adhering to Solar Eclipse Atmospheric Intelligence
   const riskColor = {
     low: 'text-[#63D9B3] bg-[#63D9B3]/10 border-[#63D9B3]/30',
     moderate: 'text-[#F6B73C] bg-[#F6B73C]/10 border-[#F6B73C]/30',
     high: 'text-[#FF5C4D] bg-[#FF5C4D]/10 border-[#FF5C4D]/30',
-    extreme: 'text-[#FF5C4D] bg-[#FF5C4D]/20 border-[#FF5C4D]/40',
+    severe: 'text-[#FF5C4D] bg-[#FF5C4D]/20 border-[#FF5C4D]/40',
   }[assessment.riskLevel] || 'text-[#63D9B3] bg-[#63D9B3]/10 border-[#63D9B3]/30';
 
   return (
@@ -292,7 +328,7 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
 
               <h3 className="font-semibold text-base text-[#F4F1EA] flex items-center gap-2">
                 <span>Weather Data</span>
-                <span className="text-[10px] font-mono text-[#8A8579] font-normal">[{currentCity.city}]</span>
+                <span className="text-[10px] font-mono text-[#8A8579] font-normal">[{currentCity.location}]</span>
               </h3>
               <p className="text-xs text-[#C8C3B7] mt-1 mb-3 font-light leading-relaxed">
                 Atmospheric boundary thermal gradients, relative humidity, and solar UV radiation.
@@ -738,6 +774,83 @@ export const AnalysisSection: React.FC<AnalysisSectionProps> = ({
             </div>
           </div>
         </div>
+
+        {/* ============================================================ */}
+{/* GEMINI AI HEALTH INTELLIGENCE */}
+{/* ============================================================ */}
+
+<div className="mb-8 bg-[#151326]/80 rounded-2xl p-5 sm:p-6 border border-[#8EDCFF]/20 backdrop-blur-xl">
+
+  <div className="flex items-center justify-between gap-4 mb-4">
+    <div className="flex items-center gap-3">
+      <div className="w-10 h-10 rounded-xl bg-[#8EDCFF]/10 border border-[#8EDCFF]/30 flex items-center justify-center">
+        <Brain className="w-5 h-5 text-[#8EDCFF]" />
+      </div>
+
+      <div>
+        <h3 className="text-sm sm:text-base font-bold text-[#F4F1EA]">
+          Gemini AI Health Intelligence
+        </h3>
+
+        <p className="text-[10px] sm:text-[11px] font-mono text-[#8A8579]">
+          PERSONALIZED ENVIRONMENTAL WELLNESS ANALYSIS
+        </p>
+      </div>
+    </div>
+
+    <div className="flex items-center gap-2">
+      <span
+        className={`w-2 h-2 rounded-full ${
+          isLoadingAdvice
+            ? "bg-[#F6B73C] animate-pulse"
+            : aiAdvice
+            ? "bg-[#63D9B3]"
+            : "bg-zinc-500"
+        }`}
+      />
+
+      <span className="text-[10px] font-mono text-[#8EDCFF]">
+        {isLoadingAdvice
+          ? "GENERATING..."
+          : aiAdvice
+          ? "AI READY"
+          : "STANDBY"}
+      </span>
+    </div>
+  </div>
+
+  <div className="bg-[#080A16]/70 border border-white/[0.06] rounded-xl p-4 min-h-[100px]">
+
+    {isLoadingAdvice ? (
+      <div className="flex items-center gap-3 text-[#C8C3B7] text-sm">
+        <RefreshCw className="w-4 h-4 animate-spin text-[#8EDCFF]" />
+
+        <span>
+          Gemini is analyzing your environmental and health data...
+        </span>
+      </div>
+
+    ) : aiAdvice ? (
+
+    <div className="text-sm text-[#C8C3B7] leading-relaxed">
+      <ReactMarkdown>{aiAdvice}</ReactMarkdown>
+    </div>
+
+    ) : (
+
+      <p className="text-sm text-[#8A8579]">
+        AI health intelligence will appear after synthesis.
+      </p>
+
+    )}
+
+  </div>
+
+  <p className="mt-3 text-[10px] text-[#8A8579] font-mono">
+    ⚠ GENERAL WELLNESS INFORMATION • NOT A MEDICAL DIAGNOSIS
+  </p>
+
+</div>
 
         {/* ============================================================ */}
         {/* 5. LIVE ANALYSIS TERMINAL (Progressive Real-Time Inference Log) */}
